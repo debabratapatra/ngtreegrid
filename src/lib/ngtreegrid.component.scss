@@ -1,0 +1,50 @@
+.db-tree-grid {
+    line-height: 1.5em;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all;
+    border: solid 1px gray;
+    color: #4b4b4b;
+
+    thead tr {
+        background: #fff;
+
+        th {
+            padding: 0.875rem 1.25rem;
+            font-family: Exo;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.25;
+            color: #181818;
+        }
+    }
+
+    tbody {
+        tr.child {
+            background: #fafbff;
+            td:nth-child(2) {
+                padding: 0.875rem 1.25rem 0.875rem 2.5rem !important;
+            }
+        }
+    }
+
+    tr th, tr td {
+        border: 1px solid #cdd5dc;
+        vertical-align: middle;
+        position: relative;
+        padding: 0.875rem 1.25rem;
+    }
+
+    td.clear-left-border, th.clear-left-border {
+        border-left: 0 !important;
+    }
+
+    td.clear-right-border, th.clear-right-border {
+        border-right: 0 !important;
+    }
+}

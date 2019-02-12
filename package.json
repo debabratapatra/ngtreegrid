@@ -1,0 +1,19 @@
+{
+  "name": "ngtreegrid",
+  "version": "0.0.2",
+  "homepage": "https://github.com/debabratapatra/ngtreegrid",  
+  "license" : "MIT",
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  },
+  "author": { 
+    "name" : "Debabrata Patra",
+    "email" : "debabratapatra12@gmail.com"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/debabratapatra/ngtreegrid.git"
+  }
+  
+}

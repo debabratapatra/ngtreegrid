@@ -1,0 +1,33 @@
+<table class="db-tree-grid">
+    <thead>
+      <tr>
+        <th width="20px" class="clear-right-border"></th>
+        <th class="clear-left-border" *ngFor="let key of column_keys">
+            <span>{{columns[key]}}</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':''">
+        <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id)"  class="clear-right-border">
+            <i class="{{this.config.add_class}}" aria-hidden="true"></i>
+        </td>
+        <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id)"  class="clear-right-border">
+            <i class="{{this.config.minus_class}}" aria-hidden="true"></i>
+        </td>
+    
+        <td *ngIf="data.parent" attr.colspan="{{column_keys.length}}" class="clear-left-border">
+            <span>{{data.parent_id}}</span>
+        </td>
+        <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
+          <td class="clear-right-border"></td>
+          <td class="clear-left-border" *ngFor="let key of column_keys">
+              <span>{{data[key]}}</span>
+          </td>
+        </ng-container>
+        
+      </tr>
+    </tbody>   
+    
+  </table>
+  
