@@ -13,7 +13,7 @@ Angular Tree Grid
 Import NgtreegridModule Module in your application module.
 
 ```javascript
-  import { NbDatepickerModule } from '@nebular/theme';
+  import { NgtreegridModule } from 'ngtreegrid';
 ```
 
 ### Data
