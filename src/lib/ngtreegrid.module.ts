@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgtreegridComponent } from './ngtreegrid.component';
 
 @NgModule({
   declarations: [NgtreegridComponent],
   imports: [
-    BrowserModule
+    CommonModule
   ],
   exports: [NgtreegridComponent]
 })
