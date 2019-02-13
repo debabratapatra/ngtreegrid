@@ -38,8 +38,8 @@ Below are configs that can be set
 ```
   group_by(Mandatory): It's a mandatory field. It is a column key.
   columns(Optional): It is a mapper between column key to the column header that will be displayed in the table. Defaults to all column keys. If provided, only columns specified will be displayed in the table.
-  add_class(Optional): Icon class for Plus icon. Defaults to Font Awesome icon.
-  minus_class(Optional): Icon class for Minus icon. Defaults to Font Awesome icon.
+  add_class(Optional): Icon class for Plus icon. Font Awesome class can be given.
+  minus_class(Optional): Icon class for Minus icon. Font Awesome class can be given.
 ```
 
 #### Example
