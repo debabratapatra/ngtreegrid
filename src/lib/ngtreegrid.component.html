@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':''">
+      <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'">
         <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id)"  class="clear-right-border">
             <i class="{{this.config.add_class}}" aria-hidden="true"></i>
         </td>

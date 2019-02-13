@@ -12,8 +12,8 @@ export class NgtreegridComponent implements OnChanges {
   column_keys: string[] = [];
   columns: Object = {};
   default_config: Object = {
-    add_class: 'fa fa-plus',
-    minus_class: 'fa fa-minus'
+    add_class: 'plus',
+    minus_class: 'minus'
   };
 
   @Input()

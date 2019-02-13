@@ -1,3 +1,5 @@
+$icon-border-color: #918a8a;
+
 .db-tree-grid {
     line-height: 1.5em;
     border-collapse: collapse;
@@ -26,10 +28,13 @@
 
     tbody {
         tr.child {
-            background: #fafbff;
+            background: #fff;
             td:nth-child(2) {
                 padding: 0.875rem 1.25rem 0.875rem 2.5rem !important;
             }
+        }
+        tr.parent {
+            background: #fafbff;
         }
     }
 
@@ -47,4 +52,46 @@
     td.clear-right-border, th.clear-right-border {
         border-right: 0 !important;
     }
+
+    i.plus {
+        border: 1px solid rgba(0, 0, 0, 0);
+    
+        &:before {
+            content: '';  
+            width: 25px;
+            height: 1px;
+            border-top: 1px solid $icon-border-color;
+            display: block;
+            position: absolute;
+            margin-top: -12px;
+            margin-left: 3px;
+        }
+    
+        &:after {
+            content: '';  
+            width: 1px;
+            height: 25px;
+            border-right: 1px solid $icon-border-color;
+            display: block;
+            position: absolute;
+            margin-top: -24px;
+            margin-left: 14px;
+        }
+    }
+    
+    i.minus {
+        border: 1px solid rgba(0, 0, 0, 0);
+    
+        &:before {
+            content: '';  
+            width: 25px;
+            height: 1px;
+            border-top: 1px solid $icon-border-color;
+            display: block;
+            position: absolute;
+            margin-top: -12px;
+            margin-left: 3px;
+        }
+    }
 }
+
