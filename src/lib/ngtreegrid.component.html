@@ -1,7 +1,7 @@
 <table class="db-tree-grid">
     <thead>
       <tr>
-        <th class="clear-right-border" width="{{config.group_by_width ? config.group_by_width : 'auto'}}">{{config.group_by_header}}</th>
+        <th class="clear-right-border" width="{{configs.group_by_width ? configs.group_by_width : 'auto'}}">{{configs.group_by_header}}</th>
         <th *ngFor="let column of columns" 
             width="{{column.width ? column.width : 'auto'}}">
             <span>{{column.header}}</span>
@@ -12,12 +12,12 @@
       <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'">
         <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id)"  
             class="clear-right-border">
-            <i class="{{this.config.add_class}}" aria-hidden="true"></i>
+            <i class="{{this.configs.add_class}}" aria-hidden="true"></i>
             <span class="parent_container">{{data.parent_id}}</span>
         </td>
         <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id)"  
           class="clear-right-border">
-            <i class="{{this.config.minus_class}}" aria-hidden="true"></i>
+            <i class="{{this.configs.minus_class}}" aria-hidden="true"></i>
             <span class="parent_container">{{data.parent_id}}</span>
         </td>
         <ng-container *ngIf="data.parent">

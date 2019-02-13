@@ -12,7 +12,7 @@ export class NgtreegridComponent implements OnChanges {
   total_columns: Number = 0;
   group_by_keys: Object = {};
   columns: any[] = [];
-  default_config: Object = {
+  default_configs: Object = {
     add_class: 'plus',
     minus_class: 'minus'
   };
@@ -21,15 +21,15 @@ export class NgtreegridComponent implements OnChanges {
   data: any[];
 
   @Input()
-  config: any;
+  configs: any;
 
   constructor() {
   }
 
   ngOnChanges() {
     this.setColumnNames();
-    this.processData(this.data, this.config.group_by);
-    this.config = Object.assign({}, this.default_config, this.config);
+    this.processData(this.data, this.configs.group_by);
+    this.configs = Object.assign({}, this.default_configs, this.configs);
   }
 
   processData (data, group_by) {
@@ -73,18 +73,18 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   setColumnNames() {
-    if (!this.config.group_by) {
+    if (!this.configs.group_by) {
       window.console.error('group_by field is mandatory!');
     }
 
-    this.columns = this.config.columns ? this.config.columns : [];
+    this.columns = this.configs.columns ? this.configs.columns : [];
 
     // If columns doesn't exist in user's object.
-    if (!this.config.columns) {
+    if (!this.configs.columns) {
       const column_keys = Object.keys(this.data[0]);
 
       // Remove group by key.
-      column_keys.splice(column_keys.indexOf(this.config.group_by), 1);
+      column_keys.splice(column_keys.indexOf(this.configs.group_by), 1);
 
       column_keys.forEach(key => {
         this.columns.push({'header': key});
