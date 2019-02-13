@@ -1,28 +1,38 @@
 <table class="db-tree-grid">
     <thead>
       <tr>
-        <th width="20px" class="clear-right-border"></th>
-        <th class="clear-left-border" *ngFor="let key of column_keys">
-            <span>{{columns[key]}}</span>
+        <th class="clear-right-border" width="{{config.group_by_width ? config.group_by_width : 'auto'}}">{{config.group_by_header}}</th>
+        <th *ngFor="let column of columns" 
+            width="{{column.width ? column.width : 'auto'}}">
+            <span>{{column.header}}</span>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'">
-        <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id)"  class="clear-right-border">
+        <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id)"  
+            class="clear-right-border">
             <i class="{{this.config.add_class}}" aria-hidden="true"></i>
+            <span class="parent_container">{{data.parent_id}}</span>
         </td>
-        <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id)"  class="clear-right-border">
+        <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id)"  
+          class="clear-right-border">
             <i class="{{this.config.minus_class}}" aria-hidden="true"></i>
+            <span class="parent_container">{{data.parent_id}}</span>
         </td>
+        <ng-container *ngIf="data.parent">
+          <td *ngFor="let column of columns">
+              <span>{{column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''}}</span>
+          </td>
+        </ng-container>
     
-        <td *ngIf="data.parent" attr.colspan="{{column_keys.length}}" class="clear-left-border">
+        <!-- <td *ngIf="data.parent" attr.colspan="{{total_columns}}" class="clear-left-border">
             <span>{{data.parent_id}}</span>
-        </td>
+        </td> -->
         <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
           <td class="clear-right-border"></td>
-          <td class="clear-left-border" *ngFor="let key of column_keys">
-              <span>{{data[key]}}</span>
+          <td class="clear-left-border" *ngFor="let column of columns">
+              <span>{{column.renderer ? column.renderer(data[column.name]) : data[column.name]}}</span>
           </td>
         </ng-container>
         
