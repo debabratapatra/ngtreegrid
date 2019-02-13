@@ -1,5 +1,9 @@
 # ngtreegrid
-Angular Tree Grid
+Angular Tree Grid. Simple, Light Weight and dependency free.
+
+## Demo
+
+Click <a href="https://ng-tree-grid.stackblitz.io/" target="_blank">here</a> for demo.
 
 ## Installation
 
