@@ -22,7 +22,7 @@
         </td>
         <ng-container *ngIf="data.parent">
           <td *ngFor="let column of columns">
-              <span>{{column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''}}</span>
+              <span [innerHTML]="column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''"></span>
           </td>
         </ng-container>
     
@@ -32,7 +32,7 @@
         <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
           <td class="clear-right-border"></td>
           <td class="clear-left-border" *ngFor="let column of columns">
-              <span>{{column.renderer ? column.renderer(data[column.name]) : data[column.name]}}</span>
+              <span [innerHTML]="column.renderer ? column.renderer(data[column.name]) : data[column.name]"></span>
           </td>
         </ng-container>
         
