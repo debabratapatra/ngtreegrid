@@ -20,47 +20,76 @@ Import NgtreegridModule Module in your application module.
   import { NgtreegridModule } from 'ngtreegrid';
 ```
 
+Add it to your imports array.
+
+```javascript
+    @NgModule({
+      imports: [
+        NgtreegridModule
+      ]
+    })
+```
+
 ### Data
 Format of the data should be like below.
 
 ```
   data = [
-    { Phase: 'Phase 1', Step: 'Step 1', Task: 'Task 1', Value: '5' },
-    { Phase: 'Phase 1', Step: 'Step 1', Task: 'Task 2', Value: '10' },
-    { Phase: 'Phase 1', Step: 'Step 2', Task: 'Task 1', Value: '15' },
-    { Phase: 'Phase 1', Step: 'Step 2', Task: 'Task 2', Value: '20' },
-    { Phase: 'Phase 2', Step: 'Step 1', Task: 'Task 1', Value: '25' },
-    { Phase: 'Phase 2', Step: 'Step 1', Task: 'Task 2', Value: '30' },
-    { Phase: 'Phase 2', Step: 'Step 2', Task: 'Task 1', Value: '35' },
-    { Phase: 'Phase 2', Step: 'Step 2', Task: 'Task 2', Value: '40' }
-  ];
+      { product_type: 'Book', name: 'Angular', price: 50 },
+      { product_type: 'Book', name: 'Python', price: 70 },
+      { product_type: 'Book', name: 'PHP', price: 80 },
+      { product_type: 'Book', name: 'Java', price: 90 },
+      { product_type: 'Electronic', name: 'Mouse', price: 50 },
+      { product_type: 'Electronic', name: 'Earphone', price: 50 },
+      { product_type: 'Electronic', name: 'Speaker', price: 50 },
+      { product_type: 'Electronic', name: 'Hard Drive', price: 50 }
+   ];
 ```
 
-### Config
+### Configs
 Below are configs that can be set
 
-```
-  group_by(Mandatory): It's a mandatory field. It is a column key.
-  columns(Optional): It is a mapper between column key to the column header that will be displayed in the table. Defaults to all column keys. If provided, only columns specified will be displayed in the table.
-  add_class(Optional): Icon class for Plus icon. Font Awesome class can be given.
-  minus_class(Optional): Icon class for Minus icon. Font Awesome class can be given.
-```
+1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
+2. **group_by_header(Optional):** Header for the GroupBy Column.
+3. **group_by_width(Optional):** Width of the GroupBy Column.
+4. **add_class(Optional):** Icon class for Plus icon. Font Awesome class can be given.
+5. **minus_class(Optional):** Icon class for Minus icon. Font Awesome class can be given.
+6. **columns(Optional):** It is an object. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
+    * **name:** key of the column
+    * **header:** Header of the column that will be displayed in the table
+    * **width:** Width of the column
+    * **renderer:** It is a method which can be used to transform the value before value of the column is rendered.
+    * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
 
 #### Example
 ```
-  config: any = {
-    'columns': {
-      'Step': 'Step Number',
-      'Value': 'Amount'
-    },
-    'group_by': 'Phase'
+  configs: any = {
+      'columns': [{
+        'header': 'Product Name',
+        'name': 'name'
+      }, {
+        'header': 'Price',
+        'name': 'price',
+        'width': '200px',
+        'renderer': (value) => {
+          return '$' + value;
+        },
+        'group_aggregator': (array) => {
+          // This is going to be displayed at the parent level.
+          const prices = array.map((item) => item.price);
+          return '$' + prices.reduce((acc, item) => acc + item);
+        }
+      }],
+      'group_by': 'product_type',
+      'group_by_header': 'Product Type',
+      'group_by_width': '100px'
   };
 ```
 
 ### Directive
-
+Add below directive to your html.
 ```
-  <db-ngtreegrid [data]="data" [config]="config"></db-ngtreegrid>
+  <db-ngtreegrid [data]="products" [configs]="configs"></db-ngtreegrid>
 ```
 
 ## License
