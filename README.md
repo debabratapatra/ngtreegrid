@@ -34,7 +34,7 @@ Add it to your imports array.
 Format of the data should be like below.
 
 ```
-  data = [
+  products = [
       { product_type: 'Book', name: 'Angular', price: 50 },
       { product_type: 'Book', name: 'Python', price: 70 },
       { product_type: 'Book', name: 'PHP', price: 80 },
