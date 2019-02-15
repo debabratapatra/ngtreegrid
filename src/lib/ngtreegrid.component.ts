@@ -27,6 +27,12 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   ngOnChanges() {
+
+    // If there is no data then do nothing.
+    if (!(this.data && this.data.length > 0)) {
+      return;
+    }
+
     this.setColumnNames();
     this.processData(this.data, this.configs.group_by);
     this.configs = Object.assign({}, this.default_configs, this.configs);
