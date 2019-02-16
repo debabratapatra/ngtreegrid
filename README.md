@@ -34,16 +34,16 @@ Add it to your imports array.
 Format of the data should be like below.
 
 ```
-  products = [
-      { product_type: 'Book', name: 'Angular', price: 50 },
+  products: any[] = [
+      { product_type: 'Book', name: 'Angular', price: 90 },
       { product_type: 'Book', name: 'Python', price: 70 },
       { product_type: 'Book', name: 'PHP', price: 80 },
-      { product_type: 'Book', name: 'Java', price: 90 },
+      { product_type: 'Book', name: 'Java', price: 50 },
       { product_type: 'Electronic', name: 'Mouse', price: 50 },
-      { product_type: 'Electronic', name: 'Earphone', price: 50 },
-      { product_type: 'Electronic', name: 'Speaker', price: 50 },
-      { product_type: 'Electronic', name: 'Hard Drive', price: 50 }
-   ];
+      { product_type: 'Electronic', name: 'Earphone', price: 20 },
+      { product_type: 'Electronic', name: 'Speaker', price: 45 },
+      { product_type: 'Electronic', name: 'Hard Drive', price: 55 }
+];
 ```
 
 ### Configs
@@ -58,15 +58,23 @@ Below are configs that can be set
     * **name:** key of the column
     * **header:** Header of the column that will be displayed in the table
     * **width:** Width of the column
-    * **renderer:** It is a method which can be used to transform the value before value of the column is rendered.
+    * **sortable:** False to disable sorting of this column. By default columns are sortable.
+    * **renderer:** It is a method which can be used to transform the value before value of the column is rendered. It gets value of the corresponding column and the whole record as arguments. See example below.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
 
 #### Example
 ```
-  configs: any = {
+  configs: any = {      
+      'group_by': 'product_type',
+      'group_by_header': 'Product Type',
+      'group_by_width': '100px',
       'columns': [{
         'header': 'Product Name',
-        'name': 'name'
+        'name': 'name',
+        'sortable': false,
+        'renderer': (name, rec) => {
+          return '<a href="sd">' + name + '</a>';
+        }
       }, {
         'header': 'Price',
         'name': 'price',
@@ -75,15 +83,11 @@ Below are configs that can be set
           return '$' + value;
         },
         'group_aggregator': (array) => {
-          // This is going to be displayed at the parent level.
           const prices = array.map((item) => item.price);
           return '$' + prices.reduce((acc, item) => acc + item);
         }
-      }],
-      'group_by': 'product_type',
-      'group_by_header': 'Product Type',
-      'group_by_width': '100px'
-  };
+      }]
+};
 ```
 
 ### Directive
