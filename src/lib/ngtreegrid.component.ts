@@ -9,7 +9,6 @@ export class NgtreegridComponent implements OnChanges {
 
   processed_data: any[] = [];
   expand_tracker: Object = {};
-  total_columns: Number = 0;
   group_by_keys: Object = {};
   columns: any[] = [];
   default_configs: Object = {
@@ -35,12 +34,11 @@ export class NgtreegridComponent implements OnChanges {
     }
 
     this.setColumnNames();
-    this.processData(this.data, this.configs.group_by);
+    this.groupData(this.data, this.configs.group_by);
     this.configs = Object.assign({}, this.default_configs, this.configs);
   }
 
-  processData (data, group_by) {
-    const tree_grid = this;
+  groupData (data, group_by) {
 
     // Make an array of group by key.
     this.group_by_keys = data.reduce(function(m, d) {
@@ -60,15 +58,30 @@ export class NgtreegridComponent implements OnChanges {
 
         return m;
     });
-
     const group_keys = Object.keys(this.group_by_keys);
 
     group_keys.forEach(key => {
+      this.expand_tracker[key] = 0;
+    });
+
+    this.processData(null, null);
+  }
+
+  processData(sort_type, sort_by) {
+    this.processed_data = [];
+    const group_keys = Object.keys(this.group_by_keys);
+    const tree_grid = this;
+
+    group_keys.forEach(key => {
       const items  = this.group_by_keys[key];
-      tree_grid.expand_tracker[key] = 0;
 
       // Set Parent object.
       tree_grid.processed_data.push({parent_id: key, parent: true});
+
+      if (sort_type !== null) {
+        sort_type ? items.sort((a, b) => (a[sort_by] > b[sort_by]) ? 1 : ((b[sort_by] > a[sort_by]) ? -1 : 0)) :
+        items.sort((a, b) => (a[sort_by] < b[sort_by]) ? 1 : ((b[sort_by] < a[sort_by]) ? -1 : 0));
+      }
 
       // Set Child object.
       items.forEach(item => {
@@ -93,19 +106,17 @@ export class NgtreegridComponent implements OnChanges {
       // Remove group by key.
       column_keys.splice(column_keys.indexOf(this.configs.group_by), 1);
 
-      // Insert Header and Sort parameters.
+      // Insert Header and Sort parameters. By Default Sortable is true.
       column_keys.forEach(key => {
-        this.columns.push({'header': key, sorted: 0, sort_type: null});
+        this.columns.push({'header': key, sorted: 0, sort_type: null, sortable: true});
       });
-
-      this.total_columns = column_keys.length;
     } else {
-      this.total_columns = this.columns.length;
 
-      // Insert Sort parameters.
+      // Insert Sort parameters. By Default Sortable is true.
       this.columns.forEach(column => {
         column.sorted = 0;
         column.sort_type = null;
+        column.sortable = column.sortable === false ? false : true;
       });
     }
   }
@@ -119,9 +130,15 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   sortColumn(column) {
+    if (!column.sortable) {
+      return;
+    }
     // If already sorted then reverse.
     column.sort_type = column.sorted ? !column.sort_type : 1;
     column.sorted = 1;
+
+    // Sort array.
+    this.processData(column.sort_type, column.name);
   }
 
 }

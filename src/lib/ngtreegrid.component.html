@@ -3,11 +3,12 @@
       <tr>
         <th class="clear-right-border" width="{{configs.group_by_width ? configs.group_by_width : 'auto'}}">
           {{configs.group_by_header}}</th>
-        <th *ngFor="let column of columns" [ngClass]="column.sorted?'sortable sorted':'sortable'" (click)="sortColumn(column)"
+        <th *ngFor="let column of columns" [ngClass]="{'sorted': column.sorted,'sortable': column.sortable}"         
+            (click)="sortColumn(column)"
             width="{{column.width ? column.width : 'auto'}}">
             <span>{{column.header}}</span>
-            <span [ngClass]="column.sorted && column.sort_type == 1?'arrow-up active':'arrow-up'"></span>
-            <span [ngClass]="column.sorted && column.sort_type == 0?'arrow-down active':'arrow-down'"></span>
+            <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 0?'arrow-down active':'arrow-down'"></span>
+            <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 1?'arrow-up active':'arrow-up'"></span>
         </th>
       </tr>
     </thead>
@@ -28,10 +29,6 @@
               <span [innerHTML]="column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''"></span>
           </td>
         </ng-container>
-    
-        <!-- <td *ngIf="data.parent" attr.colspan="{{total_columns}}" class="clear-left-border">
-            <span>{{data.parent_id}}</span>
-        </td> -->
         <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
           <td class="clear-right-border"></td>
           <td class="clear-left-border" *ngFor="let column of columns">

@@ -46,8 +46,7 @@ $sort-active-color: rgb(138, 137, 137);
                 border-right: 5px solid transparent;                
                 border-bottom: 6px solid $sort-color;
                 position: relative;
-                left: 10px;
-                top: -7px;
+                top: -16px;
 
                 &.active {
                     border-bottom: 6px solid $sort-active-color !important;
@@ -61,7 +60,8 @@ $sort-active-color: rgb(138, 137, 137);
                 border-right: 5px solid transparent;
                 border-top: 6px solid $sort-color;
                 position: relative;
-                top: 7px;
+                left: 10px;
+                top: 16px;
 
                 &.active {
                     border-top: 6px solid $sort-active-color !important;
