@@ -1,10 +1,13 @@
 <table class="db-tree-grid">
     <thead>
       <tr>
-        <th class="clear-right-border" width="{{configs.group_by_width ? configs.group_by_width : 'auto'}}">{{configs.group_by_header}}</th>
-        <th *ngFor="let column of columns" 
+        <th class="clear-right-border" width="{{configs.group_by_width ? configs.group_by_width : 'auto'}}">
+          {{configs.group_by_header}}</th>
+        <th *ngFor="let column of columns" [ngClass]="column.sorted?'sortable sorted':'sortable'" (click)="sortColumn(column)"
             width="{{column.width ? column.width : 'auto'}}">
             <span>{{column.header}}</span>
+            <span [ngClass]="column.sorted && column.sort_type == 1?'arrow-up active':'arrow-up'"></span>
+            <span [ngClass]="column.sorted && column.sort_type == 0?'arrow-down active':'arrow-down'"></span>
         </th>
       </tr>
     </thead>

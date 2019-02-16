@@ -93,13 +93,20 @@ export class NgtreegridComponent implements OnChanges {
       // Remove group by key.
       column_keys.splice(column_keys.indexOf(this.configs.group_by), 1);
 
+      // Insert Header and Sort parameters.
       column_keys.forEach(key => {
-        this.columns.push({'header': key});
+        this.columns.push({'header': key, sorted: 0, sort_type: null});
       });
 
       this.total_columns = column_keys.length;
     } else {
       this.total_columns = this.columns.length;
+
+      // Insert Sort parameters.
+      this.columns.forEach(column => {
+        column.sorted = 0;
+        column.sort_type = null;
+      });
     }
   }
 
@@ -109,6 +116,12 @@ export class NgtreegridComponent implements OnChanges {
 
   collapseRow(id) {
     this.expand_tracker[id] = 0;
+  }
+
+  sortColumn(column) {
+    // If already sorted then reverse.
+    column.sort_type = column.sorted ? !column.sort_type : 1;
+    column.sorted = 1;
   }
 
 }
