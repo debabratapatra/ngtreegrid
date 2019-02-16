@@ -30,6 +30,7 @@ export class NgtreegridComponent implements OnChanges {
 
     // If there is no data then do nothing.
     if (!(this.data && this.data.length > 0)) {
+      window.console.error('Data can not be empty!');
       return;
     }
 
