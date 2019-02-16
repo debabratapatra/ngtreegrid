@@ -47,7 +47,6 @@ Format of the data should be like below.
 ```
 
 ### Configs
-Below are configs that can be set
 
 1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
 2. **group_by_header(Optional):** Header for the GroupBy Column.
@@ -95,6 +94,11 @@ Add below directive to your html.
 ```
   <db-ngtreegrid [data]="products" [configs]="configs"></db-ngtreegrid>
 ```
+### Events
+
+1. **expand:** Event fires when parent is expanded.
+2. **collapse:** Event fires when parent is collapsed.
+3. **cellclick:** Event fires when a child cell is clicked.
 
 ## License
 This project is licensed under the MIT license.
