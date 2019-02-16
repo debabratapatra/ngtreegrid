@@ -14,12 +14,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'">
-        <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id)"  
+        <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id, data)"  
             class="clear-right-border">
             <i class="{{this.configs.add_class}}" aria-hidden="true"></i>
             <span class="parent_container">{{data.parent_id}}</span>
         </td>
-        <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id)"  
+        <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id, data)"  
           class="clear-right-border">
             <i class="{{this.configs.minus_class}}" aria-hidden="true"></i>
             <span class="parent_container">{{data.parent_id}}</span>
@@ -31,7 +31,7 @@
         </ng-container>
         <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
           <td class="clear-right-border"></td>
-          <td class="clear-left-border" *ngFor="let column of columns">
+          <td class="clear-left-border" *ngFor="let column of columns" (click)="onCellClick(data)">
               <span [innerHTML]="column.renderer ? column.renderer(data[column.name], data) : data[column.name]"></span>
           </td>
         </ng-container>

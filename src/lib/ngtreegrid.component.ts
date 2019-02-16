@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'db-ngtreegrid',
@@ -15,6 +15,10 @@ export class NgtreegridComponent implements OnChanges {
     add_class: 'plus',
     minus_class: 'minus'
   };
+
+  @Output() expand: EventEmitter<any> = new EventEmitter();
+  @Output() collapse: EventEmitter<any> = new EventEmitter();
+  @Output() cellclick: EventEmitter<any> = new EventEmitter();
 
   @Input()
   data: any[];
@@ -121,12 +125,18 @@ export class NgtreegridComponent implements OnChanges {
     }
   }
 
-  expandRow(id) {
+  expandRow(id, rec) {
     this.expand_tracker[id] = 1;
+    this.expand.emit(rec);
   }
 
-  collapseRow(id) {
+  collapseRow(id, rec) {
     this.expand_tracker[id] = 0;
+    this.collapse.emit(rec);
+  }
+
+  onCellClick(rec) {
+    this.cellclick.emit(rec);
   }
 
   sortColumn(column) {
