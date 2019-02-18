@@ -37,6 +37,8 @@ export class NgtreegridComponent implements OnChanges {
       return;
     }
 
+    this.processed_data = [];
+    this.group_by_keys = {};
     this.setColumnNames();
     this.groupData(this.data, this.configs.group_by);
     this.configs = Object.assign({}, this.default_configs, this.configs);
