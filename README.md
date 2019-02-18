@@ -57,6 +57,7 @@ Format of the data should be like below.
     * **name:** key of the column
     * **header:** Header of the column that will be displayed in the table
     * **width:** Width of the column
+    * **hidden:** Show/Hide column. It defaults to false.
     * **sortable:** False to disable sorting of this column. By default columns are sortable.
     * **renderer:** It is a method which can be used to transform the value before value of the column is rendered. It gets value of the corresponding column and the whole record as arguments. See example below.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
