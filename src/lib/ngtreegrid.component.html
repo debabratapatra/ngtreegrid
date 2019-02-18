@@ -3,7 +3,8 @@
       <tr>
         <th class="clear-right-border" width="{{configs.group_by_width ? configs.group_by_width : 'auto'}}">
           {{configs.group_by_header}}</th>
-        <th *ngFor="let column of columns" [ngClass]="{'sorted': column.sorted,'sortable': column.sortable}"         
+        <th *ngFor="let column of columns" [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}" 
+
             (click)="sortColumn(column)"
             width="{{column.width ? column.width : 'auto'}}">
             <span>{{column.header}}</span>
@@ -25,13 +26,13 @@
             <span class="parent_container">{{data.parent_id}}</span>
         </td>
         <ng-container *ngIf="data.parent">
-          <td *ngFor="let column of columns">
+          <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
               <span [innerHTML]="column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''"></span>
           </td>
         </ng-container>
         <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
           <td class="clear-right-border"></td>
-          <td class="clear-left-border" *ngFor="let column of columns" (click)="onCellClick(data)">
+          <td class="clear-left-border" *ngFor="let column of columns" (click)="onCellClick(data)" [ngClass]="{'column-hide': column.hidden}">
               <span [innerHTML]="column.renderer ? column.renderer(data[column.name], data) : data[column.name]"></span>
           </td>
         </ng-container>

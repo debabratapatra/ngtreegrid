@@ -112,7 +112,7 @@ export class NgtreegridComponent implements OnChanges {
 
       // Insert Header and Sort parameters. By Default Sortable is true.
       column_keys.forEach(key => {
-        this.columns.push({'header': key, sorted: 0, sort_type: null, sortable: true});
+        this.columns.push({'header': key, sorted: 0, sort_type: null, sortable: true, hidden: false});
       });
     } else {
 
@@ -121,6 +121,7 @@ export class NgtreegridComponent implements OnChanges {
         column.sorted = 0;
         column.sort_type = null;
         column.sortable = column.sortable === false ? false : true;
+        column.hidden = column.hidden === true ? true : false;
       });
     }
   }
