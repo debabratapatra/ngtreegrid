@@ -45,22 +45,12 @@ export class NgtreegridComponent implements OnChanges {
   groupData (data, group_by) {
 
     // Make an array of group by key.
-    this.group_by_keys = data.reduce(function(m, d) {
-
-        // Check if group by key is already an array or not
-        if (m[group_by] && !Array.isArray(m[group_by])) {
-          const temp = {...m};
-          m = {};
-          m[temp[group_by]] = [];
-          m[temp[group_by]].push(temp);
-        }
-
-        if (!m[d[group_by]]) {
-          m[d[group_by]] = [];
-        }
-        m[d[group_by]].push({...d});
-
-        return m;
+    data.forEach(item => {
+      // Check if group by key is already an array or not.
+      if (!this.group_by_keys[item[group_by]]) {
+        this.group_by_keys[item[group_by]] = [];
+      }
+      this.group_by_keys[item[group_by]].push(item);
     });
     const group_keys = Object.keys(this.group_by_keys);
 
