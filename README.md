@@ -51,7 +51,7 @@ Format of the data should be like below.
 1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
 2. **group_by_header(Optional):** Header for the GroupBy Column.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
-3. **editable(Optional):** To make the grid editable. This needs to be true to make **column editable**.
+3. **editable(Optional):** To make the grid editable. This needs to be true to make **columns editable**.
 3. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
 4. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
 5. **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
@@ -65,7 +65,7 @@ Format of the data should be like below.
     * **width:** Width of the column
     * **hidden:** Show/Hide column. It defaults to false.
     * **sortable:** False to disable sorting of this column. By default columns are sortable.
-    * **editable:** To make a specific column editable. By default columns are not editable.
+    * **editable:** To make a specific column editable. By default columns are not editable. dditable option needs to be true at grid level.
     * **renderer:** It is a method which can be used to transform the value before value of the column is rendered. It gets value of the corresponding column and the whole record as arguments. See example below.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
 
