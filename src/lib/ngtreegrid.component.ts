@@ -182,9 +182,11 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   deleteRecord(rec) {
-    window.alert('Are you sure you want to delete this record?');
-    this.processed_data.splice(rec.idx, 1);
-    this.delete.emit(rec);
+    const r = window.confirm('Are you sure you want to delete this record?');
+    if (r === true) {
+      this.processed_data.splice(rec.idx, 1);
+      this.delete.emit(rec);
+    }
   }
 
 }
