@@ -51,6 +51,7 @@ Format of the data should be like below.
 1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
 2. **group_by_header(Optional):** Header for the GroupBy Column.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
+3. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
 4. **add_class(Optional):** Icon class for Plus icon. Font Awesome class can be given.
 5. **minus_class(Optional):** Icon class for Minus icon. Font Awesome class can be given.
 6. **columns(Optional):** It is an object. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
