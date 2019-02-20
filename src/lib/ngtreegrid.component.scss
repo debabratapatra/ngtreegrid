@@ -16,6 +16,15 @@ $sort-active-color: rgb(138, 137, 137);
     border: solid 1px gray;
     color: #4b4b4b;
 
+    .column-hide {
+        display: none;
+    }
+
+    svg {
+        width: 25px;
+        padding-right: 5px;
+    }
+
     thead tr {
         background: #fff;
 

@@ -12,9 +12,21 @@ export class NgtreegridComponent implements OnChanges {
   group_by_keys: Object = {};
   columns: any[] = [];
   default_configs: Object = {
-    add_class: 'plus',
-    minus_class: 'minus',
-    data_loading_text: 'Loading...'
+    expand_class: 'plus',
+    collapse_class: 'minus',
+    add_class: '',
+    edit_class: '',
+    delete_class: '',
+    cancel_class: '',
+    data_loading_text: 'Loading...',
+    editable: false
+  };
+  default_column_config: Object = {
+    sorted: 0,
+    sort_type: null,
+    editable: false,
+    hidden: false,
+    sortable: true
   };
 
   @Output() expand: EventEmitter<any> = new EventEmitter();
@@ -103,18 +115,16 @@ export class NgtreegridComponent implements OnChanges {
       // Remove group by key.
       column_keys.splice(column_keys.indexOf(this.configs.group_by), 1);
 
-      // Insert Header and Sort parameters. By Default Sortable is true.
+      // Insert Header and default configuration.
       column_keys.forEach(key => {
-        this.columns.push({'header': key, sorted: 0, sort_type: null, sortable: true});
+        this.columns.push(Object.assign({'header': key}, this.default_column_config));
       });
     } else {
 
-      // Insert Sort parameters. By Default Sortable is true.
-      this.columns.forEach(column => {
-        column.sorted = 0;
-        column.sort_type = null;
-        column.sortable = column.sortable === false ? false : true;
-      });
+      // Insert Header and default configuration.
+      for (let i = 0; i < this.columns.length; i++) {
+        this.columns[i] = Object.assign({}, this.default_column_config, this.columns[i]);
+      }
     }
   }
 
