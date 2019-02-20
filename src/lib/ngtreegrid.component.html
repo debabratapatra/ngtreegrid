@@ -14,6 +14,9 @@
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="data.length==0">
+        <td [innerHTML]="configs.data_loading_text" [attr.colspan]="configs.columns.length + 1" style="text-align: center"></td>
+      </tr>
       <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'">
         <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id, data)"  
             class="clear-right-border">
