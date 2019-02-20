@@ -36,6 +36,10 @@ $sort-active-color: rgb(138, 137, 137);
             line-height: 1.25;
             color: #181818;
 
+            &.header-editable {
+                width: 70px;
+            }
+
             &.sortable {
                 cursor: pointer;
                 &:hover {
