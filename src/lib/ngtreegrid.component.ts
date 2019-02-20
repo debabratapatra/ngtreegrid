@@ -13,7 +13,8 @@ export class NgtreegridComponent implements OnChanges {
   columns: any[] = [];
   default_configs: Object = {
     add_class: 'plus',
-    minus_class: 'minus'
+    minus_class: 'minus',
+    data_loading_text: 'Loading...'
   };
 
   @Output() expand: EventEmitter<any> = new EventEmitter();
@@ -35,7 +36,7 @@ export class NgtreegridComponent implements OnChanges {
 
     // If there is no data then do nothing.
     if (!(this.data && this.data.length > 0)) {
-      window.console.error('Data can should not be empty!');
+      window.console.error('Data should not be empty!');
       return;
     }
 
