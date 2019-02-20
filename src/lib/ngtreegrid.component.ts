@@ -33,6 +33,7 @@ export class NgtreegridComponent implements OnChanges {
   ngOnChanges() {
     this.processed_data = [];
     this.group_by_keys = {};
+    this.configs = Object.assign({}, this.default_configs, this.configs);
 
     // If there is no data then do nothing.
     if (!(this.data && this.data.length > 0)) {
@@ -42,7 +43,6 @@ export class NgtreegridComponent implements OnChanges {
 
     this.setColumnNames();
     this.groupData(this.data, this.configs.group_by);
-    this.configs = Object.assign({}, this.default_configs, this.configs);
   }
 
   groupData (data, group_by) {
