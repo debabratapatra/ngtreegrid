@@ -11,12 +11,14 @@ export class NgtreegridComponent implements OnChanges {
   expand_tracker: Object = {};
   group_by_keys: Object = {};
   columns: any[] = [];
+  edit_tracker: Object = {}; // Track Edit options.
   default_configs: Object = {
     expand_class: 'plus',
     collapse_class: 'minus',
     add_class: '',
     edit_class: '',
     delete_class: '',
+    save_class: '',
     cancel_class: '',
     data_loading_text: 'Loading...',
     editable: false
@@ -32,6 +34,8 @@ export class NgtreegridComponent implements OnChanges {
   @Output() expand: EventEmitter<any> = new EventEmitter();
   @Output() collapse: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
+  @Output() save: EventEmitter<any> = new EventEmitter();
+  @Output() delete: EventEmitter<any> = new EventEmitter();
 
   @Input()
   data: any[];
@@ -58,6 +62,7 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   groupData (data, group_by) {
+    let index = 0;
 
     // Make an array of group by key.
     data.forEach(item => {
@@ -66,6 +71,7 @@ export class NgtreegridComponent implements OnChanges {
         this.group_by_keys[item[group_by]] = [];
       }
       this.group_by_keys[item[group_by]].push(item);
+      this.edit_tracker[index++] = false;
     });
     const group_keys = Object.keys(this.group_by_keys);
 
@@ -80,13 +86,15 @@ export class NgtreegridComponent implements OnChanges {
     this.processed_data = [];
     const group_keys = Object.keys(this.group_by_keys);
     const tree_grid = this;
+    let index = 0;
 
     group_keys.forEach(key => {
       const items  = this.group_by_keys[key];
 
       // Set Parent object.
-      tree_grid.processed_data.push({parent_id: key, parent: true});
+      tree_grid.processed_data.push({parent_id: key, parent: true, idx: index++});
 
+      // Sort Items
       if (sort_type !== null) {
         sort_type ? items.sort((a, b) => (a[sort_by] > b[sort_by]) ? 1 : ((b[sort_by] > a[sort_by]) ? -1 : 0)) :
         items.sort((a, b) => (a[sort_by] < b[sort_by]) ? 1 : ((b[sort_by] < a[sort_by]) ? -1 : 0));
@@ -96,6 +104,7 @@ export class NgtreegridComponent implements OnChanges {
       items.forEach(item => {
         item.parent = false;
         item.parent_id = key;
+        item.idx = index++;
         tree_grid.processed_data.push(item);
       });
     });
@@ -152,6 +161,30 @@ export class NgtreegridComponent implements OnChanges {
 
     // Sort array.
     this.processData(column.sort_type, column.name);
+  }
+
+  enableEdit(index) {
+    this.edit_tracker[index] = true;
+  }
+
+  saveRecord(index, rec) {
+    this.columns.forEach(column => {
+      if (column.editable) {
+        rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
+      }
+    });
+    this.edit_tracker[index] = false;
+    this.save.emit(rec);
+  }
+
+  cancelEdit(index) {
+    this.edit_tracker[index] = false;
+  }
+
+  deleteRecord(rec) {
+    window.alert('Are you sure you want to delete this record?');
+    this.processed_data.splice(rec.idx, 1);
+    this.delete.emit(rec);
   }
 
 }
