@@ -51,15 +51,21 @@ Format of the data should be like below.
 1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
 2. **group_by_header(Optional):** Header for the GroupBy Column.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
+3. **editable(Optional):** To make the grid editable. This needs to be true to make **column editable**.
 3. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
-4. **add_class(Optional):** Icon class for Plus icon. Font Awesome class can be given.
-5. **minus_class(Optional):** Icon class for Minus icon. Font Awesome class can be given.
+4. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
+5. **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
+5. **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
+5. **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
+5. **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
+5. **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
 6. **columns(Optional):** It is an object. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
     * **name:** key of the column
     * **header:** Header of the column that will be displayed in the table
     * **width:** Width of the column
     * **hidden:** Show/Hide column. It defaults to false.
     * **sortable:** False to disable sorting of this column. By default columns are sortable.
+    * **editable:** To make a specific column editable. By default columns are not editable.
     * **renderer:** It is a method which can be used to transform the value before value of the column is rendered. It gets value of the corresponding column and the whole record as arguments. See example below.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
 
