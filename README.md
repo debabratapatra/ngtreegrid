@@ -107,6 +107,8 @@ Add below directive to your html.
 1. **expand:** Event fires when parent is expanded.
 2. **collapse:** Event fires when parent is collapsed.
 3. **cellclick:** Event fires when a child cell is clicked.
+4. **save:** Event fires when a record is saved.
+5. **delete:** Event fires when a record is deleted.
 
 ## License
 This project is licensed under the MIT license.
