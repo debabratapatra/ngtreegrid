@@ -1,7 +1,10 @@
 <table class="db-tree-grid">
     <thead>
       <tr>
-        <th *ngIf="configs.editable" class="header-editable">Actions</th>
+        <th *ngIf="configs.editable" class="header-editable" (click)="addRow(data.parent_id, data)">
+          <i *ngIf="!show_add_row" [ngClass]="configs.add_class" aria-hidden="true"></i>
+          <span *ngIf="show_add_row">Actions</span>
+        </th>
         <th class="clear-right-border" width="{{configs.group_by_width ? configs.group_by_width : 'auto'}}">
           {{configs.group_by_header}}</th>
         <th *ngFor="let column of columns" [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}" 
@@ -17,6 +20,22 @@
     <tbody>
       <tr *ngIf="data.length==0">
         <td [innerHTML]="configs.data_loading_text" [attr.colspan]="configs.columns.length + 1" style="text-align: center"></td>
+      </tr>
+      <tr *ngIf="show_add_row">
+        <td>
+          <svg (click)="saveAddRecord()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="save"><rect width="24" height="24" opacity="0"/><path d="M20.12 8.71l-4.83-4.83A3 3 0 0 0 13.17 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-7.17a3 3 0 0 0-.88-2.12zM10 19v-2h4v2zm9-1a1 1 0 0 1-1 1h-2v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2v5a1 1 0 0 0 1 1h4a1 1 0 0 0 0-2h-3V5h3.17a1.05 1.05 0 0 1 .71.29l4.83 4.83a1 1 0 0 1 .29.71z"/></g></g></svg>
+          <svg (click)="cancelAddEdit()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
+        </td>
+        <td>
+          <select [attr.id]="processed_data.length+'group'">
+            <option *ngFor="let key of group_keys">
+            {{key}}
+            </option>
+          </select>
+        </td>
+        <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
+            <input type="text" [attr.id]="processed_data.length+column.name">
+        </td>
       </tr>
       <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'" [attr.id]="data['idx']">
           <th *ngIf="configs.editable && data.parent"></th>
