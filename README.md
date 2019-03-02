@@ -51,10 +51,11 @@ Format of the data should be like below.
 1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
 2. **group_by_header(Optional):** Header for the GroupBy Column.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
-3. **editable(Optional):** To make the grid editable. This needs to be true to make **columns editable**.
-3. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
-4. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
+4. **editable(Optional):** To make the grid editable. This needs to be true to make **columns editable**.
+5. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
+6. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
 5. **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
+5. **add_class(Optional):** Icon class for Add icon. Font Awesome class can be given.
 5. **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
 5. **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
 5. **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
@@ -107,8 +108,9 @@ Add below directive to your html.
 1. **expand:** Event fires when parent is expanded.
 2. **collapse:** Event fires when parent is collapsed.
 3. **cellclick:** Event fires when a child cell is clicked.
-4. **save:** Event fires when a record is saved.
-5. **delete:** Event fires when a record is deleted.
+4. **save:** Event fires when a row is saved.
+5. **delete:** Event fires when a row is deleted.
+6. **add:** Event fires when a row is added.
 
 ## License
 This project is licensed under the MIT license.
