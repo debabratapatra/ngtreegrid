@@ -10,12 +10,15 @@ export class NgtreegridComponent implements OnChanges {
   processed_data: any[] = [];
   expand_tracker: Object = {};
   group_by_keys: Object = {};
+  group_keys: any[] = [];
   columns: any[] = [];
+  show_add_row: Boolean = false;
+  current_sorted_column: any = {};
   edit_tracker: Object = {}; // Track Edit options.
   default_configs: Object = {
     expand_class: 'plus',
     collapse_class: 'minus',
-    add_class: '',
+    add_class: 'plus',
     edit_class: '',
     delete_class: '',
     save_class: '',
@@ -34,6 +37,7 @@ export class NgtreegridComponent implements OnChanges {
   @Output() expand: EventEmitter<any> = new EventEmitter();
   @Output() collapse: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
+  @Output() add: EventEmitter<any> = new EventEmitter();
   @Output() save: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
 
@@ -53,7 +57,7 @@ export class NgtreegridComponent implements OnChanges {
 
     // If there is no data then do nothing.
     if (!(this.data && this.data.length > 0)) {
-      window.console.error('Data should not be empty!');
+      window.console.warn('Data should not be empty!');
       return;
     }
 
@@ -74,12 +78,16 @@ export class NgtreegridComponent implements OnChanges {
       this.edit_tracker[index++] = false;
     });
     const group_keys = Object.keys(this.group_by_keys);
-
+    this.group_keys = group_keys;
     group_keys.forEach(key => {
       this.expand_tracker[key] = 0;
     });
 
-    this.processData(null, null);
+    if (this.current_sorted_column) {
+      this.processData(this.current_sorted_column.sort_type, this.current_sorted_column.name);
+    } else {
+      this.processData(null, null);
+    }
   }
 
   processData(sort_type, sort_by) {
@@ -159,6 +167,8 @@ export class NgtreegridComponent implements OnChanges {
     column.sort_type = column.sorted ? !column.sort_type : 1;
     column.sorted = 1;
 
+    this.current_sorted_column = column;
+
     // Sort array.
     this.processData(column.sort_type, column.name);
   }
@@ -187,6 +197,35 @@ export class NgtreegridComponent implements OnChanges {
       this.processed_data.splice(rec.idx, 1);
       this.delete.emit(rec);
     }
+  }
+
+  addRow() {
+    this.show_add_row = true;
+  }
+
+  cancelAddEdit() {
+    this.show_add_row = false;
+  }
+
+  saveAddRecord() {
+    const add_column = {};
+    const index = this.processed_data.length;
+    this.columns.forEach(column => {
+      if (column.editable) {
+        add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
+      }
+    });
+    add_column[this.configs.group_by] = (document.getElementById(index + 'group') as HTMLInputElement).value;
+
+    this.data.push(add_column);
+
+    this.group_by_keys = {};
+    this.edit_tracker = {};
+
+    this.groupData(this.data, this.configs.group_by);
+    this.show_add_row = false;
+
+    this.add.emit(add_column);
   }
 
 }
