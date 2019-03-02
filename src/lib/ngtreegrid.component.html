@@ -33,7 +33,7 @@
           </select>
         </td>
         <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
-            <input type="text" [attr.id]="processed_data.length+column.name">
+            <input type="text" [attr.id]="processed_data.length+column.name" *ngIf="column.editable">
         </td>
       </tr>
       <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'" [attr.id]="data['idx']">
