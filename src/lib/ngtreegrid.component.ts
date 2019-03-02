@@ -213,6 +213,8 @@ export class NgtreegridComponent implements OnChanges {
     this.columns.forEach(column => {
       if (column.editable) {
         add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
+      } else {
+        add_column[column.name] = '';
       }
     });
     add_column[this.configs.group_by] = (document.getElementById(index + 'group') as HTMLInputElement).value;
