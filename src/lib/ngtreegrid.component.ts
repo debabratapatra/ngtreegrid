@@ -7,13 +7,13 @@ import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core
 })
 export class NgtreegridComponent implements OnChanges {
 
-  processed_data: any[] = [];
-  expand_tracker: Object = {};
-  group_by_keys: Object = {};
-  group_keys: any[] = [];
-  columns: any[] = [];
-  show_add_row: Boolean = false;
-  current_sorted_column: any = {};
+  processed_data: any[] = []; // Data after processed for table.
+  expand_tracker: Object = {}; // Track Expand or collapse.
+  group_by_keys: Object = {}; // Contains all data by keys.
+  group_keys: any[] = []; // Contains all group keys.
+  columns: any[] = []; // Contains all column objects.
+  show_add_row: Boolean = false; // Boolean to show Add Row.
+  current_sorted_column: any = {}; // Current sorted column object.
   edit_tracker: Object = {}; // Track Edit options.
   default_configs: Object = {
     expand_class: 'plus',
