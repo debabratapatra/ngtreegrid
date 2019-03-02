@@ -1,7 +1,7 @@
 <table class="db-tree-grid">
     <thead>
       <tr>
-        <th *ngIf="configs.editable" class="header-editable" (click)="addRow(data.parent_id, data)">
+        <th *ngIf="configs.editable" class="header-editable" (click)="addRow()">
           <i *ngIf="!show_add_row" [ngClass]="configs.add_class" aria-hidden="true" title="Add a row"></i>
           <span *ngIf="show_add_row">Actions</span>
         </th>
