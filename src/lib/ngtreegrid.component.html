@@ -70,10 +70,16 @@
           </th>
           <td class="clear-right-border"></td>
           <td class="clear-left-border" *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">
-              <span [innerHTML]="column.renderer ? column.renderer(data[column.name], data) : data[column.name]"
-                (click)="onCellClick(data)" *ngIf="!edit_tracker[data['idx']] || !column.editable"></span>
-              <input type="text" [attr.value]="data[column.name]" *ngIf="edit_tracker[data['idx']] && column.editable"
-                [attr.id]="data['idx']+column.name">
+              <!-- <span [innerHTML]="column.renderer ? column.renderer(data[column.name], data) : data[column.name]"
+                (click)="onCellClick(data)" *ngIf="!edit_tracker[data['idx']] || !column.editable"></span> -->
+            <div [ngSwitch]="column.type" *ngIf="!edit_tracker[data['idx']] || !column.editable">
+              <db-custom-cell-component *ngSwitchCase="'custom'" [cell_value]="data[column.name]" 
+              [cell]="column.cell" [row_data]="data"></db-custom-cell-component>
+              <db-tree-cell [cell_value]="data[column.name]" [row_data]="data" (click)="onCellClick(data)" 
+              *ngSwitchDefault></db-tree-cell>
+            </div>
+            <input type="text" [attr.value]="data[column.name]" *ngIf="edit_tracker[data['idx']] && column.editable"
+              [attr.id]="data['idx']+column.name">
           </td>
         </ng-container>
         
