@@ -123,6 +123,10 @@ $sort-active-color: rgb(138, 137, 137);
         position: relative;
         padding: 0.875rem 1.25rem;
 
+        input {
+            padding: 5px;
+        }
+
         i.plus {
             border: 1px solid rgba(0, 0, 0, 0);
         
