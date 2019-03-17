@@ -38,13 +38,11 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     }
 
     protected createCustomComponent() {
-      const componentFactory = this.resolver.resolveComponentFactory(this.cell.renderComponent);
+      const componentFactory = this.resolver.resolveComponentFactory(this.cell);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);
     }
 
     protected callOnComponentInit() {
-      const onComponentInitFunction = this.cell.getColumn().getOnComponentInitFunction();
-      onComponentInitFunction && onComponentInitFunction(this.customComponent.instance);
       this.customComponent.instance.cell_value = this.cell_value;
       this.customComponent.instance.row_data = this.row_data;
     }
