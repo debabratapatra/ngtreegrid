@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgtreegridComponent } from './ngtreegrid.component';
-import { TreeCellComponent } from './components/tree-cell/tree-cell.component';
-import { CustomViewComponent } from './components/tree-cell/custom-tree-cell.component';
+import { CellModule } from './modules/cell/cell.module';
 
 @NgModule({
-  declarations: [NgtreegridComponent, TreeCellComponent, CustomViewComponent],
+  declarations: [NgtreegridComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    CellModule
   ],
-  exports: [NgtreegridComponent, TreeCellComponent, CustomViewComponent],
-  entryComponents: [CustomViewComponent]
+  exports: [NgtreegridComponent]
 })
 export class NgtreegridModule { }

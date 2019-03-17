@@ -1,0 +1,9 @@
+<ng-container *ngIf="resolved">
+    <div [ngSwitch]="column.type" *ngIf="!edit_on || !column.editable">
+        <db-custom-cell-component *ngSwitchCase="'custom'" [cell_value]="cell_value" 
+        [cell]="column.cell" [row_data]="row_data" (click)="onCellClick(row_data)"></db-custom-cell-component>
+        <div *ngSwitchDefault (click)="onCellClick(row_data)">{{cell_value}}</div>
+    </div>
+    <input type="text" [attr.value]="cell_value" *ngIf="edit_on && column.editable" 
+    [attr.id]="row_data['idx']+column.name">
+</ng-container>
