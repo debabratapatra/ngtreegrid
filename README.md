@@ -51,24 +51,32 @@ Format of the data should be like below.
 1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
 2. **group_by_header(Optional):** Header for the GroupBy Column.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
-4. **editable(Optional):** To make the grid editable. This needs to be true to make **columns editable**.
 5. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
-6. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
-5. **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
-5. **add_class(Optional):** Icon class for Add icon. Font Awesome class can be given.
-5. **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
-5. **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
-5. **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
-5. **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
+4. **actions(Optional):** Action column.
+     * **add:** Boolean for add feature. It defaults to false.
+     * **edit:** Boolean for edit feature. It defaults to false.
+     * **delete:** Boolean for delete feature. It defaults to false.
+5. **css(Optional):** Css class for icons
+    6. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
+    5. **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
+    5. **add_class(Optional):** Icon class for Add icon. Font Awesome class can be given.
+    5. **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
+    5. **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
+    5. **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
+    5. **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
 6. **columns(Optional):** It is an object. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
     * **name:** key of the column
     * **header:** Header of the column that will be displayed in the table
     * **width:** Width of the column
     * **hidden:** Show/Hide column. It defaults to false.
     * **sortable:** False to disable sorting of this column. By default columns are sortable.
-    * **editable:** To make a specific column editable. By default columns are not editable. dditable option needs to be true at grid level.
-    * **renderer:** It is a method which can be used to transform the value before value of the column is rendered. It gets value of the corresponding column and the whole record as arguments. See example below.
+    * **editable:** To make a specific column editable. By default columns are not editable. edit option needs to be true at grid level.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
+    * **type:** Set to 'custom' to have custom component for the column. Otherwise leave blank.
+    * **edit_type:** Set to 'custom' to have custom editor component for the column. Only if editable is true for the column.
+    * **component:** Custome View Component
+    * **edit_component:** Custome Editor Component
+    * **onComponentInit:** Callback function for the column on component init.
 
 #### Example
 ```
@@ -79,17 +87,11 @@ Format of the data should be like below.
       'columns': [{
         'header': 'Product Name',
         'name': 'name',
-        'sortable': false,
-        'renderer': (name, rec) => {
-          return '<a href="sd">' + name + '</a>';
-        }
+        'sortable': false
       }, {
         'header': 'Price',
         'name': 'price',
         'width': '200px',
-        'renderer': (value) => {
-          return '$' + value;
-        },
         'group_aggregator': (array) => {
           const prices = array.map((item) => item.price);
           return '$' + prices.reduce((acc, item) => acc + item);
