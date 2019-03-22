@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { Column } from './models/Column.model';
+import { Configs } from './models/Configs.model';
 
 @Component({
   selector: 'db-ngtreegrid',
@@ -16,16 +17,25 @@ export class NgtreegridComponent implements OnChanges {
   show_add_row: Boolean = false; // Boolean to show Add Row.
   current_sorted_column: any = {}; // Current sorted column object.
   edit_tracker: Object = {}; // Track Edit options.
-  default_configs: Object = {
-    expand_class: 'plus',
-    collapse_class: 'minus',
-    add_class: 'plus',
-    edit_class: '',
-    delete_class: '',
-    save_class: '',
-    cancel_class: '',
+  default_configs: Configs = {
+    css: {
+      expand_class: 'plus',
+      collapse_class: 'minus',
+      add_class: 'plus',
+      edit_class: '',
+      delete_class: '',
+      save_class: '',
+      cancel_class: ''
+    },
+    actions: {
+      edit: false,
+      add: false,
+      delete: false
+    },
     data_loading_text: 'Loading...',
-    editable: false
+    group_by: '',
+    group_by_header: '',
+    group_by_width: 'auto'
   };
   default_column_config: Column = {
     sorted: 0,
@@ -46,7 +56,7 @@ export class NgtreegridComponent implements OnChanges {
   data: any[];
 
   @Input()
-  configs: any;
+  configs: Configs;
 
   constructor() {
   }
