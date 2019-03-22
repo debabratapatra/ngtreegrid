@@ -7,6 +7,7 @@ export interface Column {
     hidden: Boolean;
     sortable: Boolean;
     type?: string;
+    edit_type?: string;
     component?: any;
     edit_component?: any;
     onComponentInit?: any;
