@@ -94,6 +94,10 @@ $sort-active-color: rgb(138, 137, 137);
             background: #fafbff;
         }
 
+        select {
+            padding: 5px;
+        }
+
         tr {
             span.parent_container {
                 padding-left: 45px;
@@ -122,10 +126,6 @@ $sort-active-color: rgb(138, 137, 137);
         vertical-align: middle;
         position: relative;
         padding: 0.875rem 1.25rem;
-
-        input {
-            padding: 5px;
-        }
 
         i.plus {
             border: 1px solid rgba(0, 0, 0, 0);

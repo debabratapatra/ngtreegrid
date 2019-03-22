@@ -8,4 +8,6 @@ export interface Column {
     sortable: Boolean;
     type?: string;
     component?: any;
+    edit_component?: any;
+    onComponentInit?: any;
 }
