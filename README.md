@@ -57,13 +57,13 @@ Format of the data should be like below.
      * **edit:** Boolean for edit feature. It defaults to false.
      * **delete:** Boolean for delete feature. It defaults to false.
 5. **css(Optional):** Css class for icons
-    6. **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
-    5. **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
-    5. **add_class(Optional):** Icon class for Add icon. Font Awesome class can be given.
-    5. **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
-    5. **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
-    5. **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
-    5. **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
+    * **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
+    * **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
+    * **add_class(Optional):** Icon class for Add icon. Font Awesome class can be given.
+    * **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
+    * **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
+    * **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
+    * **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
 6. **columns(Optional):** It is an object. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
     * **name:** key of the column
     * **header:** Header of the column that will be displayed in the table
