@@ -6,8 +6,7 @@ import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
   templateUrl: './tree-cell.component.html',
   styleUrls: ['./tree-cell.component.css']
 })
-export class TreeCellComponent implements OnInit, OnChanges {
-  resolved: Boolean = false;
+export class TreeCellComponent implements OnInit {
   @Input()
   cell_value: string;
 
@@ -25,10 +24,6 @@ export class TreeCellComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  ngOnChanges() {
-    this.resolved = true;
   }
 
   onCellClick(rec) {

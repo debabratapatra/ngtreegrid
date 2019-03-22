@@ -7,6 +7,7 @@ import {
     OnInit,
     OnDestroy,
 } from '@angular/core';
+import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
 
 @Component({
     selector: 'db-custom-cell-component',
@@ -14,9 +15,9 @@ import {
       <ng-template #dynamicTarget></ng-template>
     `,
 })
-export class CustomViewComponent implements OnInit, OnDestroy {
+export class CustomCellViewComponent implements OnInit, OnDestroy {
     customComponent: any;
-    @Input() cell;
+    @Input() column: Column;
     @Input() cell_value;
     @Input() row_data;
     @ViewChild('dynamicTarget', { read: ViewContainerRef }) dynamicTarget: any;
@@ -25,7 +26,7 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      if (this.cell && !this.customComponent) {
+      if (this.column.component && !this.customComponent) {
         this.createCustomComponent();
         this.callOnComponentInit();
       }
@@ -38,11 +39,13 @@ export class CustomViewComponent implements OnInit, OnDestroy {
     }
 
     protected createCustomComponent() {
-      const componentFactory = this.resolver.resolveComponentFactory(this.cell);
+      const componentFactory = this.resolver.resolveComponentFactory(this.column.component);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);
     }
 
     protected callOnComponentInit() {
+      this.column.onComponentInit && this.column.onComponentInit(this.customComponent.instance);
+
       this.customComponent.instance.cell_value = this.cell_value;
       this.customComponent.instance.row_data = this.row_data;
     }

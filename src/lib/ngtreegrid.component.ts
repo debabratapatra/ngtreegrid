@@ -179,11 +179,11 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   saveRecord(index, rec) {
-    this.columns.forEach(column => {
-      if (column.editable) {
-        rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-      }
-    });
+    // this.columns.forEach(column => {
+    //   if (column.editable) {
+    //     rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
+    //   }
+    // });
     this.edit_tracker[index] = false;
     this.save.emit(rec);
   }

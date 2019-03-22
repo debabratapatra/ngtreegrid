@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TreeBodyComponent } from './tree-body.component';
+import { TreeCellEditorComponent } from './tree-cell-editor.component';
 
-describe('TreeBodyComponent', () => {
-  let component: TreeBodyComponent;
-  let fixture: ComponentFixture<TreeBodyComponent>;
+describe('TreeCellEditorComponent', () => {
+  let component: TreeCellEditorComponent;
+  let fixture: ComponentFixture<TreeCellEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TreeBodyComponent ]
+      declarations: [ TreeCellEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TreeBodyComponent);
+    fixture = TestBed.createComponent(TreeCellEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
