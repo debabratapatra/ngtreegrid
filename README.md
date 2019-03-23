@@ -110,6 +110,7 @@ Add below directive to your html.
 1. **expand:** Event fires when parent is expanded.
 2. **collapse:** Event fires when parent is collapsed.
 3. **cellclick:** Event fires when a child cell is clicked.
+3. **rowselect:** Event fires when a row is selected.
 4. **save:** Event fires when a row is saved.
 5. **delete:** Event fires when a row is deleted.
 6. **add:** Event fires when a row is added.
