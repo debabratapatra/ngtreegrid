@@ -1,7 +1,7 @@
 <ng-container>
     <div [ngSwitch]="column.type" *ngIf="!edit_on || !column.editable">
         <db-custom-cell-component *ngSwitchCase="'custom'" [cell_value]="cell_value" 
-        [column]="column" [row_data]="row_data" (click)="onCellClick(row_data)"></db-custom-cell-component>
+        [column]="column" [row_data]="row_data" (click)="onCellClick(row_data, column)"></db-custom-cell-component>
         <div *ngSwitchDefault (click)="onCellClick(row_data, column)">{{cell_value}}</div>
     </div>
     <div [ngSwitch]="column.edit_type" *ngIf="edit_on && column.editable">
