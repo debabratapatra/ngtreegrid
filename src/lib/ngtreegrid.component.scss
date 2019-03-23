@@ -99,6 +99,9 @@ $sort-active-color: rgb(138, 137, 137);
         }
 
         tr {
+            &.selected {
+                background-color: #e2e7eb;
+            }
             span.parent_container {
                 padding-left: 45px;
             }            

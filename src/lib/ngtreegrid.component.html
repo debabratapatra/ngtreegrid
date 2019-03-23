@@ -36,8 +36,9 @@
             <input type="text" [attr.id]="processed_data.length+column.name" *ngIf="column.editable">
         </td>
       </tr>
-      <tr *ngFor="let data of processed_data" [ngClass]="!data.parent?'child':'parent'" [attr.id]="data['idx']"
-      (keyup.enter)="saveRecord(data['idx'], data)">
+      <tr *ngFor="let data of processed_data" [ngClass]="{'child': !data.parent, 'parent' : data.parent, 
+        'selected': data.row_selected}" [attr.id]="data['idx']" (click)="onRowSelect(data)"
+        (keyup.enter)="saveRecord(data['idx'], data)">
         <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete) && data.parent"></td>
         <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id, data)"  
             class="clear-right-border" title="Expand row">
@@ -76,7 +77,7 @@
           <td class="clear-right-border"></td>
           <td class="clear-left-border" *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">
               <db-tree-cell [cell_value]="data[column.name]" [row_data]="data" [column]="column" 
-              (cellclick)="onCellClick(data)" [edit_on]="edit_tracker[data['idx']]"></db-tree-cell>            
+              (cellclick)="onCellClick($event)" [edit_on]="edit_tracker[data['idx']]"></db-tree-cell>            
           </td>
         </ng-container>
         

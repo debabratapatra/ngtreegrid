@@ -48,6 +48,7 @@ export class NgtreegridComponent implements OnChanges {
   @Output() expand: EventEmitter<any> = new EventEmitter();
   @Output() collapse: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
+  @Output() rowselect: EventEmitter<any> = new EventEmitter();
   @Output() add: EventEmitter<any> = new EventEmitter();
   @Output() save: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
@@ -166,8 +167,20 @@ export class NgtreegridComponent implements OnChanges {
     this.collapse.emit(rec);
   }
 
-  onCellClick(rec) {
-    this.cellclick.emit(rec);
+  onRowSelect(row) {
+    if (row.parent) {
+      return;
+    }
+
+    this.processed_data.forEach(data => {
+      data.row_selected = false;
+    });
+    row.row_selected = true;
+    this.rowselect.emit(row);
+  }
+
+  onCellClick(rowCol) {
+    this.cellclick.emit(rowCol);
   }
 
   sortColumn(column) {
