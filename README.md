@@ -73,9 +73,9 @@ Format of the data should be like below.
     * **editable:** To make a specific column editable. By default columns are not editable. edit option needs to be true at grid level.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
     * **type:** Set to 'custom' to have custom component for the column. Otherwise leave blank.
-    * **edit_type:** Set to 'custom' to have custom editor component for the column. Only if editable is true for the column.
-    * **component:** Custome View Component
-    * **edit_component:** Custome Editor Component
+    * **edit_type:** Set to 'custom' to have custom editor component for the column. Only if editable is true for the column. Default editor is a input text field.
+    * **component:** Custome View Component. Mandatory if type is custom.
+    * **edit_component:** Custome Editor Component. Mandatory if edit_type is custom.
     * **onComponentInit:** Callback function for the column on component init.
 
 #### Example
