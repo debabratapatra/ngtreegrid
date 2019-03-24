@@ -101,7 +101,6 @@ export class NgtreegridComponent implements OnChanges {
 
     // It is an array of leaf nodes.
     let last_group_data = [data];
-    const last_group_Keys: {} = {data: data};
 
     // It represents the path to the leaf nodes.
     let traversed_paths: string[] = ['data'];
@@ -110,7 +109,7 @@ export class NgtreegridComponent implements OnChanges {
     group_by.forEach(key => {
       const temp_traversed_paths: string[] = [];
       const temp_last_group_data = [];
-      const temp_group_keys: string[] = [];
+      let group_keys: string[] = [];
 
       // Number of records in traversed_paths and last_group_data are same.
       for (let index = 0; index < last_group_data.length; index++) {
@@ -130,10 +129,19 @@ export class NgtreegridComponent implements OnChanges {
           temp_traversed_paths.push(traversed_group_key + '.' + new_group_key);
           temp_last_group_data.push(group_by_data[new_group_key]);
         });
+
+        group_keys.push(...new_group_keys);
       }
 
       traversed_paths = temp_traversed_paths;
       last_group_data = temp_last_group_data;
+
+      // Remove duplicates.
+      group_keys = group_keys.filter((item, pos) => {
+        return group_keys.indexOf(item) === pos;
+      });
+
+      this.group_keys[key] = group_keys;
 
     });
 
@@ -217,6 +225,7 @@ export class NgtreegridComponent implements OnChanges {
 
     console.log(this.processed_data);
     console.log(this.expand_tracker);
+    console.log(this.group_keys);
   }
 
   setColumnNames() {
@@ -266,6 +275,14 @@ export class NgtreegridComponent implements OnChanges {
 
   collapseRow(id, rec) {
     this.expand_tracker[id] = 0;
+
+    // Collapse all of its children.
+    const keys = Object.keys(this.expand_tracker);
+    keys.forEach(key => {
+      if (key.includes(id)) {
+        this.expand_tracker[key] = 0;
+      }
+    });
     this.collapse.emit(rec);
   }
 
@@ -343,7 +360,10 @@ export class NgtreegridComponent implements OnChanges {
         add_column[column.name] = '';
       }
     });
-    // add_column[this.configs.group_by] = (document.getElementById(index + 'group') as HTMLInputElement).value;
+
+    this.configs.group_by.forEach(key => {
+      add_column[key] = (document.getElementById(index + key) as HTMLInputElement).value;
+    });
 
     this.data.push(add_column);
 
