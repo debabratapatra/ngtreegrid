@@ -77,6 +77,18 @@ export class NgtreegridComponent implements OnChanges {
     this.groupData(this.data, this.configs.group_by);
   }
 
+  fetchTraversedPaths(traversed_paths) {
+    const paths = traversed_paths.split('.');
+    let intermediate = this.group_by_keys;
+
+    for (let i = 0; i < paths.length; i++) {
+      const path = paths[i];
+      intermediate = intermediate[path];
+    }
+
+    return intermediate;
+  }
+
   /**
    * Find path from root and assgn grouped data
    *
@@ -173,19 +185,21 @@ export class NgtreegridComponent implements OnChanges {
 
     group_keys.forEach(key => {
       const items  = group_data[key];
-      const composite_key = parent_key + '.' + key;
+      const composite_key = parent_key ? parent_key + '.' + key : key;
 
       // If items is not an array then it has more group by arrays. So make recursive call.
       if (!Array.isArray(items)) {
         console.log(key);
-        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key, parent: true, level: level});
+        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key,
+          parent: true, last_parent: false, level: level});
         this.expand_tracker[composite_key] = 0;
 
         // Increase level to mark the level.
         this.generateData(sort_type, sort_by, tree_grid, items, level + 1, composite_key);
       } else {
         // Set Parent object.
-        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key, parent: true, level: level});
+        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key, 
+          parent: true, last_parent: true, level: level});
         this.expand_tracker[composite_key] = 0;
 
         // Sort Items
@@ -210,7 +224,7 @@ export class NgtreegridComponent implements OnChanges {
     let index = 0;
 
     // Make recursive call to generate records.
-    this.generateData(sort_type, sort_by, tree_grid, this.group_by_keys, 0, '');
+    this.generateData(sort_type, sort_by, tree_grid, this.group_by_keys, 0, null);
 
     this.processed_data.shift();
 
@@ -221,11 +235,12 @@ export class NgtreegridComponent implements OnChanges {
     });
 
     // Expand root so that first level shows up.
-    this.expand_tracker['.data'] =  1;
+    this.expand_tracker['data'] =  1;
 
     console.log(this.processed_data);
     console.log(this.expand_tracker);
     console.log(this.group_keys);
+    console.log(this.group_by_keys);
   }
 
   setColumnNames() {

@@ -57,7 +57,7 @@
           <!-- For parent levels add extra tds -->
           <td *ngFor="let level of range(configs.group_by.length - data.level + 1)"></td>
           <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
-              <span [innerHTML]="column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''"></span>
+              <span [innerHTML]="column.group_aggregator && data.last_parent ? column.group_aggregator(fetchTraversedPaths(data.node_id)) : ''"></span>
           </td>
         </ng-container>
         <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
