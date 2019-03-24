@@ -177,14 +177,15 @@ export class NgtreegridComponent implements OnChanges {
 
       // If items is not an array then it has more group by arrays. So make recursive call.
       if (!Array.isArray(items)) {
-        tree_grid.processed_data.push({parent_id: composite_key, parent_text: key, parent: true, level: level});
+        console.log(key);
+        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key, parent: true, level: level});
         this.expand_tracker[composite_key] = 0;
 
         // Increase level to mark the level.
         this.generateData(sort_type, sort_by, tree_grid, items, level + 1, composite_key);
       } else {
         // Set Parent object.
-        tree_grid.processed_data.push({parent_id: composite_key, parent_text: key, parent: true, level: level});
+        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key, parent: true, level: level});
         this.expand_tracker[composite_key] = 0;
 
         // Sort Items
@@ -218,7 +219,11 @@ export class NgtreegridComponent implements OnChanges {
       data.idx = index++;
     });
 
+    // Expand root so that first level shows up.
+    this.expand_tracker['.data'] =  1;
+
     console.log(this.processed_data);
+    console.log(this.expand_tracker);
   }
 
   setColumnNames() {
