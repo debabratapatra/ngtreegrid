@@ -6,8 +6,9 @@
           <i *ngIf="!show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
           <span *ngIf="show_add_row || !configs.actions.add">Actions</span>
         </th>
-        <th class="clear-right-border" width="{{configs.group_by_width}}">
-          {{configs.group_by_header}}</th>
+        <th class="clear-right-border" width="{{configs.group_by_width}}"  *ngFor="let header of configs.group_by_header">
+          {{header}}
+        </th>
         <th *ngFor="let column of columns" (click)="sortColumn(column)" width="{{column.width ? column.width : 'auto'}}"
           [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}" >
             <span>{{column.header}}</span>
@@ -40,18 +41,20 @@
         'selected': data.row_selected}" [attr.id]="data['idx']" (click)="onRowSelect(data)"
         (keyup.enter)="saveRecord(data['idx'], data)">
         <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete) && data.parent"></td>
-        <td *ngIf="!expand_tracker[data.parent_id] && data.parent" (click)="expandRow(data.parent_id, data)"  
-            class="clear-right-border" title="Expand row">
-            <i class="{{this.configs.css.expand_class}}" aria-hidden="true"></i>
-            <span class="parent_container">{{data.parent_id}}</span>
-        </td>
-        <td *ngIf="expand_tracker[data.parent_id] && data.parent" (click)="collapseRow(data.parent_id, data)"  
-          class="clear-right-border" title="Collapse row">
-            <i class="{{this.configs.css.collapse_class}}" aria-hidden="true"></i>
-            <span class="parent_container">{{data.parent_id}}</span>
-        </td>
+
         <ng-container *ngIf="data.parent">
-          <td *ngFor="let column of columns">
+          <td *ngFor="let level of range(data.level)"></td>
+          <td *ngIf="!expand_tracker[data.parent_id]" (click)="expandRow(data.parent_id, data)"  
+              class="clear-right-border" title="Expand row" >
+              <i class="{{this.configs.css.expand_class}}" aria-hidden="true"></i>
+              <span class="parent_container">{{data.parent_text}}</span>
+          </td>
+          <td *ngIf="expand_tracker[data.parent_id]" (click)="collapseRow(data.parent_id, data)"  
+            class="clear-right-border" title="Collapse row">
+              <i class="{{this.configs.css.collapse_class}}" aria-hidden="true"></i>
+              <span class="parent_container">{{data.parent_text}}</span>
+          </td>
+          <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
               <span [innerHTML]="column.group_aggregator ? column.group_aggregator(group_by_keys[data.parent_id]) : ''"></span>
           </td>
         </ng-container>
@@ -74,7 +77,7 @@
               <svg *ngIf="!configs.css.delete_class" title="Delete row" (click)="deleteRecord(data)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete row</title><g data-name="Layer 2"><g data-name="trash-2"><rect width="24" height="24" opacity="0"/><path d="M21 6h-5V4.33A2.42 2.42 0 0 0 13.5 2h-3A2.42 2.42 0 0 0 8 4.33V6H3a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM10 4.33c0-.16.21-.33.5-.33h3c.29 0 .5.17.5.33V6h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8h12z"/><path d="M9 17a1 1 0 0 0 1-1v-4a1 1 0 0 0-2 0v4a1 1 0 0 0 1 1z"/><path d="M15 17a1 1 0 0 0 1-1v-4a1 1 0 0 0-2 0v4a1 1 0 0 0 1 1z"/></g></g></svg>            
             </ng-container>
           </td>
-          <td class="clear-right-border"></td>
+          <td class="clear-right-border" *ngFor="let header of configs.group_by"></td>
           <td class="clear-left-border" *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">
               <db-tree-cell [cell_value]="data[column.name]" [row_data]="data" [column]="column" 
               (cellclick)="onCellClick($event)" [edit_on]="edit_tracker[data['idx']]"></db-tree-cell>            
