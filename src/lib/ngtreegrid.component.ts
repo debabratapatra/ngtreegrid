@@ -137,12 +137,6 @@ export class NgtreegridComponent implements OnChanges {
 
     });
 
-    // const group_keys = Object.keys(this.group_by_keys);
-    // this.group_keys = group_keys;
-    // group_keys.forEach(key => {
-    //   this.expand_tracker[key] = 0;
-    // });
-
     if (this.current_sorted_column) {
       this.processData(this.current_sorted_column.sort_type, this.current_sorted_column.name);
     } else {
@@ -151,7 +145,6 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   groupByKey (data, group_by) {
-    let index = 0;
     const group_by_data = {};
 
 
@@ -162,7 +155,6 @@ export class NgtreegridComponent implements OnChanges {
         group_by_data[item[group_by]] = [];
       }
       group_by_data[item[group_by]].push(item);
-      this.edit_tracker[index++] = false;
     });
 
     return group_by_data;
@@ -217,6 +209,7 @@ export class NgtreegridComponent implements OnChanges {
     // Add index to all records.
     this.processed_data.forEach(data => {
       data.idx = index++;
+      this.edit_tracker[data.idx] = false;
     });
 
     // Expand root so that first level shows up.
