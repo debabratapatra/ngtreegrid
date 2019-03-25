@@ -19,7 +19,7 @@
     </thead>
     <tbody>
       <tr *ngIf="data.length==0">
-        <td [innerHTML]="configs.data_loading_text" [attr.colspan]="configs.columns.length + 1" style="text-align: center"></td>
+        <td [innerHTML]="configs.data_loading_text" [attr.colspan]="columns.length + 1" style="text-align: center"></td>
       </tr>
       <tr *ngIf="show_add_row">
         <td>
@@ -40,7 +40,8 @@
       <tr *ngFor="let data of processed_data" [ngClass]="{'child': !data.parent, 'parent' : data.parent, 
         'selected': data.row_selected}" [attr.id]="data['idx']" (click)="onRowSelect(data)"
         (keyup.enter)="saveRecord(data['idx'], data)">
-        <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent">
+        <!-- If parent text is empty then hide -->
+        <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
           <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete)"></td>
           <!-- Leave left td for down level parents -->
           <td *ngFor="let level of range(data.level)"></td>
