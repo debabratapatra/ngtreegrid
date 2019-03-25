@@ -34,7 +34,7 @@ export class NgtreegridComponent implements OnChanges {
     },
     data_loading_text: 'Loading...',
     group_by: [],
-    group_by_header: '',
+    group_by_header: [],
     group_by_width: 'auto'
   };
   default_column_config: Column = {
@@ -63,9 +63,7 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.processed_data = [];
-    this.group_by_keys = {};
-    this.configs = Object.assign({}, this.default_configs, this.configs);
+    this.setDefaultConfigs();
 
     // If there is no data then do nothing.
     if (!(this.data && this.data.length > 0)) {
@@ -75,6 +73,23 @@ export class NgtreegridComponent implements OnChanges {
 
     this.setColumnNames();
     this.groupData(this.data, this.configs.group_by);
+  }
+
+  setDefaultConfigs() {
+    this.processed_data = [];
+    this.group_by_keys = {};
+    this.configs = Object.assign({}, this.default_configs, this.configs);
+
+    if (!this.configs.group_by) {
+      window.console.error('group_by field is mandatory!');
+    } else if (!Array.isArray(this.configs.group_by)) {
+      this.configs.group_by = [this.configs.group_by];
+    }
+
+    if (!this.configs.group_by_header || this.configs.group_by_header.length === 0 ||
+      this.configs.group_by_header.length !== this.configs.group_by.length) {
+      this.configs.group_by_header = this.configs.group_by;
+    }
   }
 
   fetchTraversedPaths(traversed_paths) {
@@ -148,9 +163,9 @@ export class NgtreegridComponent implements OnChanges {
       traversed_paths = temp_traversed_paths;
       last_group_data = temp_last_group_data;
 
-      // Remove duplicates.
+      // Remove duplicates and blanks.
       group_keys = group_keys.filter((item, pos) => {
-        return group_keys.indexOf(item) === pos;
+        return !this.isEmpty(item) && group_keys.indexOf(item) === pos;
       });
 
       this.group_keys[key] = group_keys;
@@ -189,9 +204,17 @@ export class NgtreegridComponent implements OnChanges {
 
       // If items is not an array then it has more group by arrays. So make recursive call.
       if (!Array.isArray(items)) {
-        console.log(key);
+
+        // Create an array of children ids.
+        const children = Object.keys(items);
+        const children_id = [];
+        children.forEach(child => {
+
+          // Add child id to the composite key.
+          children_id.push(composite_key + '.' + child);
+        });
         tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key,
-          parent: true, last_parent: false, level: level});
+          parent: true, last_parent: false, children: children_id, level: level});
         this.expand_tracker[composite_key] = 0;
 
         // Increase level to mark the level.
@@ -244,10 +267,6 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   setColumnNames() {
-    if (!this.configs.group_by) {
-      window.console.error('group_by field is mandatory!');
-    }
-
     this.columns = this.configs.columns ? this.configs.columns : [];
 
     // If columns doesn't exist in user's object.
@@ -261,7 +280,7 @@ export class NgtreegridComponent implements OnChanges {
 
       // Insert Header and default configuration.
       column_keys.forEach(key => {
-        this.columns.push(Object.assign({'header': key}, this.default_column_config));
+        this.columns.push(Object.assign({'header': key, 'name': key}, this.default_column_config));
       });
     } else {
 
@@ -283,9 +302,21 @@ export class NgtreegridComponent implements OnChanges {
     return array;
   }
 
-  expandRow(id, rec) {
+  expandRow(id, row) {
     this.expand_tracker[id] = 1;
-    this.expand.emit(rec);
+
+    // If children is a parent and its value is empty then expand it automatically.
+    row.children && row.children.forEach(child => {
+      const ids = child.split('.');
+      const last_child = ids[ids.length - 1];
+
+      // If empty!
+      if (this.isEmpty(last_child)) {
+        this.expand_tracker[child] = 1;
+      }
+    });
+
+    this.expand.emit(row);
   }
 
   collapseRow(id, rec) {
@@ -389,6 +420,10 @@ export class NgtreegridComponent implements OnChanges {
     this.show_add_row = false;
 
     this.add.emit(add_column);
+  }
+
+  isEmpty(value) {
+    return value === '' || value === undefined || value === 'undefined';
   }
 
 }
