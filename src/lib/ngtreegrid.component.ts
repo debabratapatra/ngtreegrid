@@ -92,18 +92,6 @@ export class NgtreegridComponent implements OnChanges {
     }
   }
 
-  fetchTraversedPaths(traversed_paths) {
-    const paths = traversed_paths.split('.');
-    let intermediate = this.group_by_keys;
-
-    for (let i = 0; i < paths.length; i++) {
-      const path = paths[i];
-      intermediate = intermediate[path];
-    }
-
-    return intermediate;
-  }
-
   /**
    * Find path from root and assgn grouped data
    *
@@ -291,56 +279,15 @@ export class NgtreegridComponent implements OnChanges {
     }
   }
 
-  range(end) {
-    const array = [];
-    let current = 1;
-
-    while (current < end) {
-      array.push(current);
-      current += 1;
-    }
-    return array;
-  }
-
-  expandRow(id, row) {
-    this.expand_tracker[id] = 1;
-
-    // If children is a parent and its value is empty then expand it automatically.
-    row.children && row.children.forEach(child => {
-      const ids = child.split('.');
-      const last_child = ids[ids.length - 1];
-
-      // If empty!
-      if (this.isEmpty(last_child)) {
-        this.expand_tracker[child] = 1;
-      }
-    });
-
+  onExpandRow(row) {
     this.expand.emit(row);
   }
 
-  collapseRow(id, rec) {
-    this.expand_tracker[id] = 0;
-
-    // Collapse all of its children.
-    const keys = Object.keys(this.expand_tracker);
-    keys.forEach(key => {
-      if (key.includes(id)) {
-        this.expand_tracker[key] = 0;
-      }
-    });
+  onCollapseRow(rec) {
     this.collapse.emit(rec);
   }
 
   onRowSelect(row) {
-    if (row.parent) {
-      return;
-    }
-
-    this.processed_data.forEach(data => {
-      data.row_selected = false;
-    });
-    row.row_selected = true;
     this.rowselect.emit(row);
   }
 
@@ -362,63 +309,19 @@ export class NgtreegridComponent implements OnChanges {
     this.processData(column.sort_type, column.name);
   }
 
-  enableEdit(index) {
-    this.edit_tracker[index] = true;
-  }
-
-  saveRecord(index, rec) {
-    // this.columns.forEach(column => {
-    //   if (column.editable) {
-    //     rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-    //   }
-    // });
-    this.edit_tracker[index] = false;
+  onRowSave(index, rec) {
     this.save.emit(rec);
   }
 
-  cancelEdit(index) {
-    this.edit_tracker[index] = false;
+  onRowDelete(rec) {
+    this.delete.emit(rec);
   }
 
-  deleteRecord(rec) {
-    const r = window.confirm('Are you sure you want to delete this record?');
-    if (r === true) {
-      this.processed_data.splice(rec.idx, 1);
-      this.delete.emit(rec);
-    }
-  }
-
-  addRow() {
-    this.show_add_row = true;
-  }
-
-  cancelAddEdit() {
-    this.show_add_row = false;
-  }
-
-  saveAddRecord() {
-    const add_column = {};
-    const index = this.processed_data.length;
-    this.columns.forEach(column => {
-      if (column.editable) {
-        add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-      } else {
-        add_column[column.name] = '';
-      }
-    });
-
-    this.configs.group_by.forEach(key => {
-      add_column[key] = (document.getElementById(index + key) as HTMLInputElement).value;
-    });
-
-    this.data.push(add_column);
-
+  onRowAdd(add_column) {
     this.group_by_keys = {};
     this.edit_tracker = {};
-
     this.groupData(this.data, this.configs.group_by);
     this.show_add_row = false;
-
     this.add.emit(add_column);
   }
 
