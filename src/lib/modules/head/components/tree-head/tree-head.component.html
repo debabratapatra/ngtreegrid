@@ -1,0 +1,16 @@
+<tr>
+  <th *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" class="header-editable" 
+    (click)="addRow()">
+    <i *ngIf="!show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
+    <span *ngIf="show_add_row || !configs.actions.add">Actions</span>
+  </th>
+  <th class="clear-right-border" width="{{configs.group_by_width}}"  *ngFor="let header of configs.group_by_header">
+    {{header}}
+  </th>
+  <th *ngFor="let column of columns" (click)="sortColumn(column)" width="{{column.width ? column.width : 'auto'}}"
+    [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}" >
+      <span>{{column.header}}</span>
+      <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 0?'arrow-down active':'arrow-down'"></span>
+      <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 1?'arrow-up active':'arrow-up'"></span>
+  </th>
+</tr>

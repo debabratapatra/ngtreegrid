@@ -1,93 +1,26 @@
 <table class="db-tree-grid">
-    <thead>
-      <tr>
-        <th *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" class="header-editable" 
-          (click)="addRow()">
-          <i *ngIf="!show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
-          <span *ngIf="show_add_row || !configs.actions.add">Actions</span>
-        </th>
-        <th class="clear-right-border" width="{{configs.group_by_width}}"  *ngFor="let header of configs.group_by_header">
-          {{header}}
-        </th>
-        <th *ngFor="let column of columns" (click)="sortColumn(column)" width="{{column.width ? column.width : 'auto'}}"
-          [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}" >
-            <span>{{column.header}}</span>
-            <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 0?'arrow-down active':'arrow-down'"></span>
-            <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 1?'arrow-up active':'arrow-up'"></span>
-        </th>
-      </tr>
+    <thead db-tree-head
+      [columns]="columns" 
+      [configs]="configs" 
+      (sortcolumn)="sortColumn($event)">
     </thead>
-    <tbody>
-      <tr *ngIf="data.length==0">
-        <td [innerHTML]="configs.data_loading_text" [attr.colspan]="columns.length + 1" style="text-align: center"></td>
-      </tr>
-      <tr *ngIf="show_add_row">
-        <td>
-          <svg (click)="saveAddRecord()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Save row</title><g data-name="Layer 2"><g data-name="save"><rect width="24" height="24" opacity="0"/><path d="M20.12 8.71l-4.83-4.83A3 3 0 0 0 13.17 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-7.17a3 3 0 0 0-.88-2.12zM10 19v-2h4v2zm9-1a1 1 0 0 1-1 1h-2v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2v5a1 1 0 0 0 1 1h4a1 1 0 0 0 0-2h-3V5h3.17a1.05 1.05 0 0 1 .71.29l4.83 4.83a1 1 0 0 1 .29.71z"/></g></g></svg>
-          <svg (click)="cancelAddEdit()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Cancel row</title><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
-        </td>
-        <td *ngFor="let group_by of configs.group_by">
-          <select [attr.id]="processed_data.length+group_by">
-            <option *ngFor="let key of group_keys[group_by]">
-            {{key}}
-            </option>
-          </select>
-        </td>
-        <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
-            <input type="text" [attr.id]="processed_data.length+column.name" *ngIf="column.editable">
-        </td>
-      </tr>
-      <tr *ngFor="let data of processed_data" [ngClass]="{'child': !data.parent, 'parent' : data.parent, 
-        'selected': data.row_selected}" [attr.id]="data['idx']" (click)="onRowSelect(data)"
-        (keyup.enter)="saveRecord(data['idx'], data)">
-        <!-- If parent text is empty then hide -->
-        <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
-          <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete)"></td>
-          <!-- Leave left td for down level parents -->
-          <td *ngFor="let level of range(data.level)"></td>
-          <td *ngIf="!expand_tracker[data.node_id]" (click)="expandRow(data.node_id, data)"  
-              class="clear-right-border" title="Expand row" >
-              <i class="{{this.configs.css.expand_class}}" aria-hidden="true"></i>
-              <span class="parent_container">{{data.node_text}}</span>
-          </td>
-          <td *ngIf="expand_tracker[data.node_id]" (click)="collapseRow(data.node_id, data)"  
-            class="clear-right-border" title="Collapse row">
-              <i class="{{this.configs.css.collapse_class}}" aria-hidden="true"></i>
-              <span class="parent_container">{{data.node_text}}</span>
-          </td>
-          <!-- For parent levels add extra tds -->
-          <td *ngFor="let level of range(configs.group_by.length - data.level + 1)"></td>
-          <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
-              <span [innerHTML]="column.group_aggregator && data.last_parent ? column.group_aggregator(fetchTraversedPaths(data.node_id)) : ''"></span>
-          </td>
-        </ng-container>
-        <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
-          <td *ngIf="configs.actions.edit || configs.actions.delete || configs.actions.add">
-            <ng-container *ngIf="configs.actions.edit && !data.prevent_row_edit">
-              <ng-container *ngIf="!edit_tracker[data['idx']]">
-                <i *ngIf="configs.css.edit_class" title="Edit row" class="{{this.configs.css.edit_class}}" aria-hidden="true" (click)="enableEdit(data['idx'])"></i>
-                <svg *ngIf="!configs.css.edit_class" (click)="enableEdit(data['idx'])" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Edit row</title><g data-name="Layer 2"><g data-name="edit"><rect width="24" height="24" opacity="0"/><path d="M19.4 7.34L16.66 4.6A2 2 0 0 0 14 4.53l-9 9a2 2 0 0 0-.57 1.21L4 18.91a1 1 0 0 0 .29.8A1 1 0 0 0 5 20h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71zM9.08 17.62l-3 .28.27-3L12 9.32l2.7 2.7zM16 10.68L13.32 8l1.95-2L18 8.73z"/></g></g></svg>             
-              </ng-container>
-              <ng-container *ngIf="edit_tracker[data['idx']]">
-                <i *ngIf="configs.css.save_class" title="Save row" class="{{this.configs.css.save_class}}" aria-hidden="true" (click)="saveRecord(data['idx'], data)"></i>
-                <svg (click)="saveRecord(data['idx'], data)" title="Save row" *ngIf="!configs.css.save_class" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Save row</title><g data-name="Layer 2"><g data-name="save"><rect width="24" height="24" opacity="0"/><path d="M20.12 8.71l-4.83-4.83A3 3 0 0 0 13.17 3H6a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-7.17a3 3 0 0 0-.88-2.12zM10 19v-2h4v2zm9-1a1 1 0 0 1-1 1h-2v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h2v5a1 1 0 0 0 1 1h4a1 1 0 0 0 0-2h-3V5h3.17a1.05 1.05 0 0 1 .71.29l4.83 4.83a1 1 0 0 1 .29.71z"/></g></g></svg>
-                <i *ngIf="configs.css.cancel_class" title="Cancel row" class="{{this.configs.css.cancel_class}}" aria-hidden="true" (click)="cancelEdit(data['idx'])"></i>
-                <svg *ngIf="!configs.css.cancel_class" title="Cancel row" (click)="cancelEdit(data['idx'])" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Cancel row</title><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
-              </ng-container>
-            </ng-container>            
-            <ng-container *ngIf="configs.actions.delete && !edit_tracker[data['idx']] && !data.prevent_row_delete">
-              <i *ngIf="configs.css.delete_class" title="Delete row" (click)="deleteRecord(data)" class="{{this.configs.css.delete_class}}" aria-hidden="true"></i>
-              <svg *ngIf="!configs.css.delete_class" title="Delete row" (click)="deleteRecord(data)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Delete row</title><g data-name="Layer 2"><g data-name="trash-2"><rect width="24" height="24" opacity="0"/><path d="M21 6h-5V4.33A2.42 2.42 0 0 0 13.5 2h-3A2.42 2.42 0 0 0 8 4.33V6H3a1 1 0 0 0 0 2h1v11a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V8h1a1 1 0 0 0 0-2zM10 4.33c0-.16.21-.33.5-.33h3c.29 0 .5.17.5.33V6h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V8h12z"/><path d="M9 17a1 1 0 0 0 1-1v-4a1 1 0 0 0-2 0v4a1 1 0 0 0 1 1z"/><path d="M15 17a1 1 0 0 0 1-1v-4a1 1 0 0 0-2 0v4a1 1 0 0 0 1 1z"/></g></g></svg>            
-            </ng-container>
-          </td>
-          <td class="clear-right-border" *ngFor="let header of configs.group_by"></td>
-          <td class="clear-left-border" *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">
-              <db-tree-cell [cell_value]="data[column.name]" [row_data]="data" [column]="column" 
-              (cellclick)="onCellClick($event)" [edit_on]="edit_tracker[data['idx']]"></db-tree-cell>            
-          </td>
-        </ng-container>
-        
-      </tr>
+    
+    <tbody db-tree-body
+      [columns]="columns" 
+      [configs]="configs" 
+      [group_by_keys]="group_by_keys" 
+      [expand_tracker]="expand_tracker" 
+      [edit_tracker]="edit_tracker" 
+      [data]="data" 
+      [processed_data]="processed_data" 
+      [group_keys]="group_keys" 
+      (cellclick)="onCellClick($event)"
+      (rowselect)="onRowSelect($event)"
+      (rowexpand)="onExpandRow($event)"
+      (rowcollapse)="onCollapseRow($event)"
+      (rowadd)="onRowAdd($event)"
+      (rowsave)="onRowSave($event)"
+      (rowdelete)="onRowDelete($event)">
     </tbody>   
     
   </table>
