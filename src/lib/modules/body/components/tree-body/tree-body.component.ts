@@ -9,6 +9,7 @@ import { NgtreegridService } from 'projects/ngtreegrid/src/lib/ngtreegrid.servic
   styleUrls: ['./tree-body.component.scss']
 })
 export class TreeBodyComponent implements OnInit {
+  show_add_row: boolean;
 
   @Input()
   group_by_keys: Object;
@@ -41,8 +42,6 @@ export class TreeBodyComponent implements OnInit {
   @Output() rowcollapse: EventEmitter<any> = new EventEmitter();
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
-
-  show_add_row: boolean;
 
   constructor(private ngtreegridService: NgtreegridService) { }
 
@@ -94,26 +93,6 @@ export class TreeBodyComponent implements OnInit {
     this.rowcollapse.emit(rec);
   }
 
-  saveAddRecord() {
-    const add_column = {};
-    const index = this.processed_data.length;
-    this.columns.forEach(column => {
-      if (column.editable) {
-        add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-      } else {
-        add_column[column.name] = '';
-      }
-    });
-
-    this.configs.group_by.forEach(key => {
-      add_column[key] = (document.getElementById(index + key) as HTMLInputElement).value;
-    });
-
-    this.data.push(add_column);
-
-    this.rowadd.emit(add_column);
-  }
-
   isEmpty(value) {
     return value === '' || value === undefined || value === 'undefined';
   }
@@ -155,10 +134,6 @@ export class TreeBodyComponent implements OnInit {
     }
   }
 
-  cancelAddEdit() {
-    this.ngtreegridService.showAddRow(false);
-  }
-
   rowSelect(row) {
     if (row.parent) {
       return;
@@ -169,10 +144,14 @@ export class TreeBodyComponent implements OnInit {
     });
     row.row_selected = true;
     this.rowselect.emit(row);
-  }  
+  }
 
   cellClick(rowCol) {
     this.cellclick.emit(rowCol);
+  }
+
+  rowAdd(row) {
+    this.rowadd.emit(row);
   }
 
 }
