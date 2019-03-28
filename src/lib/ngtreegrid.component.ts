@@ -170,7 +170,6 @@ export class NgtreegridComponent implements OnChanges {
   groupByKey (data, group_by) {
     const group_by_data = {};
 
-
     // Make an array of group by key.
     data.forEach(item => {
       // Check if group by key is already an array or not.
@@ -201,16 +200,29 @@ export class NgtreegridComponent implements OnChanges {
           // Add child id to the composite key.
           children_id.push(composite_key + '.' + child);
         });
-        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key,
-          parent: true, last_parent: false, children: children_id, level: level});
+        tree_grid.processed_data.push({
+          parent_id: parent_key,
+          node_id: composite_key,
+          node_text: key,
+          parent: true,
+          last_parent: false,
+          children: children_id,
+          level: level
+        });
         this.expand_tracker[composite_key] = 0;
 
         // Increase level to mark the level.
         this.generateData(sort_type, sort_by, tree_grid, items, level + 1, composite_key);
       } else {
         // Set Parent object.
-        tree_grid.processed_data.push({parent_id: parent_key, node_id: composite_key, node_text: key, 
-          parent: true, last_parent: true, level: level});
+        tree_grid.processed_data.push({
+            parent_id: parent_key,
+            node_id: composite_key,
+            node_text: key,
+            parent: true,
+            last_parent: true,
+            level: level
+          });
         this.expand_tracker[composite_key] = 0;
 
         // Sort Items
