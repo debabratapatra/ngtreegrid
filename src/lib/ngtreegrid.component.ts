@@ -11,7 +11,7 @@ export class NgtreegridComponent implements OnChanges {
 
   processed_data: any[] = []; // Data after processed for table.
   expand_tracker: Object = {}; // Track Expand or collapse.
-  group_by_keys: Object = {}; // Contains all data by keys.
+  processed_group_data: Object = {}; // Contains all data by keys.
   group_keys: Object = {}; // Contains all group keys.
   columns: Column[] = []; // Contains all column objects.
   show_add_row: Boolean = false; // Boolean to show Add Row.
@@ -77,7 +77,7 @@ export class NgtreegridComponent implements OnChanges {
 
   setDefaultConfigs() {
     this.processed_data = [];
-    this.group_by_keys = {};
+    this.processed_group_data = {};
     this.configs = Object.assign({}, this.default_configs, this.configs);
 
     if (!this.configs.group_by) {
@@ -101,7 +101,7 @@ export class NgtreegridComponent implements OnChanges {
    */
   traverseRootData(temp_traversed_paths: string[], index: number, group_by_data) {
     const paths = temp_traversed_paths[index].split('.');
-    let root_keys = this.group_by_keys;
+    let root_keys = this.processed_group_data;
 
     for (let i = 0; i < paths.length - 1; i++) {
       const path = paths[i];
@@ -119,7 +119,7 @@ export class NgtreegridComponent implements OnChanges {
 
     // It represents the path to the leaf nodes.
     let traversed_paths: string[] = ['data'];
-    this.group_by_keys = {'data': ''};
+    this.processed_group_data = {'data': ''};
 
     group_by.forEach(key => {
       const temp_traversed_paths: string[] = [];
@@ -235,7 +235,7 @@ export class NgtreegridComponent implements OnChanges {
     let index = 0;
 
     // Make recursive call to generate records.
-    this.generateData(sort_type, sort_by, tree_grid, this.group_by_keys, 0, null);
+    this.generateData(sort_type, sort_by, tree_grid, this.processed_group_data, 0, null);
 
     this.processed_data.shift();
 
@@ -251,7 +251,7 @@ export class NgtreegridComponent implements OnChanges {
     console.log(this.processed_data);
     console.log(this.expand_tracker);
     console.log(this.group_keys);
-    console.log(this.group_by_keys);
+    console.log(this.processed_group_data);
   }
 
   setColumnNames() {
@@ -318,7 +318,7 @@ export class NgtreegridComponent implements OnChanges {
   }
 
   onRowAdd(add_column) {
-    this.group_by_keys = {};
+    this.processed_group_data = {};
     this.edit_tracker = {};
     this.groupData(this.data, this.configs.group_by);
     this.show_add_row = false;
