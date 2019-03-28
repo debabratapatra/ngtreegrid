@@ -12,7 +12,7 @@ export class TreeBodyComponent implements OnInit {
   show_add_row: boolean;
 
   @Input()
-  processed_group_data: Object;
+  processed_tree_data: Object;
 
   @Input()
   expand_tracker: Object;
@@ -53,7 +53,7 @@ export class TreeBodyComponent implements OnInit {
 
   fetchTraversedPaths(traversed_paths) {
     const paths = traversed_paths.split('.');
-    let intermediate = this.processed_group_data;
+    let intermediate = this.processed_tree_data;
 
     for (let i = 0; i < paths.length; i++) {
       const path = paths[i];

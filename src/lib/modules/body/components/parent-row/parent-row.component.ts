@@ -11,7 +11,7 @@ export class ParentRowComponent implements OnInit {
 
 
   @Input()
-  processed_group_data: Object;
+  processed_tree_data: Object;
 
   @Input()
   expand_tracker: Object;
