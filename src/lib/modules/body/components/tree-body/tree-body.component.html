@@ -9,7 +9,8 @@
   [data]="data"
   [group_keys]="group_keys"
   (rowadd)="rowAdd($event)"
-*ngIf="show_add_row"></tr>
+  *ngIf="show_add_row">
+</tr>
 
 <tr *ngFor="let data of processed_data" [ngClass]="{'child': !data.parent, 'parent' : data.parent, 
   'selected': data.row_selected}" [attr.id]="data['idx']" (click)="rowSelect(data)"
