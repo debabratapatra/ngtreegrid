@@ -108,32 +108,6 @@ export class TreeBodyComponent implements OnInit {
     return array;
   }
 
-  enableEdit(index) {
-    this.edit_tracker[index] = true;
-  }
-
-  saveRecord(index, rec) {
-    // this.columns.forEach(column => {
-    //   if (column.editable) {
-    //     rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-    //   }
-    // });
-    this.edit_tracker[index] = false;
-    this.rowsave.emit(rec);
-  }
-
-  cancelEdit(index) {
-    this.edit_tracker[index] = false;
-  }
-
-  deleteRecord(rec) {
-    const r = window.confirm('Are you sure you want to delete this record?');
-    if (r === true) {
-      this.processed_data.splice(rec.idx, 1);
-      this.rowdelete.emit(rec);
-    }
-  }
-
   rowSelect(row) {
     if (row.parent) {
       return;
