@@ -44,7 +44,7 @@
       [processed_data]="processed_data"
       [edit_tracker]="edit_tracker"
       (canceledit)="cancelEdit($event)" 
-      (rowsave)="saveRecord($event)" 
+      (editcomplete)="saveRecord($event)" 
       (rowdelete)="rowdelete.emit($event)">
     </td>
     <td class="clear-right-border" *ngFor="let header of configs.group_by"></td>
