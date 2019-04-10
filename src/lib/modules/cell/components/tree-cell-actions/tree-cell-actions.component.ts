@@ -19,7 +19,7 @@ export class TreeCellActionsComponent implements OnInit {
   @Input()
   data: any;
 
-  @Output() rowsave: EventEmitter<any> = new EventEmitter();
+  @Output() editcomplete: EventEmitter<any> = new EventEmitter();
   @Output() rowdelete: EventEmitter<any> = new EventEmitter();
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
@@ -38,6 +38,10 @@ export class TreeCellActionsComponent implements OnInit {
 
   enableEdit(index) {
     this.edit_tracker[index] = true;
+  }
+
+  saveRecord($event) {
+    this.editcomplete.emit({event: $event, data: this.data});
   }
 
 }

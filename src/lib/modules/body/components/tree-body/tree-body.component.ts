@@ -128,12 +128,13 @@ export class TreeBodyComponent implements OnInit {
     this.rowadd.emit(row);
   }
 
-  saveRecord(rec) {
+  saveRecord($event) {
     // this.columns.forEach(column => {
     //   if (column.editable) {
     //     rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
     //   }
     // });
+    const rec = $event.data;
     const index = rec['idx'];
     this.edit_tracker[index] = false;
     this.rowsave.emit(rec);

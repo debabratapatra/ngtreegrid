@@ -30,4 +30,8 @@ export class TreeCellComponent implements OnInit {
     this.cellclick.emit({row: rec, column: column});
   }
 
+  onEditComplete($event) {
+      this.editcomplete.emit({event: $event, data: this.row_data});
+  }
+
 }
