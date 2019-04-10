@@ -1,0 +1,7 @@
+<input type="text" 
+    [attr.value]="cell_value" 
+    class="cell-default" 
+    (click)="cellclick.emit($event)"
+    (keydown.enter)="editcomplete.emit($event)"
+    (keydown.esc)="stopediting.emit()"
+    >
