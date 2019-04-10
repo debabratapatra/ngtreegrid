@@ -21,6 +21,7 @@ export class TreeCellActionsComponent implements OnInit {
 
   @Output() rowsave: EventEmitter<any> = new EventEmitter();
   @Output() rowdelete: EventEmitter<any> = new EventEmitter();
+  @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -33,20 +34,6 @@ export class TreeCellActionsComponent implements OnInit {
       this.processed_data.splice(rec.idx, 1);
       this.rowdelete.emit(rec);
     }
-  }
-
-  cancelEdit(index) {
-    this.edit_tracker[index] = false;
-  }
-
-  saveRecord(index, rec) {
-    // this.columns.forEach(column => {
-    //   if (column.editable) {
-    //     rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-    //   }
-    // });
-    this.edit_tracker[index] = false;
-    this.rowsave.emit(rec);
   }
 
   enableEdit(index) {

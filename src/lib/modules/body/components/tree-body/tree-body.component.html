@@ -43,7 +43,8 @@
       [configs]="configs"
       [processed_data]="processed_data"
       [edit_tracker]="edit_tracker"
-      (rowsave)="rowsave.emit($event)" 
+      (canceledit)="cancelEdit($event)" 
+      (rowsave)="saveRecord($event)" 
       (rowdelete)="rowdelete.emit($event)">
     </td>
     <td class="clear-right-border" *ngFor="let header of configs.group_by"></td>
@@ -54,7 +55,7 @@
         [column]="column" 
         (cellclick)="cellClick($event)" 
         [edit_on]="edit_tracker[data['idx']]"
-        (editcomplete)="onEditComplete($event)">
+        (editcomplete)="saveRecord($event)">
       </db-tree-cell>            
     </td>
   </ng-container>

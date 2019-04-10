@@ -3,8 +3,7 @@ import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
 
 @Component({
   selector: 'db-tree-cell',
-  templateUrl: './tree-cell.component.html',
-  styleUrls: ['./tree-cell.component.css']
+  templateUrl: './tree-cell.component.html'
 })
 export class TreeCellComponent implements OnInit {
   @Input()
@@ -20,6 +19,7 @@ export class TreeCellComponent implements OnInit {
   edit_on: any;
 
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
+  @Output() editcomplete: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 

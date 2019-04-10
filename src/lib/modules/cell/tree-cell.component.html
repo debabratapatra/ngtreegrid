@@ -1,0 +1,34 @@
+<ng-container>
+    <div [ngSwitch]="column.type" *ngIf="!edit_on || !column.editable">
+        <db-custom-cell-component 
+            *ngSwitchCase="'custom'" 
+            [cell_value]="cell_value" 
+            [column]="column" 
+            [row_data]="row_data" 
+            (click)="onCellClick(row_data, column)">
+        </db-custom-cell-component>
+        <db-tree-cell-view 
+            *ngSwitchDefault 
+            (cellclick)="onCellClick(row_data, column)" 
+            [cell_value]="cell_value" 
+            [row_data]="row_data">
+        </db-tree-cell-view>
+    </div>
+    <div [ngSwitch]="column.edit_type" *ngIf="edit_on && column.editable">
+        <db-custom-cell-editor-component 
+            *ngSwitchCase="'custom'" 
+            [cell_value]="cell_value" 
+            [column]="column" 
+            [row_data]="row_data" 
+            [attr.id]="row_data['idx']+column.name">
+        </db-custom-cell-editor-component>
+        <db-tree-cell-editor 
+            *ngSwitchDefault 
+            [cell_value]="cell_value" 
+            [row_data]="row_data" 
+            [column]="column"
+            (editcomplete)="editcomplete.emit($event)"
+            >
+        </db-tree-cell-editor>
+    </div>
+</ng-container>
