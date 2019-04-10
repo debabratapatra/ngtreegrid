@@ -8,6 +8,7 @@ import {
     OnDestroy,
 } from '@angular/core';
 import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
+import { DefaultEditor } from '../default/default-editor.component';
 
 @Component({
     selector: 'db-custom-cell-editor-component',
@@ -15,7 +16,7 @@ import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
       <ng-template #dynamicTarget></ng-template>
     `,
 })
-export class CustomCellEditorComponent implements OnInit, OnDestroy {
+export class CustomCellEditorComponent extends DefaultEditor implements OnInit, OnDestroy {
     customComponent: any;
     @Input() column: Column;
     @Input() cell_value;
@@ -23,6 +24,7 @@ export class CustomCellEditorComponent implements OnInit, OnDestroy {
     @ViewChild('dynamicTarget', { read: ViewContainerRef }) dynamicTarget: any;
 
     constructor(private resolver: ComponentFactoryResolver) {
+      super();
     }
 
     ngOnInit() {
@@ -49,5 +51,9 @@ export class CustomCellEditorComponent implements OnInit, OnDestroy {
       this.customComponent.instance.cell_value = this.cell_value;
       this.customComponent.instance.row_data = this.row_data;
       this.customComponent.instance.column = this.column;
+
+      this.customComponent.instance.editcomplete.subscribe((event) => this.editcomplete.emit(event));
+      this.customComponent.instance.canceledit.subscribe((event) => this.canceledit.emit(event));
+      this.customComponent.instance.cellclick.subscribe((event) => this.cellclick.emit(event));
     }
 }

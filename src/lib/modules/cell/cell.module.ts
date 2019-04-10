@@ -7,6 +7,7 @@ import { CustomCellEditorComponent } from './components/tree-cell-editor/custom/
 import { TreeCellEditorComponent } from './components/tree-cell-editor/default/cell-editor/tree-cell-editor.component';
 import { TreeCellActionsComponent } from './components/tree-cell-actions/tree-cell-actions.component';
 import { TreeCellComponent } from './tree-cell.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,15 @@ import { TreeCellComponent } from './tree-cell.component';
     TreeCellActionsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule
   ],
-  exports: [TreeCellComponent, CustomCellViewComponent, CustomCellEditorComponent, TreeCellActionsComponent]
+  exports: [
+    TreeCellComponent,
+    CustomCellViewComponent,
+    CustomCellEditorComponent,
+    TreeCellEditorComponent,
+    TreeCellActionsComponent
+  ]
 })
 export class CellModule { }
