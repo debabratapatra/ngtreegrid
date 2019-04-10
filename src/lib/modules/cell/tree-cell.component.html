@@ -19,8 +19,8 @@
             *ngSwitchCase="'custom'" 
             [cell_value]="cell_value" 
             [column]="column" 
-            [row_data]="row_data" 
-            [attr.id]="row_data['idx']+column.name">
+            [row_data]="row_data"
+            (editcomplete)="onEditComplete($event)">
         </db-custom-cell-editor-component>
         <db-tree-cell-editor 
             *ngSwitchDefault 

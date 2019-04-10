@@ -10,7 +10,7 @@ import { Configs } from 'projects/ngtreegrid/src/lib/models/Configs.model';
   encapsulation: ViewEncapsulation.None
 })
 export class AddRowComponent implements OnInit {
-
+  row_data: Object = {};
   show_add_row: boolean;
 
   @Input()
@@ -36,26 +36,31 @@ export class AddRowComponent implements OnInit {
     this.ngtreegridService.show_add_row$.subscribe(bool => {
       this.show_add_row = bool;
     });
+
+    this.columns.forEach(column => {
+      this.row_data[column.name] = '';
+    });
   }
 
   saveAddRecord() {
-    const add_column = {};
+    // const add_column = {};
     const index = this.processed_data.length;
-    this.columns.forEach(column => {
-      if (column.editable) {
-        add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-      } else {
-        add_column[column.name] = '';
-      }
-    });
+    // this.columns.forEach(column => {
+    //   if (column.editable) {
+    //     add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
+    //   } else {
+    //     add_column[column.name] = '';
+    //   }
+    // });
 
     this.configs.group_by.forEach(key => {
-      add_column[key] = (document.getElementById(index + key) as HTMLInputElement).value;
+      this.row_data[key] = (document.getElementById(index + key) as HTMLInputElement).value;
     });
 
-    this.data.push(add_column);
+    this.data.push(this.row_data);
 
-    this.rowadd.emit(add_column);
+    this.rowadd.emit(this.row_data);
+    this.ngtreegridService.showAddRow(false);
   }
 
   cancelAddEdit() {

@@ -1,5 +1,5 @@
 <input type="text" 
-    [attr.value]="cell_value" 
+    [(ngModel)]="row_data[column.name]" 
     class="cell-default" 
     (click)="cellclick.emit($event)"
     (keydown.enter)="editcomplete.emit($event)"
