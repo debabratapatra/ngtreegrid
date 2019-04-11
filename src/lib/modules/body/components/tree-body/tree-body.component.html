@@ -12,9 +12,13 @@
   *ngIf="show_add_row">
 </tr>
 
-<tr *ngFor="let data of processed_data" [ngClass]="{'child': !data.parent, 'parent' : data.parent, 
-  'selected': data.row_selected}" [attr.id]="data['idx']" (click)="rowSelect(data)"
+<tr 
+  *ngFor="let data of processed_data" 
+  [ngClass]="{'child': !data.parent, 'parent' : data.parent, 'selected': data.row_selected}" 
+  [attr.id]="data['idx']" (click)="rowSelect(data)" 
+  class="{{configs.row_class_function(data)}}"
   (keyup.enter)="saveRecord(data['idx'], data)">
+  
   <!-- If parent text is empty then hide -->
   <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
     <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete)"></td>
