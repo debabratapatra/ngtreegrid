@@ -10,4 +10,7 @@ export interface Configs {
     group_by: string[];
     group_by_header: string[];
     group_by_width: string;
+    row_class_function: Function;
+    row_edit_function: Function;
+    row_delete_function: Function;
 }

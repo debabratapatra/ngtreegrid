@@ -35,7 +35,10 @@ export class NgtreegridComponent implements OnChanges {
     data_loading_text: 'Loading...',
     group_by: [],
     group_by_header: [],
-    group_by_width: 'auto'
+    group_by_width: 'auto',
+    row_class_function: () => true,
+    row_edit_function: () => true,
+    row_delete_function: () => true,
   };
   default_column_config: Column = {
     sorted: 0,
