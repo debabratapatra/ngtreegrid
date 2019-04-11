@@ -48,9 +48,9 @@
       [configs]="configs"
       [processed_data]="processed_data"
       [edit_tracker]="edit_tracker"
+      [rowdelete]="rowdelete"
       (canceledit)="cancelEdit($event)" 
-      (editcomplete)="saveRecord($event)" 
-      (rowdelete)="rowdelete.emit($event)">
+      (editcomplete)="saveRecord($event)">
     </td>
     <td class="clear-right-border" *ngFor="let header of configs.group_by"></td>
     <td class="clear-left-border" *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">

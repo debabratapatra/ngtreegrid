@@ -17,10 +17,12 @@ export class TreeCellActionsComponent implements OnInit {
   configs: Configs;
 
   @Input()
+  rowdelete: EventEmitter<any>;
+
+  @Input()
   data: any;
 
   @Output() editcomplete: EventEmitter<any> = new EventEmitter();
-  @Output() rowdelete: EventEmitter<any> = new EventEmitter();
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
@@ -28,16 +30,34 @@ export class TreeCellActionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteRecord(rec) {
-    const r = window.confirm('Are you sure you want to delete this record?');
-    if (r === true) {
-      this.processed_data.splice(rec.idx, 1);
-      this.rowdelete.emit(rec);
+  enableEdit(index) {
+    this.edit_tracker[index] = true;
+  }
+
+  findRecordIndex(idx: number) {
+    for (const index in this.processed_data) {
+      if (this.processed_data[index].idx === idx) {
+        return index;
+      }
     }
   }
 
-  enableEdit(index) {
-    this.edit_tracker[index] = true;
+  deleteRecord(rec) {
+    if (this.configs.actions.resolve_delete) {
+      const promise = new Promise((resolve, reject) => {
+        this.rowdelete.emit({
+          data: rec,
+          resolve: resolve
+        });
+      });
+
+      promise.then(() => {
+        this.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+      }).catch((err) => {});
+    } else {
+      this.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+      this.rowdelete.emit(rec);
+    }
   }
 
   saveRecord($event) {

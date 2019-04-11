@@ -35,9 +35,13 @@ export class TreeBodyComponent implements OnInit {
   @Input()
   group_keys: Object;
 
+  @Input()
+  rowdelete: EventEmitter<any>;
+
+  @Input()
+  rowsave: EventEmitter<any>;
+
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
-  @Output() rowsave: EventEmitter<any> = new EventEmitter();
-  @Output() rowdelete: EventEmitter<any> = new EventEmitter();
   @Output() rowexpand: EventEmitter<any> = new EventEmitter();
   @Output() rowcollapse: EventEmitter<any> = new EventEmitter();
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
@@ -129,15 +133,23 @@ export class TreeBodyComponent implements OnInit {
   }
 
   saveRecord($event) {
-    // this.columns.forEach(column => {
-    //   if (column.editable) {
-    //     rec[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
-    //   }
-    // });
     const rec = $event.data;
-    const index = rec['idx'];
-    this.edit_tracker[index] = false;
-    this.rowsave.emit(rec);
+
+    if (this.configs.actions.resolve_edit) {
+      const promise = new Promise((resolve, reject) => {
+        this.rowsave.emit({
+          data: rec,
+          resolve: resolve
+        });
+      });
+
+      promise.then(() => {
+        this.edit_tracker[rec['idx']] = false;
+      }).catch((err) => {});
+    } else {
+      this.edit_tracker[rec['idx']] = false;
+      this.rowsave.emit(rec);
+    }
   }
 
   cancelEdit(index) {

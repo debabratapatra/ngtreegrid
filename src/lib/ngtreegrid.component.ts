@@ -15,7 +15,6 @@ export class NgtreegridComponent implements OnChanges {
   processed_tree_data: Object = {}; // Contains all data by keys.
   group_keys: Object = {}; // Contains all group keys.
   columns: Column[] = []; // Contains all column objects.
-  show_add_row: Boolean = false; // Boolean to show Add Row.
   current_sorted_column: any = {}; // Current sorted column object.
   edit_tracker: Object = {}; // Track Edit options.
   default_configs: Configs = {
@@ -31,7 +30,10 @@ export class NgtreegridComponent implements OnChanges {
     actions: {
       edit: false,
       add: false,
-      delete: false
+      delete: false,
+      resolve_edit: false,
+      resolve_add: false,
+      resolve_delete: false
     },
     data_loading_text: 'Loading...',
     group_by: [],
@@ -53,9 +55,9 @@ export class NgtreegridComponent implements OnChanges {
   @Output() collapse: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
-  @Output() add: EventEmitter<any> = new EventEmitter();
-  @Output() save: EventEmitter<any> = new EventEmitter();
-  @Output() delete: EventEmitter<any> = new EventEmitter();
+  @Output() rowadd: EventEmitter<any> = new EventEmitter();
+  @Output() rowsave: EventEmitter<any> = new EventEmitter();
+  @Output() rowdelete: EventEmitter<any> = new EventEmitter();
 
   @Input()
   data: any[];
@@ -151,20 +153,29 @@ export class NgtreegridComponent implements OnChanges {
     this.ngtreegridService.processData(this, column.sort_type, column.name);
   }
 
-  onRowSave(index, rec) {
-    this.save.emit(rec);
-  }
-
-  onRowDelete(rec) {
-    this.delete.emit(rec);
-  }
-
-  onRowAdd(add_column) {
+  addRowToGrid() {
     this.processed_tree_data = {};
     this.edit_tracker = {};
     this.ngtreegridService.groupData(this.data, this.configs.group_by, this);
-    this.show_add_row = false;
-    this.add.emit(add_column);
+    this.ngtreegridService.showAddRow(false);
+  }
+
+  onRowAdd(rec) {
+    if (this.configs.actions.resolve_delete) {
+      const promise = new Promise((resolve, reject) => {
+        this.rowadd.emit({
+          data: rec,
+          resolve: resolve
+        });
+      });
+
+      promise.then(() => {
+        this.addRowToGrid();
+      }).catch((err) => {});
+    } else {
+      this.addRowToGrid();
+      this.rowadd.emit(rec);
+    }
   }
 
 }

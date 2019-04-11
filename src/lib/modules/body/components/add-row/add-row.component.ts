@@ -60,7 +60,6 @@ export class AddRowComponent implements OnInit {
     this.data.push(this.row_data);
 
     this.rowadd.emit(this.row_data);
-    this.ngtreegridService.showAddRow(false);
   }
 
   cancelAddEdit() {
