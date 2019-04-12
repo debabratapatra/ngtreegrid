@@ -20,8 +20,4 @@ export class TreeCellViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  onCellClick(rec, column: Column) {
-    this.cellclick.emit({row: rec, column: column});
-  }
-
 }

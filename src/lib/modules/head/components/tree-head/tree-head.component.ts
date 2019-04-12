@@ -13,7 +13,7 @@ export class TreeHeadComponent implements OnInit {
   columns: Column[];
 
   @Input()
-  configs: Configs[];
+  configs: Configs;
 
   @Output() sortcolumn: EventEmitter<any> = new EventEmitter();
 
