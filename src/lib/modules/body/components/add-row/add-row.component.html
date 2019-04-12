@@ -11,16 +11,16 @@
 </td>
 <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}" >
   <!-- <input type="text" [attr.id]="processed_data.length+column.name" *ngIf="column.editable"> -->
-  <div [ngSwitch]="column.edit_type" *ngIf="column.editable">
+  <div *ngIf="column.editable">
     <db-custom-cell-editor-component 
-        *ngSwitchCase="'custom'" 
+        *ngIf="column.editor"
         [cell_value]="cell_value" 
         [column]="column" 
         [row_data]="row_data" 
         (editcomplete)="saveAddRecord($event)">
     </db-custom-cell-editor-component>
     <db-tree-cell-editor 
-        *ngSwitchDefault 
+        *ngIf="!column.editor"
         [cell_value]="cell_value" 
         [row_data]="row_data" 
         [column]="column"

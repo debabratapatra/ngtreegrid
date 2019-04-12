@@ -14,16 +14,16 @@
             [row_data]="row_data">
         </db-tree-cell-view>
     </div>
-    <div [ngSwitch]="column.edit_type" *ngIf="edit_on && column.editable">
+    <div *ngIf="edit_on && column.editable">
         <db-custom-cell-editor-component 
-            *ngSwitchCase="'custom'" 
+            *ngIf="column.editor" 
             [cell_value]="cell_value" 
             [column]="column" 
             [row_data]="row_data"
             (editcomplete)="onEditComplete($event)">
         </db-custom-cell-editor-component>
         <db-tree-cell-editor 
-            *ngSwitchDefault 
+            *ngIf="!column.editor"
             [cell_value]="cell_value" 
             [row_data]="row_data" 
             [column]="column"
