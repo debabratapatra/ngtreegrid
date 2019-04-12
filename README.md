@@ -1,5 +1,5 @@
 # ngtreegrid
-Angular Tree Grid. Simple, Light Weight and dependency free.
+Angular Multi level Tree Grid. Simple, Light Weight and dependency free.
 
 ## Demo
 
@@ -48,14 +48,20 @@ Format of the data should be like below.
 
 ### Configs
 
-1. **group_by(Mandatory):** It's a mandatory field. It is a column key.
-2. **group_by_header(Optional):** Header for the GroupBy Column.
+1. **group_by(Mandatory):** It's a mandatory field. It is a column key. It can be an array of columns for multilevel group_by.
+2. **group_by_header(Optional):** Header for the GroupBy Column. It can be an array of Column Headers.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
-5. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
-4. **actions(Optional):** Action column.
+4. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
+5. **row_class_function(Optional):** Callback function for row class. A custom class can be returned which will be added to the row.
+6. **row_edit_function(Optional):** Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See example for more information.
+7. **row_delete_function(Optional):** Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See example for more information.
+8. **actions(Optional):** Action column.
      * **add:** Boolean for add feature. It defaults to false.
      * **edit:** Boolean for edit feature. It defaults to false.
      * **delete:** Boolean for delete feature. It defaults to false.
+     * **resolve_add:** Manually resolve add(after making call to server). It defaults to false. See example for more information.
+     * **resolve_edit:** Manually resolve edit. It defaults to false.
+     * **resolve_delete:** Manually resolve delete feature. It defaults to false.
 5. **css(Optional):** Css class for icons
     * **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
     * **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
@@ -73,9 +79,8 @@ Format of the data should be like below.
     * **editable:** To make a specific column editable. By default columns are not editable. edit option needs to be true at grid level.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
     * **type:** Set to 'custom' to have custom component for the column. Otherwise leave blank.
-    * **edit_type:** Set to 'custom' to have custom editor component for the column. Only if editable is true for the column. Default editor is a input text field.
     * **component:** Custome View Component. Mandatory if type is custom.
-    * **edit_component:** Custome Editor Component. Mandatory if edit_type is custom.
+    * **editor:** Custome Editor Component. If given custom editor component will be used instead of default editor. See exampole.
     * **onComponentInit:** Callback function for the column on component init.
 
 #### Example
@@ -111,9 +116,9 @@ Add below directive to your html.
 2. **collapse:** Event fires when parent is collapsed.
 3. **cellclick:** Event fires when a child cell is clicked.
 3. **rowselect:** Event fires when a row is selected.
-4. **save:** Event fires when a row is saved.
-5. **delete:** Event fires when a row is deleted.
-6. **add:** Event fires when a row is added.
+4. **rowsave:** Event fires when a row is saved.
+5. **rowdelete:** Event fires when a row is deleted.
+6. **rowadd:** Event fires when a row is added.
 
 ## License
 This project is licensed under the MIT license.
