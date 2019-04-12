@@ -28,7 +28,7 @@ export class CustomCellEditorComponent extends DefaultEditor implements OnInit, 
     }
 
     ngOnInit() {
-      if (this.column.edit_component && !this.customComponent) {
+      if (this.column.editor && !this.customComponent) {
         this.createCustomComponent();
         this.callOnComponentInit();
       }
@@ -41,7 +41,7 @@ export class CustomCellEditorComponent extends DefaultEditor implements OnInit, 
     }
 
     protected createCustomComponent() {
-      const componentFactory = this.resolver.resolveComponentFactory(this.column.edit_component);
+      const componentFactory = this.resolver.resolveComponentFactory(this.column.editor);
       this.customComponent = this.dynamicTarget.createComponent(componentFactory);
     }
 
