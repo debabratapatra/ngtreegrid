@@ -43,7 +43,7 @@ export class AddRowComponent implements OnInit {
     });
   }
 
-  saveAddRecord() {
+  saveAddRecord(e) {
     // const add_column = {};
     const index = this.processed_data.length;
     // this.columns.forEach(column => {

@@ -17,9 +17,7 @@
   [ngClass]="{'child': !data.parent, 'parent' : data.parent, 'selected': data.row_selected}" 
   [attr.id]="data['idx']" 
   (click)="rowSelect(data)" 
-  class="{{configs.row_class_function(data)}}"
-  (keyup.enter)="saveRecord(data['idx'], data)"
-  (keydown.esc)="cancelEdit(data['idx'])">
+  class="{{configs.row_class_function(data)}}">
 
   <!-- If parent text is empty then hide -->
   <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
