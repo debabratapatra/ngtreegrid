@@ -3,5 +3,5 @@
     class="cell-default" 
     (click)="cellclick.emit($event)"
     (keydown.enter)="editcomplete.emit($event)"
-    (keydown.esc)="stopediting.emit()"
+    (keydown.esc)="canceledit.emit()"
     >

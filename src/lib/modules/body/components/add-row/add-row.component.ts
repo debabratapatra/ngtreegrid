@@ -29,6 +29,7 @@ export class AddRowComponent implements OnInit {
   group_keys: Object;
 
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
+  @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
   constructor(private ngtreegridService: NgtreegridService) { }
 

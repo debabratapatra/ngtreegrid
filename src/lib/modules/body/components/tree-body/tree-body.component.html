@@ -18,7 +18,8 @@
   [attr.id]="data['idx']" 
   (click)="rowSelect(data)" 
   class="{{configs.row_class_function(data)}}"
-  (keyup.enter)="saveRecord(data['idx'], data)">
+  (keyup.enter)="saveRecord(data['idx'], data)"
+  (keydown.esc)="cancelEdit(data['idx'])">
 
   <!-- If parent text is empty then hide -->
   <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
@@ -58,8 +59,9 @@
         [cell_value]="data[column.name]" 
         [row_data]="data" 
         [column]="column" 
-        (cellclick)="cellClick($event)" 
+        (cellclick)="cellClick($event)"
         [edit_on]="edit_tracker[data['idx']]"
+        (canceledit)="cancelEdit($event)"
         (editcomplete)="saveRecord($event)">
       </db-tree-cell>            
     </td>
