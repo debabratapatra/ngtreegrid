@@ -20,6 +20,7 @@
             [cell_value]="cell_value" 
             [column]="column" 
             [row_data]="row_data"
+            (canceledit)="canceledit.emit(row_data['idx'])"
             (editcomplete)="onEditComplete($event)">
         </db-custom-cell-editor-component>
         <db-tree-cell-editor 
@@ -27,6 +28,7 @@
             [cell_value]="cell_value" 
             [row_data]="row_data" 
             [column]="column"
+            (canceledit)="canceledit.emit(row_data['idx'])"
             (editcomplete)="onEditComplete($event)"
             >
         </db-tree-cell-editor>
