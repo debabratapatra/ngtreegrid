@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
-import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
+import { Column } from '../../models/Column.model';
 
 @Component({
   selector: 'db-tree-cell',
