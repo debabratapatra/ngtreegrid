@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Configs } from 'projects/ngtreegrid/src/lib/models/Configs.model';
+import { Configs } from '../../../../models/Configs.model';
 
 @Component({
   selector: '[db-tree-cell-actions]',

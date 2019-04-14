@@ -7,7 +7,7 @@ import {
     OnInit,
     OnDestroy,
 } from '@angular/core';
-import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
+import { Column } from '../../../../../models/Column.model';
 import { DefaultEditor } from '../default/default-editor.component';
 
 @Component({

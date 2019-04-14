@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
-import { NgtreegridService } from 'projects/ngtreegrid/src/lib/ngtreegrid.service';
-import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
-import { Configs } from 'projects/ngtreegrid/src/lib/models/Configs.model';
+import { NgtreegridService } from '../../../../ngtreegrid.service';
+import { Column } from '../../../../models/Column.model';
+import { Configs } from '../../../../models/Configs.model';
 
 @Component({
   selector: '[db-add-row]',

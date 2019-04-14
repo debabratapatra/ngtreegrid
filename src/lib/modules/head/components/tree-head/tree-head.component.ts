@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Column } from 'projects/ngtreegrid/src/lib/models/Column.model';
-import { Configs } from 'projects/ngtreegrid/src/lib/models/Configs.model';
-import { NgtreegridService } from 'projects/ngtreegrid/src/lib/ngtreegrid.service';
+import { Column } from '../../../../models/Column.model';
+import { Configs } from '../../../../models/Configs.model';
+import { NgtreegridService } from '../../../../ngtreegrid.service';
 
 @Component({
   selector: '[db-tree-head]',
