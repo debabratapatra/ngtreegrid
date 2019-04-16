@@ -1,5 +1,5 @@
 # ngtreegrid
-Angular Multi level Tree Grid. Simple, Light Weight and dependency free.
+Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free.
 
 ## Demo
 
