@@ -14,3 +14,5 @@ import { HeadModule } from './modules/head/head.module';
   exports: [NgtreegridComponent]
 })
 export class NgtreegridModule { }
+
+export {DefaultEditor} from './modules/cell/components/tree-cell-editor/default/default-editor.component';
