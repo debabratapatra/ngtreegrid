@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Column } from '../../../../models/Column.model';
 import { Configs } from '../../../../models/Configs.model';
-import { NgtreegridService } from '../../../../ngtreegrid.service';
 
 @Component({
   selector: '[db-tree-body]',
@@ -9,7 +8,6 @@ import { NgtreegridService } from '../../../../ngtreegrid.service';
   styleUrls: ['./tree-body.component.scss']
 })
 export class TreeBodyComponent implements OnInit {
-  show_add_row: boolean;
 
   @Input()
   processed_tree_data: Object;
@@ -33,6 +31,9 @@ export class TreeBodyComponent implements OnInit {
   configs: Configs;
 
   @Input()
+  internal_configs: any;
+
+  @Input()
   group_keys: Object;
 
   @Input()
@@ -47,13 +48,9 @@ export class TreeBodyComponent implements OnInit {
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
 
-  constructor(private ngtreegridService: NgtreegridService) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.ngtreegridService.show_add_row$.subscribe(bool => {
-      this.show_add_row = bool;
-    });
-  }
+  ngOnInit() {}
 
   fetchTraversedPaths(traversed_paths) {
     const paths = traversed_paths.split('.');

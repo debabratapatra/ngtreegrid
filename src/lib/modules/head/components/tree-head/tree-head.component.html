@@ -1,8 +1,8 @@
 <tr>
   <th *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" class="header-editable" 
     (click)="addRow()">
-    <i *ngIf="!show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
-    <span *ngIf="show_add_row || !configs.actions.add">Actions</span>
+    <i *ngIf="!internal_configs.show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
+    <span *ngIf="internal_configs.show_add_row || !configs.actions.add">Actions</span>
   </th>
   <th class="clear-right-border" width="{{configs.group_by_width}}"  *ngFor="let header of configs.group_by_header">
     {{header}}

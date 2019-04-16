@@ -5,11 +5,12 @@
 <tr db-add-row 
   [columns]="columns" 
   [configs]="configs" 
+  [internal_configs]="internal_configs" 
   [processed_data]="processed_data" 
   [data]="data"
   [group_keys]="group_keys"
   (rowadd)="rowAdd($event)"
-  *ngIf="show_add_row">
+  *ngIf="internal_configs.show_add_row">
 </tr>
 
 <tr 
