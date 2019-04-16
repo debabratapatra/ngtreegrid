@@ -17,6 +17,9 @@ export class NgtreegridComponent implements OnChanges {
   columns: Column[] = []; // Contains all column objects.
   current_sorted_column: any = {}; // Current sorted column object.
   edit_tracker: Object = {}; // Track Edit options.
+  internal_configs: any = {
+    show_add_row: false
+  };
   default_configs: Configs = {
     css: {
       expand_class: 'plus',

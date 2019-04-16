@@ -2,12 +2,14 @@
     <thead db-tree-head
       [columns]="columns" 
       [configs]="configs" 
+      [internal_configs]="internal_configs" 
       (sortcolumn)="sortColumn($event)">
     </thead>
     
     <tbody db-tree-body
       [columns]="columns" 
       [configs]="configs" 
+      [internal_configs]="internal_configs" 
       [processed_tree_data]="processed_tree_data" 
       [expand_tracker]="expand_tracker" 
       [edit_tracker]="edit_tracker" 

@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
-import { NgtreegridService } from '../../../../ngtreegrid.service';
 import { Column } from '../../../../models/Column.model';
 import { Configs } from '../../../../models/Configs.model';
 
@@ -28,16 +27,15 @@ export class AddRowComponent implements OnInit {
   @Input()
   group_keys: Object;
 
+  @Input()
+  internal_configs: any;
+
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private ngtreegridService: NgtreegridService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.ngtreegridService.show_add_row$.subscribe(bool => {
-      this.show_add_row = bool;
-    });
-
     this.columns.forEach(column => {
       this.row_data[column.name] = '';
     });
@@ -59,12 +57,13 @@ export class AddRowComponent implements OnInit {
     });
 
     this.data.push(this.row_data);
+    this.internal_configs.show_add_row = false;
 
     this.rowadd.emit(this.row_data);
   }
 
   cancelAddEdit() {
-    this.ngtreegridService.showAddRow(false);
+    this.internal_configs.show_add_row = false;
   }
 
 }
