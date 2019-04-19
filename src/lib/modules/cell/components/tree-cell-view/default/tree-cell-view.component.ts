@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Column } from '../../../../../models/Column.model';
 
 @Component({
   selector: 'db-tree-cell-view',
@@ -11,6 +12,9 @@ export class TreeCellViewComponent implements OnInit {
 
   @Input()
   row_data: any;
+
+  @Input()
+  column: Column;
 
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
 
