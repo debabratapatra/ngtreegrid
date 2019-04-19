@@ -1,3 +1,4 @@
+
 # ngtreegrid
 Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free.
 
@@ -53,13 +54,13 @@ Format of the data should be like below.
 3. **group_by_width(Optional):** Width of the GroupBy Column.
 4. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
 5. **row_class_function(Optional):** Callback function for row class. A custom class can be returned which will be added to the row.
-6. **row_edit_function(Optional):** Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See example for more information.
-7. **row_delete_function(Optional):** Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See example for more information.
+6. **row_edit_function(Optional):** Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information.
+7. **row_delete_function(Optional):** Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information.
 8. **actions(Optional):** Action column.
      * **add:** Boolean for add feature. It defaults to false.
      * **edit:** Boolean for edit feature. It defaults to false.
      * **delete:** Boolean for delete feature. It defaults to false.
-     * **resolve_add:** Manually resolve add(after making call to server). It defaults to false. See example for more information.
+     * **resolve_add:** Manually resolve add(after making call to server). It defaults to false. See <a href="https://ng-tree-grid.stackblitz.io/resolve_row_add">example</a> for more information.
      * **resolve_edit:** Manually resolve edit. It defaults to false.
      * **resolve_delete:** Manually resolve delete feature. It defaults to false.
 5. **css(Optional):** Css class for icons
@@ -77,6 +78,7 @@ Format of the data should be like below.
     * **hidden:** Show/Hide column. It defaults to false.
     * **sortable:** False to disable sorting of this column. By default columns are sortable.
     * **editable:** To make a specific column editable. By default columns are not editable. edit option needs to be true at grid level.
+    * **renderer:** It is a method to render customized value for the column. See this <a href="https://ng-tree-grid.stackblitz.io/basic_tree_grid">Example</a>.
     * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
     * **type:** Set to 'custom' to have custom component for the column. Otherwise leave blank.
     * **component:** Custome View Component. Mandatory if type is custom.
