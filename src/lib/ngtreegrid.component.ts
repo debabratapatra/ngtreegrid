@@ -95,9 +95,16 @@ export class NgtreegridComponent implements OnChanges {
       this.configs.group_by = [this.configs.group_by];
     }
 
-    if (!this.configs.group_by_header || this.configs.group_by_header.length === 0 ||
-      this.configs.group_by_header.length !== this.configs.group_by.length) {
+    if (!this.configs.group_by_header) {
       this.configs.group_by_header = this.configs.group_by;
+    } else {
+      if (!Array.isArray(this.configs.group_by_header)) {
+        this.configs.group_by_header = [this.configs.group_by_header];
+      }
+
+      if (this.configs.group_by_header.length !== this.configs.group_by.length) {
+        this.configs.group_by_header = this.configs.group_by;
+      }
     }
   }
 
