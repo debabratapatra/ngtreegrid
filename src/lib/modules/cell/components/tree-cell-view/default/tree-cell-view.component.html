@@ -1,1 +1,1 @@
-<div (click)="cellclick.emit($event)">{{cell_value}}</div>
+<div (click)="cellclick.emit($event)">{{column.renderer ? column.renderer(cell_value, row_data) : cell_value}}</div>
