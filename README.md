@@ -71,7 +71,7 @@ Format of the data should be like below.
     * **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
     * **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
     * **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
-6. **columns(Optional):** It is an object. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
+6. **columns(Optional):** It is an Array. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
     * **name:** key of the column
     * **header:** Header of the column that will be displayed in the table
     * **width:** Width of the column
@@ -107,8 +107,8 @@ Format of the data should be like below.
 };
 ```
 
-### Directive
-Add below directive to your html.
+### HTML
+Add below node to your html.
 ```
   <db-ngtreegrid [data]="products" [configs]="configs"></db-ngtreegrid>
 ```
