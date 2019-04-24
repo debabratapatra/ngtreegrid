@@ -1,6 +1,7 @@
 
 # ngtreegrid
-Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free.
+Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free. If data needs to be arranged hierarchically check out this 
+<a href="https://github.com/debabratapatra/angular-tree-grid">Package</a>.
 
 ## Demo
 
