@@ -19,11 +19,12 @@ tr {
         background-color: #e2e7eb;
     }
     span.parent_container {
-        padding-left: 45px;
+        padding-left: 10px;
     }            
     
     i.minus {
         border: 1px solid rgba(0, 0, 0, 0);
+        margin-right: 23px;
     
         &:before {
             content: '';  
@@ -44,8 +45,13 @@ tr td {
     position: relative;
     padding: 0.5rem 0.5rem;
 
+    &:nth-child(1) {
+        padding: 0.3rem;
+    }
+
     i.plus {
         border: 1px solid rgba(0, 0, 0, 0);
+        margin-right: 23px;
     
         &:before {
             content: '';

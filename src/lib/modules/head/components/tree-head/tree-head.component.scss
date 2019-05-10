@@ -11,8 +11,8 @@ tr {
         line-height: 1.25;
         color: #181818;
 
-        &.header-editable {
-            width: 70px;
+        &.action-header {
+            width: 50px;
         }
 
         &.sortable {
@@ -62,6 +62,10 @@ tr th {
     vertical-align: middle;
     position: relative;
     padding: 0.5rem 0.5rem;
+
+    &:nth-child(1) {
+        padding: 0.3rem;
+    }
 
     i.plus {
         border: 1px solid rgba(0, 0, 0, 0);
