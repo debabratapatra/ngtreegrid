@@ -26,12 +26,20 @@
     <!-- Leave left td for down level parents -->
     <td *ngFor="let level of range(data.level)" class="clear-right-border clear-left-border"></td>
     <td *ngIf="!expand_tracker[data.node_id]" (click)="expandRow(data.node_id, data)"  
-        class="clear-right-border clear-left-border" title="Expand row" >
+        [ngClass]="{
+          'clear-right-border': true, 
+          'clear-left-border': (configs.actions.edit || configs.actions.add || configs.actions.delete)
+        }" 
+        title="Expand row" >
         <i class="{{this.configs.css.expand_class}}" aria-hidden="true"></i>
         <span class="parent_container">{{data.node_text}}</span>
     </td>
     <td *ngIf="expand_tracker[data.node_id]" (click)="collapseRow(data.node_id, data)"  
-      class="clear-right-border clear-left-border" title="Collapse row">
+        [ngClass]="{
+          'clear-right-border': true, 
+          'clear-left-border': (configs.actions.edit || configs.actions.add || configs.actions.delete)
+        }"
+        title="Collapse row">
         <i class="{{this.configs.css.collapse_class}}" aria-hidden="true"></i>
         <span class="parent_container">{{data.node_text}}</span>
     </td>
@@ -56,7 +64,13 @@
       (canceledit)="cancelEdit($event)" 
       (editcomplete)="saveRecord($event)">
     </td>
-    <td class="clear-right-border clear-left-border" *ngFor="let header of configs.group_by"></td>
+    <td 
+      [ngClass]="{
+        'clear-right-border': true, 
+        'clear-left-border': (configs.actions.edit || configs.actions.add || configs.actions.delete)
+      }" 
+      *ngFor="let header of configs.group_by">
+    </td>
     <td class="clear-left-border" *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">
       <db-tree-cell 
         [cell_value]="data[column.name]" 
