@@ -28,7 +28,10 @@ export class NgtreegridComponent implements OnChanges {
       edit_class: '',
       delete_class: '',
       save_class: '',
-      cancel_class: ''
+      cancel_class: '',
+      row_selection_class: 'selected',
+      header_class: '',
+      parent_class: 'parent'
     },
     actions: {
       edit: false,
