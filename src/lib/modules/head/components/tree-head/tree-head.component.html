@@ -1,4 +1,4 @@
-<tr>
+<tr [ngClass]="configs.css.header_class">
   <th *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" class="action-header" 
     (click)="addRow()">
     <i *ngIf="!internal_configs.show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>

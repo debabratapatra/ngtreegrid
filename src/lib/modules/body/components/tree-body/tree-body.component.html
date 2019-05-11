@@ -14,8 +14,8 @@
 </tr>
 
 <tr 
-  *ngFor="let data of processed_data" 
-  [ngClass]="{'child': !data.parent, 'parent' : data.parent, 'selected': data.row_selected}" 
+  *ngFor="let data of processed_data"
+  [ngClass]="prepareRowClass(data)" 
   [attr.id]="data['idx']" 
   (click)="rowSelect(data)" 
   class="{{configs.row_class_function(data)}}">

@@ -153,4 +153,11 @@ export class TreeBodyComponent implements OnInit {
     this.edit_tracker[index] = false;
   }
 
+  prepareRowClass(data) {
+    const row_class = {'child': !data.parent};
+    row_class[this.configs.css.parent_class] = data.parent;
+    row_class[this.configs.css.row_selection_class] = data.row_selected;
+    return row_class;
+  }
+
 }
