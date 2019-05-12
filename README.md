@@ -49,47 +49,59 @@ Format of the data should be like below.
 ```
 
 ### Configs
+#### Grid Configurations
+| Field  |Type   |Default |  Description |
+|---|---|---|---|
+| *group_by  | string/Array  |  n/a | t's a mandatory field. It is a column key. It can be an array of columns for multilevel group_by.  |
+|  group_by_header |  string/Array | n/a  | Header for the GroupBy Column. It can be an array of Column Headers.  |
+|  group_by_width |  string/Array | n/a  |  Width of the GroupBy Column. |
+|  data_loading_text |  string | 'Loading...'  |  Loading place holder. This will be displayed when data is empty. |
+|  row_class_function |  Function | n/a  |  Callback function for row class. A custom class can be returned which will be added to the row. |
+|  row_edit_function |  Function | n/a  |  Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
+|  row_delete_function |  Function | n/a  |  Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
+| actions  | Object  |  n/a | Settings for Action column. See Below  |
+| css  | Object  |  n/a | Css class for icons. See Below  |
+| columns  | Object  |  n/a | It is an Array. If not provided all keys of the data Array will be used as Column Headers. Please find the description below  |
+##### actions
+| Field  |Type   |Default |  Description |
+|---|---|---|---|
+| add  | boolean  |  false | It enables add feature.  |
+| edit  | boolean  |  false | It enables edit feature.  |
+| delete  | boolean  |  false | It enables delete feature.  |
+| resolve_add  | boolean  |  false | Manually resolve add(after making call to server). It defaults to false. See <a href="https://ng-tree-grid.stackblitz.io/resolve_row_add">example</a> for more information.  |
+| resolve_edit  | boolean  |  false | Manually resolve edit.  |
+| resolve_delete  | boolean  |  false | Manually resolve delete feature.  |
+##### css
+| Field  |Type   |Default |  Description |
+|---|---|---|---|
+| expand_class  | string  |  plus | Icon class for Expand icon. Font Awesome class can be given.  |
+| collapse_class  | string  |  minus | Icon class for Collapse icon. Font Awesome class can be given.  |
+| add_class  | string  |  plus | Icon class for Add icon. Font Awesome class can be given.  |
+| edit_class  | string  |  edit | Icon class for Edit icon. Font Awesome class can be given.  |
+| delete_class  | string  |  delete | Icon class for Delete icon. Font Awesome class can be given.  |
+| save_class  | string  |  save | Icon class for Save icon. Font Awesome class can be given.  |
+| cancel_class  | string  |  cancel | Icon class for Cancel icon. Font Awesome class can be given.  |
+| row_selection_class  | string  |  n/a | CSS Class for selected row.  |
+| header_class  | string  |  n/a | CSS Class for header.  |
+| parent_class  | string  |  n/a | Class for parent(group by) row.  |
+##### columns
+| Field  |Type   |Default |  Description |
+|---|---|---|---|
+| name  | string  |  n/a | key of the column.  |
+| header  | string  |  n/a | Header of the column that will be displayed in the table.  |
+| width  | string  |  n/a | Width of the column with unit(px/rem).  |
+| hidden  | boolean  |  false | Show/Hide column.  |
+| filter  | boolean  |  true | Enable/Disable filter.  |
+| editable  | boolean  |  false | To make a specific column editable. By default columns are not editable. edit option needs to be true at **grid** level.  |
+| sortable  | boolean  |  false | To make a specific column sortable.  |
+| renderer  | Function  |  n/a | It is a method to render customized value for the column. See this <a href="https://ng-tree-grid.stackblitz.io/basic_tree_grid">Example</a>.  |
+| group_aggregator  | Function  |  n/a | It is a method which can be used to show data at the parent level for the corresponding column. (See  <a href="https://ng-tree-grid.stackblitz.io/">Example</a>. for better understanding). This field for the parent will be left blank if not provided.  |
+| type  | string  |  '' | Set to 'custom' to have custom component for the column. Otherwise leave blank.  |
+| component  | Object  |  n/a | Custom View Component. Mandatory if type is custom.See this <a href="https://ng-tree-grid.stackblitz.io/custom_view_component">Example</a>.|
+| editor  | Object  |  n/a | Custom Editor Component. If given custom editor component will be used instead of default editor. See this <a href="https://ng-tree-grid.stackblitz.io/custom_edit_component">Example</a>.  |
+| onComponentInit  | Function  |  n/a | Callback function for the column on component init.  |
 
-1. **group_by(Mandatory):** It's a mandatory field. It is a column key. It can be an array of columns for multilevel group_by.
-2. **group_by_header(Optional):** Header for the GroupBy Column. It can be an array of Column Headers.
-3. **group_by_width(Optional):** Width of the GroupBy Column.
-4. **data_loading_text(Optional):** Loading place holder. This will be displayed when data is empty.
-5. **row_class_function(Optional):** Callback function for row class. A custom class can be returned which will be added to the row.
-6. **row_edit_function(Optional):** Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information.
-7. **row_delete_function(Optional):** Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information.
-8. **actions(Optional):** Action column.
-     * **add:** Boolean for add feature. It defaults to false.
-     * **edit:** Boolean for edit feature. It defaults to false.
-     * **delete:** Boolean for delete feature. It defaults to false.
-     * **resolve_add:** Manually resolve add(after making call to server). It defaults to false. See <a href="https://ng-tree-grid.stackblitz.io/resolve_row_add">example</a> for more information.
-     * **resolve_edit:** Manually resolve edit. It defaults to false.
-     * **resolve_delete:** Manually resolve delete feature. It defaults to false.
-5. **css(Optional):** Css class for icons
-    * **expand_class(Optional):** Icon class for Expand icon. Font Awesome class can be given.
-    * **collapse_class(Optional):** Icon class for Collapse icon. Font Awesome class can be given.
-    * **add_class(Optional):** Icon class for Add icon. Font Awesome class can be given.
-    * **edit_class(Optional):** Icon class for Edit icon. Font Awesome class can be given.
-    * **delete_class(Optional):** Icon class for Delete icon. Font Awesome class can be given.
-    * **save_class(Optional):** Icon class for Save icon. Font Awesome class can be given.
-    * **cancel_class(Optional):** Icon class for Cancel icon. Font Awesome class can be given.
-    * **row_selection_class(Optional):** Class for selected row.
-    * **header_class(Optional):** Class for header.
-    * **parent_class(Optional):** Class for parent(group by) row.
-6. **columns(Optional):** It is an Array. If not provided all keys of the data Array will be used as Column Headers. Please find the description below.
-    * **name:** key of the column
-    * **header:** Header of the column that will be displayed in the table
-    * **width:** Width of the column
-    * **hidden:** Show/Hide column. It defaults to false.
-    * **sortable:** False to disable sorting of this column. By default columns are sortable.
-    * **editable:** To make a specific column editable. By default columns are not editable. edit option needs to be true at grid level.
-    * **renderer:** It is a method to render customized value for the column. See this <a href="https://ng-tree-grid.stackblitz.io/basic_tree_grid">Example</a>.
-    * **group_aggregator:** It is a method which can be used to show data at the parent level for the corresponding column. (See example for better understanding). This field for the parent will be left blank if not provided.
-    * **type:** Set to 'custom' to have custom component for the column. Otherwise leave blank.
-    * **component:** Custome View Component. Mandatory if type is custom.
-    * **editor:** Custome Editor Component. If given custom editor component will be used instead of default editor. See exampole.
-    * **onComponentInit:** Callback function for the column on component init.
-
-#### Example
+#### Basic Example
 ```
   configs: any = {      
       'group_by': 'product_type',
