@@ -130,13 +130,15 @@ Add below node to your html.
 ```
 ### Events
 
-1. **expand:** Event fires when parent is expanded.
-2. **collapse:** Event fires when parent is collapsed.
-3. **cellclick:** Event fires when a child cell is clicked.
-3. **rowselect:** Event fires when a row is selected.
-4. **rowsave:** Event fires when a row is saved.
-5. **rowdelete:** Event fires when a row is deleted.
-6. **rowadd:** Event fires when a row is added.
+| Event  |Arguments   | Description |
+|---|---|---|
+| expand  | **row_data:** Expanded Row | Event fires when parent is expanded.  |
+| collapse  | **row_data:** Collapsed Row | Event fires when parent is collapsed.  |
+| cellclick  | **event** Consist of: <ul><li> **row:** Selected Row </li><li> **column:** Selected Column</li></ul> | Event fires when a child cell is clicked.  |
+| rowselect  | **row:** Selected Row | Event fires when a row is selected.  |
+| rowsave  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is saved.  |
+| rowdelete  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is deleted.  |
+| rowadd  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is added.  |
 
 ## License
 This project is licensed under the MIT license.
