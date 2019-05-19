@@ -191,4 +191,12 @@ export class NgtreegridComponent implements OnChanges {
     }
   }
 
+  expandAll() {
+    this.ngtreegridService.expandAll(this.expand_tracker);
+  }
+
+  collapseAll() {
+    this.ngtreegridService.collapseAll(this.expand_tracker);
+  }
+
 }

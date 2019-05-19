@@ -185,4 +185,21 @@ export class NgtreegridService {
   isEmpty(value) {
     return value === '' || value === undefined || value === 'undefined';
   }
+
+  expandAll(expand_tracker) {
+    for (const key in expand_tracker) {
+      if (expand_tracker.hasOwnProperty(key)) {
+        expand_tracker[key] = true;
+      }
+    }
+  }
+
+  collapseAll(expand_tracker) {
+    for (const key in expand_tracker) {
+      if (expand_tracker.hasOwnProperty(key)) {
+        expand_tracker[key] = false;
+      }
+    }
+    expand_tracker['data'] = true;
+  }
 }
