@@ -149,8 +149,12 @@ export class TreeBodyComponent implements OnInit {
     }
   }
 
-  cancelEdit(index) {
+  cancelEdit(row_data) {
+    const index = row_data['idx'];
     this.edit_tracker[index] = false;
+
+    // Cancel all changes ie copy from back up.
+    Object.assign(row_data, this.internal_configs.current_edited_row);
   }
 
   prepareRowClass(data) {
