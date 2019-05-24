@@ -1,6 +1,6 @@
 {
   "name": "ngtreegrid",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "homepage": "https://github.com/debabratapatra/ngtreegrid",  
   "license" : "MIT",
   "peerDependencies": {
@@ -17,6 +17,6 @@
   },
   "keywords": ["Angular", "TreeGrid", "MultilevelTree", "Tree", "Grouping", "Grid", "ngtreegrid",
     "Angular Tree Component", "Angular Tree Grid Directive", "Angular4", "Angular5", "Angular6", "Angular7",
-    "Opensource"]
+    "Opensource", "Angular Tree Grid"]
   
 }

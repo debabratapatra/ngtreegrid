@@ -22,6 +22,9 @@ export class TreeCellActionsComponent implements OnInit {
   @Input()
   data: any;
 
+  @Input()
+  internal_configs: any;
+
   @Output() editcomplete: EventEmitter<any> = new EventEmitter();
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
@@ -30,8 +33,10 @@ export class TreeCellActionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  enableEdit(index) {
+  enableEdit(row_data) {
+    const index = row_data['idx'];
     this.edit_tracker[index] = true;
+    this.internal_configs.current_edited_row = {...row_data};
   }
 
   findRecordIndex(idx: number) {
