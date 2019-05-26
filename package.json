@@ -1,7 +1,7 @@
 {
   "name": "ngtreegrid",
   "version": "3.1.2",
-  "homepage": "https://github.com/debabratapatra/ngtreegrid",  
+  "homepage": "https://github.com/debabratapatra/ngtreegrid#readme",  
   "license" : "MIT",
   "peerDependencies": {
     "@angular/common": "^7.0.0",
@@ -9,14 +9,19 @@
   },
   "author": { 
     "name" : "Debabrata Patra",
-    "email" : "debabratapatra12@gmail.com"
+    "email" : "debabratapatra12@gmail.com",
+    "url" : "https://debabratapatra.github.io/"
   },
   "repository": {
     "type" : "git",
     "url" : "https://github.com/debabratapatra/ngtreegrid.git"
   },
-  "keywords": ["Angular", "TreeGrid", "MultilevelTree", "Tree", "Grouping", "Grid", "ngtreegrid",
-    "Angular Tree Component", "Angular Tree Grid Directive", "Angular4", "Angular5", "Angular6", "Angular7",
+  "bugs": {
+    "url" : "https://github.com/debabratapatra/ngtreegrid/issues",
+    "email" : "debabratapatra12@gmail.com"
+  },
+  "keywords": ["Angular", "Tree Grid", "Multi-level-Tree", "Tree", "Grouping", "Grid", "ngtreegrid",
+    "Angular Tree Component", "Angular Tree Grid Directive", "Angular 4", "Angular 5", "Angular 6", "Angular 7",
     "Opensource", "Angular Tree Grid"]
   
 }
