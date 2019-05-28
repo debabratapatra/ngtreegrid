@@ -57,7 +57,8 @@ Format of the data should be like below.
 |---|---|---|---|
 | *group_by  | string/Array  |  n/a | t's a mandatory field. It is a column key. It can be an array of columns for multilevel group_by.  |
 |  group_by_header |  string/Array | n/a  | Header for the GroupBy Column. It can be an array of Column Headers.  |
-|  group_by_width |  string/Array | n/a  |  Width of the GroupBy Column. |
+|  group_by_width |  string/Array | 'auto' |  Width of the GroupBy Column. It can be an array of GroupBy Column widths.|
+|  action_column_width |  string | 50px  |  Width of the Action Column.|
 |  data_loading_text |  string | 'Loading...'  |  Loading place holder. This will be displayed when data is empty. |
 |  row_class_function |  Function | n/a  |  Callback function for row class. A custom class can be returned which will be added to the row. |
 |  row_edit_function |  Function | n/a  |  Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
