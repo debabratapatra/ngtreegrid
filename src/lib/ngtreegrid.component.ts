@@ -44,7 +44,8 @@ export class NgtreegridComponent implements OnChanges {
     data_loading_text: 'Loading...',
     group_by: [],
     group_by_header: [],
-    group_by_width: 'auto',
+    action_column_width: '50px',
+    group_by_width: [],
     row_class_function: () => true,
     row_edit_function: () => true,
     row_delete_function: () => true,
@@ -98,6 +99,7 @@ export class NgtreegridComponent implements OnChanges {
       this.configs.group_by = [this.configs.group_by];
     }
 
+    // Set default header for group_by field.
     if (!this.configs.group_by_header) {
       this.configs.group_by_header = this.configs.group_by;
     } else {
@@ -107,6 +109,19 @@ export class NgtreegridComponent implements OnChanges {
 
       if (this.configs.group_by_header.length !== this.configs.group_by.length) {
         this.configs.group_by_header = this.configs.group_by;
+      }
+    }
+
+    // Set default width for group_by field.
+    if (!this.configs.group_by_width) {
+      this.configs.group_by_width = this.configs.group_by.map( _ => 'auto');
+    } else {
+      if (!Array.isArray(this.configs.group_by_width)) {
+        this.configs.group_by_width = [this.configs.group_by_width];
+      }
+
+      if (this.configs.group_by_width.length !== this.configs.group_by.length) {
+        this.configs.group_by_width = this.configs.group_by.map( _ => 'auto');
       }
     }
   }

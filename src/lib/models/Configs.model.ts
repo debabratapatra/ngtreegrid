@@ -9,7 +9,8 @@ export interface Configs {
     data_loading_text: string;
     group_by: string[];
     group_by_header: string[];
-    group_by_width: string;
+    group_by_width: string[];
+    action_column_width: string;
     row_class_function: Function;
     row_edit_function: Function;
     row_delete_function: Function;
