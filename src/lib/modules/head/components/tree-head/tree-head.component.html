@@ -1,10 +1,15 @@
 <tr [ngClass]="configs.css.header_class">
-  <th *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" class="action-header" 
+  <th 
+    *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" 
+    class="action-column"
+    width="{{configs.action_column_width}}"
     (click)="addRow()">
     <i *ngIf="!internal_configs.show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
     <span *ngIf="internal_configs.show_add_row || !configs.actions.add">Actions</span>
   </th>
-  <th class="clear-right-border" width="{{configs.group_by_width}}"  *ngFor="let header of configs.group_by_header">
+  <th class="clear-right-border group-by-column" 
+      width="{{configs.group_by_width[i]}}"  
+      *ngFor="let header of configs.group_by_header; let i = index">
     {{header}}
   </th>
   <th *ngFor="let column of columns" (click)="sortColumn(column)" width="{{column.width ? column.width : 'auto'}}"

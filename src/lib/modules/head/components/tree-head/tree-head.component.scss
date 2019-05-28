@@ -11,9 +11,7 @@ tr {
         line-height: 1.25;
         color: #181818;
 
-        &.action-header {
-            width: 50px;
-        }
+        &.action-column {}
 
         &.sortable {
             cursor: pointer;
