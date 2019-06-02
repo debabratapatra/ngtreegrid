@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core
 import { Column } from './models/Column.model';
 import { Configs } from './models/Configs.model';
 import { NgtreegridService } from './ngtreegrid.service';
+import { Store } from './store/store';
 
 @Component({
   selector: 'db-ngtreegrid',
@@ -57,6 +58,7 @@ export class NgtreegridComponent implements OnChanges {
     hidden: false,
     sortable: true
   };
+  store = new Store(this.ngtreegridService);
 
   @Output() expand: EventEmitter<any> = new EventEmitter();
   @Output() collapse: EventEmitter<any> = new EventEmitter();
@@ -85,7 +87,7 @@ export class NgtreegridComponent implements OnChanges {
     }
 
     this.setColumnNames();
-    this.ngtreegridService.groupData(this.data, this.configs.group_by, this);
+    this.store.groupData(this.data, this.configs.group_by, this);
   }
 
   setDefaultConfigs() {
@@ -178,13 +180,13 @@ export class NgtreegridComponent implements OnChanges {
     this.current_sorted_column = column;
 
     // Sort array.
-    this.ngtreegridService.processData(this, column.sort_type, column.name);
+    this.store.processData(this, column.sort_type, column.name);
   }
 
   addRowToGrid() {
     this.processed_tree_data = {};
     this.edit_tracker = {};
-    this.ngtreegridService.groupData(this.data, this.configs.group_by, this);
+    this.store.groupData(this.data, this.configs.group_by, this);
     this.ngtreegridService.showAddRow(false);
   }
 
