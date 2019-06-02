@@ -9,4 +9,5 @@ export interface CssClass {
     row_selection_class: string;
     header_class: string;
     parent_class: string;
+    row_filter_class: string;
 }

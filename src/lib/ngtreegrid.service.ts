@@ -5,16 +5,10 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class NgtreegridService {
-  private show_add_row = new Subject<boolean>();
-  show_add_row$ = this.show_add_row.asObservable();
   private display_data_observable = new Subject<any[]>();
   display_data_observable$ = this.display_data_observable.asObservable();
 
   constructor() { }
-
-  showAddRow(bool: boolean) {
-    this.show_add_row.next(bool);
-  }
 
   updateDisplayDataObservable(display_data: any[]) {
     this.display_data_observable.next(display_data);

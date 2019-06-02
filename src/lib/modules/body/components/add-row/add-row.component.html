@@ -9,8 +9,8 @@
   </div>
 </td>
 <td *ngFor="let group_by of configs.group_by">
-  <select [attr.id]="processed_data.length+group_by">
-    <option *ngFor="let key of group_keys[group_by]">
+  <select [attr.id]="store.processed_data.length+group_by">
+    <option *ngFor="let key of store.group_keys[group_by]">
     {{key}}
     </option>
   </select>
