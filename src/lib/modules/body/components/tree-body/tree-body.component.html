@@ -21,7 +21,7 @@
 </tr>
 
 <tr 
-  *ngFor="let data of store.processed_data"
+  *ngFor="let data of store.display_data"
   [ngClass]="prepareRowClass(data)" 
   [attr.id]="data['idx']" 
   (click)="rowSelect(data)" 

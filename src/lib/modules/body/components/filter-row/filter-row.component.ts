@@ -33,6 +33,7 @@ export class FilterRowComponent implements OnInit {
     this.columns.forEach(column => {
       this.search_values[column.name] = '';
     });
+    console.log(this.configs.group_by);
   }
 
   filter() {

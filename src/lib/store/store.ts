@@ -39,6 +39,10 @@ export class Store {
 
     filterBy(fields, search_values) {
         this.display_data = this.processed_data.filter((record) => {
+            if (record.parent) {
+              return true;
+            }
+
             let found = true;
             for (let index = 0; index < fields.length; index++) {
                 let field_value = record[fields[index]];
