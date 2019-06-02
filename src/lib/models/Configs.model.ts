@@ -8,6 +8,7 @@ export interface Configs {
     actions: Actions;
     data_loading_text: string;
     filter: boolean;
+    multi_select: boolean;
     group_by: string[];
     group_by_header: string[];
     group_by_width: string[];

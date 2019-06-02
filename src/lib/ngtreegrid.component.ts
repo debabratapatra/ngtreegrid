@@ -43,6 +43,7 @@ export class NgtreegridComponent implements OnChanges {
     group_by_header: [],
     action_column_width: '50px',
     filter: false,
+    multi_select: false,
     group_by_width: [],
     row_class_function: () => true,
     row_edit_function: () => true,
@@ -63,6 +64,9 @@ export class NgtreegridComponent implements OnChanges {
   @Output() collapse: EventEmitter<any> = new EventEmitter();
   @Output() cellclick: EventEmitter<any> = new EventEmitter();
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
+  @Output() rowdeselect: EventEmitter<any> = new EventEmitter();
+  @Output() rowselectall: EventEmitter<any> = new EventEmitter();
+  @Output() rowdeselectall: EventEmitter<any> = new EventEmitter();
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
   @Output() rowsave: EventEmitter<any> = new EventEmitter();
   @Output() rowdelete: EventEmitter<any> = new EventEmitter();
@@ -93,6 +97,10 @@ export class NgtreegridComponent implements OnChanges {
     this.store.processed_data = [];
     this.store.processed_tree_data = {};
     this.configs = Object.assign({}, this.default_configs, this.configs);
+
+    // Deep clone.
+    this.configs.actions = Object.assign({}, this.default_configs.actions, this.configs.actions);
+    this.configs.css = Object.assign({}, this.default_configs.css, this.configs.css);
 
     if (!this.configs.group_by) {
       window.console.error('group_by field is mandatory!');
@@ -212,6 +220,16 @@ export class NgtreegridComponent implements OnChanges {
 
   collapseAll() {
     this.ngtreegridService.collapseAll(this.expand_tracker);
+  }
+
+  selectAll() {
+    this.store.selectAll();
+    this.internal_configs.all_selected = true;
+  }
+
+  deSelectAll() {
+    this.store.deSelectAll();
+    this.internal_configs.all_selected = false;
   }
 
 }

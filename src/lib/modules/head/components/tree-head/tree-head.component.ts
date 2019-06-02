@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Column } from '../../../../models/Column.model';
 import { Configs } from '../../../../models/Configs.model';
+import { Store } from '../../../../Store/Store';
 
 @Component({
   selector: '[db-tree-head]',
@@ -8,6 +9,9 @@ import { Configs } from '../../../../models/Configs.model';
   styleUrls: ['./tree-head.component.scss']
 })
 export class TreeHeadComponent implements OnInit {
+  @Input()
+  store: Store;
+
   @Input()
   columns: Column[];
 
@@ -21,6 +25,12 @@ export class TreeHeadComponent implements OnInit {
 
   show_add_row: boolean;
 
+  @Input()
+  rowselectall: EventEmitter<any>;
+
+  @Input()
+  rowdeselectall: EventEmitter<any>;
+
   constructor() { }
 
   ngOnInit() {}
@@ -31,6 +41,16 @@ export class TreeHeadComponent implements OnInit {
 
   sortColumn(column) {
     this.sortcolumn.emit(column);
+  }
+
+  selectAll(e) {
+    if (e.target.checked) {
+      this.store.selectAll();
+      this.rowselectall.emit(e);
+    } else {
+      this.store.deSelectAll();
+      this.rowdeselectall.emit(e);
+    }
   }
 
 }

@@ -34,6 +34,9 @@ export class TreeBodyComponent implements OnInit {
   @Input()
   rowsave: EventEmitter<any>;
 
+  @Input()
+  rowdeselect: EventEmitter<any>;
+
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
   @Output() rowexpand: EventEmitter<any> = new EventEmitter();
   @Output() rowcollapse: EventEmitter<any> = new EventEmitter();
@@ -101,18 +104,6 @@ export class TreeBodyComponent implements OnInit {
     return array;
   }
 
-  rowSelect(row) {
-    if (row.parent) {
-      return;
-    }
-
-    this.store.processed_data.forEach(data => {
-      data.row_selected = false;
-    });
-    row.row_selected = true;
-    this.rowselect.emit(row);
-  }
-
   cellClick(rowCol) {
     this.cellclick.emit(rowCol);
   }
@@ -154,6 +145,47 @@ export class TreeBodyComponent implements OnInit {
     row_class[this.configs.css.parent_class] = data.parent;
     row_class[this.configs.css.row_selection_class] = data.row_selected;
     return row_class;
+  }
+
+  selectRow(row_data, event) {
+    if (row_data.parent) {
+      return;
+    }
+
+    this.store.processed_data.forEach(data => {
+      data.row_selected = false;
+    });
+    row_data.row_selected = true;
+    this.rowselect.emit({data: row_data, event: event});
+  }
+
+  selectRowOnCheck(row_data, event) {
+    if (event.target.checked) {
+      row_data.row_selected = true;
+      this.rowselect.emit({data: row_data, event: event});
+    } else {
+      row_data.row_selected = false;
+      this.rowdeselect.emit({data: row_data, event: event});
+    }
+
+    this.setSelectAllConfig();
+  }
+
+  /**
+   * Set Select All config on Select change.
+   *
+   */
+  setSelectAllConfig() {
+    let select_all = true;
+
+    this.store.getDisplayData().forEach(data => {
+      if (!data.row_selected) {
+        select_all = false;
+      }
+    });
+
+    this.internal_configs.all_selected = select_all;
+
   }
 
 }
