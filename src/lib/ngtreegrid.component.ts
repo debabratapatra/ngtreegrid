@@ -10,13 +10,8 @@ import { Store } from './store/store';
   styleUrls: ['./ngtreegrid.component.scss']
 })
 export class NgtreegridComponent implements OnChanges {
-
-  processed_data: any[] = []; // Data after processed for table.
   expand_tracker: Object = {}; // Track Expand or collapse.
-  processed_tree_data: Object = {}; // Contains all data by keys.
-  group_keys: Object = {}; // Contains all group keys.
   columns: Column[] = []; // Contains all column objects.
-  current_sorted_column: any = {}; // Current sorted column object.
   edit_tracker: Object = {}; // Track Edit options.
   internal_configs: any = {
     show_add_row: false
@@ -32,7 +27,8 @@ export class NgtreegridComponent implements OnChanges {
       cancel_class: '',
       row_selection_class: 'selected',
       header_class: '',
-      parent_class: 'parent'
+      parent_class: 'parent',
+      row_filter_class: ''
     },
     actions: {
       edit: false,
@@ -46,6 +42,7 @@ export class NgtreegridComponent implements OnChanges {
     group_by: [],
     group_by_header: [],
     action_column_width: '50px',
+    filter: false,
     group_by_width: [],
     row_class_function: () => true,
     row_edit_function: () => true,
@@ -56,6 +53,8 @@ export class NgtreegridComponent implements OnChanges {
     sort_type: null,
     editable: false,
     hidden: false,
+    filter: true,
+    case_sensitive_filter: false,
     sortable: true
   };
   store = new Store(this.ngtreegridService);
@@ -87,12 +86,12 @@ export class NgtreegridComponent implements OnChanges {
     }
 
     this.setColumnNames();
-    this.store.groupData(this.data, this.configs.group_by, this);
+    this.store.groupData(this.data, this.configs, this.internal_configs, this.edit_tracker, this.expand_tracker);
   }
 
   setDefaultConfigs() {
-    this.processed_data = [];
-    this.processed_tree_data = {};
+    this.store.processed_data = [];
+    this.store.processed_tree_data = {};
     this.configs = Object.assign({}, this.default_configs, this.configs);
 
     if (!this.configs.group_by) {
@@ -177,17 +176,16 @@ export class NgtreegridComponent implements OnChanges {
     column.sort_type = column.sorted ? !column.sort_type : 1;
     column.sorted = 1;
 
-    this.current_sorted_column = column;
+    this.internal_configs.current_sorted_column = column;
 
     // Sort array.
-    this.store.processData(this, column.sort_type, column.name);
+    // this.store.processData(this, column.sort_type, column.name);
   }
 
   addRowToGrid() {
-    this.processed_tree_data = {};
+    this.store.processed_tree_data = {};
     this.edit_tracker = {};
-    this.store.groupData(this.data, this.configs.group_by, this);
-    this.ngtreegridService.showAddRow(false);
+    this.store.groupData(this.data, this.configs, this.internal_configs, this.edit_tracker, this.expand_tracker);
   }
 
   onRowAdd(rec) {

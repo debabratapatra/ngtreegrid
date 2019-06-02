@@ -4,6 +4,8 @@ export interface Column {
     sorted: number;
     sort_type: string;
     editable: Boolean;
+    filter: Boolean;
+    case_sensitive_filter: Boolean;
     hidden: Boolean;
     sortable: Boolean;
     renderer?: any;

@@ -2,10 +2,12 @@ import { NgtreegridService } from '../ngtreegrid.service';
 import { Configs } from '../models/Configs.model';
 
 export class Store {
-    processed_data: any[];
-    raw_data: any[];
+    processed_data: any[] = [];
+    raw_data: any[] = [];
     display_data: any[];
     configs: Configs;
+    group_keys: Object = {}; // Contains all group keys.
+    processed_tree_data: Object = {}; // Contains all group keys.
 
     constructor(private ngTreeGridService: NgtreegridService) {}
 
@@ -21,51 +23,51 @@ export class Store {
         return this.processed_data;
     }
 
-    // setProcessedData(processed_data) {
-    //     this.processed_data = processed_data;
-    //     this.setDisplayData([...processed_data]);
-    // }
+    setProcessedData(processed_data) {
+        this.processed_data = processed_data;
+        this.setDisplayData([...processed_data]);
+    }
 
     getDisplayData() {
         return this.display_data;
     }
 
-    // setDisplayData(display_data) {
-    //     this.display_data = display_data;
-    //     this.angularTreeGridService.updateDisplayDataObservable(this.display_data);
-    // }
+    setDisplayData(display_data) {
+        this.display_data = display_data;
+        this.ngTreeGridService.updateDisplayDataObservable(this.display_data);
+    }
 
-    // filterBy(fields, search_values) {
-    //     this.display_data = this.processed_data.filter((record) => {
-    //         let found = true;
-    //         for (let index = 0; index < fields.length; index++) {
-    //             let field_value = record[fields[index]];
-    //             let search_value = search_values[index];
+    filterBy(fields, search_values) {
+        this.display_data = this.processed_data.filter((record) => {
+            let found = true;
+            for (let index = 0; index < fields.length; index++) {
+                let field_value = record[fields[index]];
+                let search_value = search_values[index];
 
-    //             // If blank then continue.
-    //             if (!search_value) {
-    //                 continue;
-    //             }
+                // If blank then continue.
+                if (!search_value) {
+                    continue;
+                }
 
-    //             if (typeof(field_value) === 'number') {
-    //                 if (field_value !== parseInt(search_value, 10)) {
-    //                     found = false;
-    //                 }
-    //             } else {
-    //                 const column = this.configs.columns[index];
-    //                 if (!column.case_sensitive_filter) {
-    //                     field_value = field_value.toLowerCase();
-    //                     search_value = search_value.toLowerCase();
-    //                 }
-    //                 if (field_value.indexOf(search_value) === -1) {
-    //                     found = false;
-    //                 }
-    //             }
-    //         }
-    //         return found;
-    //     });
-    //     this.angularTreeGridService.updateDisplayDataObservable(this.display_data);
-    // }
+                if (typeof(field_value) === 'number') {
+                    if (field_value !== parseInt(search_value, 10)) {
+                        found = false;
+                    }
+                } else {
+                    const column = this.configs.columns[index];
+                    if (!column.case_sensitive_filter) {
+                        field_value = field_value.toLowerCase();
+                        search_value = search_value.toLowerCase();
+                    }
+                    if (field_value.indexOf(search_value) === -1) {
+                        found = false;
+                    }
+                }
+            }
+            return found;
+        });
+        this.ngTreeGridService.updateDisplayDataObservable(this.display_data);
+    }
 
     selectAll() {
         this.display_data.forEach(data => {
@@ -86,9 +88,9 @@ export class Store {
    * @param index Current index of the leaf node
    * @param group_by_data Generated group by data for the current leaf node
    */
-  traverseRootData(temp_traversed_paths: string[], index: number, group_by_data, tree_grid) {
+  traverseRootData(temp_traversed_paths: string[], index: number, group_by_data) {
     const paths = temp_traversed_paths[index].split('.');
-    let root_keys = tree_grid.processed_tree_data;
+    let root_keys = this.processed_tree_data;
 
     for (let i = 0; i < paths.length - 1; i++) {
       const path = paths[i];
@@ -99,14 +101,16 @@ export class Store {
     root_keys[paths[paths.length - 1]] = group_by_data;
   }
 
-  groupData (data, group_by, tree_grid) {
+  groupData (data, configs, internal_configs, edit_tracker, expand_tracker) {
+
+    const group_by = configs.group_by;
 
     // It is an array of leaf nodes.
     let last_group_data = [data];
 
     // It represents the path to the leaf nodes.
     let traversed_paths: string[] = ['data'];
-    tree_grid.processed_tree_data = {'data': ''};
+    this.processed_tree_data = {'data': ''};
 
     group_by.forEach(key => {
       const temp_traversed_paths: string[] = [];
@@ -118,7 +122,7 @@ export class Store {
         const group_data = last_group_data[index];
         const group_by_data = this.groupByKey(group_data, key);
 
-        this.traverseRootData(traversed_paths, index, group_by_data, tree_grid);
+        this.traverseRootData(traversed_paths, index, group_by_data);
 
         const new_group_keys = Object.keys(group_by_data);
 
@@ -143,15 +147,19 @@ export class Store {
         return !this.ngTreeGridService.isEmpty(item) && group_keys.indexOf(item) === pos;
       });
 
-      tree_grid.group_keys[key] = group_keys;
+      this.group_keys[key] = group_keys;
 
     });
 
-    if (tree_grid.current_sorted_column) {
-      this.processData(tree_grid, tree_grid.current_sorted_column.sort_type, tree_grid.current_sorted_column.name);
+    if (internal_configs.current_sorted_column) {
+      this.processData(internal_configs.current_sorted_column.sort_type, internal_configs.current_sorted_column.name,
+        edit_tracker, expand_tracker);
     } else {
-      this.processData(tree_grid, null, null);
+      this.processData(null, null, edit_tracker, expand_tracker);
     }
+
+    this.setRawData(data);
+    this.configs = configs;
   }
 
   groupByKey (data, group_by) {
@@ -169,26 +177,28 @@ export class Store {
     return group_by_data;
   }
 
-  processData(tree_grid, sort_type, sort_by) {
-    tree_grid.processed_data = [];
+  processData(sort_type, sort_by, edit_tracker, expand_tracker) {
     let index = 0;
 
     // Make recursive call to generate records.
-    this.generateData(sort_type, sort_by, tree_grid, tree_grid.processed_tree_data, 0, null);
+    this.generateData(sort_type, sort_by, this.processed_tree_data, 0, null, expand_tracker);
 
-    tree_grid.processed_data.shift();
+    this.processed_data.shift();
 
     // Add index to all records.
-    tree_grid.processed_data.forEach(data => {
+    this.processed_data.forEach(data => {
       data.idx = index++;
-      tree_grid.edit_tracker[data.idx] = false;
+      edit_tracker[data.idx] = false;
     });
 
     // Expand root so that first level shows up.
-    tree_grid.expand_tracker['data'] =  1;
+    expand_tracker['data'] =  1;
+
+    this.setProcessedData(this.processed_data);
+    console.log(this.processed_tree_data);
   }
 
-  generateData(sort_type, sort_by, tree_grid, group_data, level, parent_key) {
+  generateData(sort_type, sort_by, group_data, level, parent_key, expand_tracker) {
     const group_keys = Object.keys(group_data);
 
     group_keys.forEach(key => {
@@ -206,7 +216,7 @@ export class Store {
           // Add child id to the composite key.
           children_id.push(composite_key + '.' + child);
         });
-        tree_grid.processed_data.push({
+        this.processed_data.push({
           parent_id: parent_key,
           node_id: composite_key,
           node_text: key,
@@ -215,13 +225,13 @@ export class Store {
           children: children_id,
           level: level
         });
-        tree_grid.expand_tracker[composite_key] = 0;
+        expand_tracker[composite_key] = 0;
 
         // Increase level to mark the level.
-        this.generateData(sort_type, sort_by, tree_grid, items, level + 1, composite_key);
+        this.generateData(sort_type, sort_by, items, level + 1, composite_key, expand_tracker);
       } else {
         // Set Parent object.
-        tree_grid.processed_data.push({
+        this.processed_data.push({
             parent_id: parent_key,
             node_id: composite_key,
             node_text: key,
@@ -229,7 +239,7 @@ export class Store {
             last_parent: true,
             level: level
           });
-          tree_grid.expand_tracker[composite_key] = 0;
+          expand_tracker[composite_key] = 0;
 
         // Sort Items
         if (sort_type !== null) {
@@ -241,7 +251,7 @@ export class Store {
         items.forEach(item => {
           item.parent = false;
           item.parent_id = composite_key;
-          tree_grid.processed_data.push(item);
+          this.processed_data.push(item);
         });
       }
     });

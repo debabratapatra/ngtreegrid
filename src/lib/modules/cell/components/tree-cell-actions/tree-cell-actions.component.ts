@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Configs } from '../../../../models/Configs.model';
+import { Store } from '../../../../store/store';
 
 @Component({
   selector: '[db-tree-cell-actions]',
@@ -8,7 +9,7 @@ import { Configs } from '../../../../models/Configs.model';
 })
 export class TreeCellActionsComponent implements OnInit {
   @Input()
-  processed_data: any;
+  store: Store;
 
   @Input()
   edit_tracker: any;
@@ -39,9 +40,9 @@ export class TreeCellActionsComponent implements OnInit {
     this.internal_configs.current_edited_row = {...row_data};
   }
 
-  findRecordIndex(idx: number) {
-    for (const index in this.processed_data) {
-      if (this.processed_data[index].idx === idx) {
+  findRecordIndex(idx) {
+    for (const index in this.store.processed_data) {
+      if (this.store.processed_data[index].idx === idx) {
         return index;
       }
     }
@@ -57,10 +58,10 @@ export class TreeCellActionsComponent implements OnInit {
       });
 
       promise.then(() => {
-        this.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+        // this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
       }).catch((err) => {});
     } else {
-      this.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+      // this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
       this.rowdelete.emit(rec);
     }
   }

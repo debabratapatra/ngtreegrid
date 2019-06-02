@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { Column } from '../../../../models/Column.model';
 import { Configs } from '../../../../models/Configs.model';
+import { Store } from '../../../../store/store';
 
 @Component({
   selector: '[db-add-row]',
@@ -13,19 +14,13 @@ export class AddRowComponent implements OnInit {
   show_add_row: boolean;
 
   @Input()
-  data: any;
-
-  @Input()
-  processed_data: any;
+  store: Store;
 
   @Input()
   columns: Column[];
 
   @Input()
   configs: Configs;
-
-  @Input()
-  group_keys: Object;
 
   @Input()
   internal_configs: any;
@@ -43,7 +38,7 @@ export class AddRowComponent implements OnInit {
 
   saveAddRecord(e) {
     // const add_column = {};
-    const index = this.processed_data.length;
+    const index = this.store.processed_data.length;
     // this.columns.forEach(column => {
     //   if (column.editable) {
     //     add_column[column.name] = (document.getElementById(index + column.name) as HTMLInputElement).value;
@@ -56,7 +51,7 @@ export class AddRowComponent implements OnInit {
       this.row_data[key] = (document.getElementById(index + key) as HTMLInputElement).value;
     });
 
-    this.data.push(this.row_data);
+    this.store.raw_data.push(this.row_data);
     this.internal_configs.show_add_row = false;
 
     this.rowadd.emit(this.row_data);

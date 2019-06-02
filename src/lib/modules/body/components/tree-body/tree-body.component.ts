@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Column } from '../../../../models/Column.model';
 import { Configs } from '../../../../models/Configs.model';
+import { Store } from '../../../../store/store';
 
 @Component({
   selector: '[db-tree-body]',
@@ -10,19 +11,13 @@ import { Configs } from '../../../../models/Configs.model';
 export class TreeBodyComponent implements OnInit {
 
   @Input()
-  processed_tree_data: Object;
+  store: Store;
 
   @Input()
   expand_tracker: Object;
 
   @Input()
   edit_tracker: Object;
-
-  @Input()
-  data: any;
-
-  @Input()
-  processed_data: any;
 
   @Input()
   columns: Column[];
@@ -32,9 +27,6 @@ export class TreeBodyComponent implements OnInit {
 
   @Input()
   internal_configs: any;
-
-  @Input()
-  group_keys: Object;
 
   @Input()
   rowdelete: EventEmitter<any>;
@@ -54,7 +46,7 @@ export class TreeBodyComponent implements OnInit {
 
   fetchTraversedPaths(traversed_paths) {
     const paths = traversed_paths.split('.');
-    let intermediate = this.processed_tree_data;
+    let intermediate = this.store.processed_tree_data;
 
     for (let i = 0; i < paths.length; i++) {
       const path = paths[i];
@@ -114,7 +106,7 @@ export class TreeBodyComponent implements OnInit {
       return;
     }
 
-    this.processed_data.forEach(data => {
+    this.store.processed_data.forEach(data => {
       data.row_selected = false;
     });
     row.row_selected = true;
