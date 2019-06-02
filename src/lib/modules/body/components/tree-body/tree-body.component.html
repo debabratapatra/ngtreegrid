@@ -24,11 +24,14 @@
   *ngFor="let data of store.display_data"
   [ngClass]="prepareRowClass(data)" 
   [attr.id]="data['idx']" 
-  (click)="rowSelect(data)" 
+  (click)="selectRow(data, $event)" 
   class="{{configs.row_class_function(data)}}">
 
   <!-- If parent text is empty then hide -->
   <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
+    <td *ngIf="configs.multi_select" class="checkbox_column">
+      <input type="checkbox" [checked]="data.row_selected" (click)="selectRowOnCheck(data, $event)">
+    </td>
     <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete)"></td>
     <!-- Leave left td for down level parents -->
     <td *ngFor="let level of range(data.level)" class="clear-right-border clear-left-border"></td>
@@ -61,6 +64,9 @@
     </td>
   </ng-container>
   <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
+    <td *ngIf="configs.multi_select" class="checkbox_column">
+      <input type="checkbox" [checked]="data.row_selected" (click)="selectRowOnCheck(data, $event)">
+    </td>
     <td db-tree-cell-actions 
       *ngIf="configs.actions.edit || configs.actions.delete || configs.actions.add" 
       [data]="data"

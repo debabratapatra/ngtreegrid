@@ -1,20 +1,16 @@
 @import '../../../../ngtreegrid.component';
 
-tr.child {
-    background: #fff;
-    td:nth-child(2) {
-        padding: 0.875rem 1.25rem 0.875rem 2.5rem !important;
-    }
-}
-tr.parent {
-    background: #fafbff;
-}
-
 select {
     padding: 5px;
 }
 
 tr {
+    &.child {
+        background: #fff;
+    }
+    &.parent {
+        background: #fafbff;
+    }
     &.selected {
         background-color: #e2e7eb;
     }
@@ -36,43 +32,47 @@ tr {
             margin-top: -15px;
             margin-left: 6px;
         }
-    }            
-}
-
-tr td {
-    border: 1px solid #cdd5dc;
-    vertical-align: middle;
-    position: relative;
-    padding: 0.5rem 0.5rem;
-
-    &:nth-child(1) {
-        padding: 0.3rem;
     }
-
-    i.plus {
-        border: 1px solid rgba(0, 0, 0, 0);
-        margin-right: 23px;
     
-        &:before {
-            content: '';
-            width: 18px;
-            height: 1px;
-            border-top: 2px solid $icon-border-color;
-            display: block;
-            position: absolute;
-            margin-top: -15px;
-            margin-left: 6px;
+    td {
+        border: 1px solid #cdd5dc;
+        vertical-align: middle;
+        position: relative;
+        padding: 0.5rem 0.5rem;
+    
+        &.checkbox_column {
+            text-align: center;
         }
     
-        &:after {
-            content: '';
-            width: 1px;
-            height: 18px;
-            border-right: 2px solid $icon-border-color;
-            display: block;
-            position: absolute;
-            margin-top: -23px;
-            margin-left: 14px;
+        &:nth-child(1) {
+            padding: 0.3rem;
+        }
+    
+        i.plus {
+            border: 1px solid rgba(0, 0, 0, 0);
+            margin-right: 23px;
+        
+            &:before {
+                content: '';
+                width: 18px;
+                height: 1px;
+                border-top: 2px solid $icon-border-color;
+                display: block;
+                position: absolute;
+                margin-top: -15px;
+                margin-left: 6px;
+            }
+        
+            &:after {
+                content: '';
+                width: 1px;
+                height: 18px;
+                border-right: 2px solid $icon-border-color;
+                display: block;
+                position: absolute;
+                margin-top: -23px;
+                margin-left: 14px;
+            }
         }
     }
 }

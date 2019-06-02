@@ -1,4 +1,7 @@
 <tr [ngClass]="configs.css.header_class">
+  <th *ngIf="configs.multi_select" class="checkbox_column">
+    <input type="checkbox" (click)="selectAll($event)" [checked]="this.internal_configs.all_selected">
+  </th>
   <th 
     *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" 
     class="action-column"
