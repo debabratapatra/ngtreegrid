@@ -60,6 +60,8 @@ Format of the data should be like below.
 |  group_by_width |  string/Array | 'auto' |  Width of the GroupBy Column. It can be an array of GroupBy Column widths.|
 |  action_column_width |  string | 50px  |  Width of the Action Column.|
 |  data_loading_text |  string | 'Loading...'  |  Loading place holder. This will be displayed when data is empty. |
+|  filter |  boolean | false  |  It enables filter toolbar. Filter is customizable at column level. |
+|  multi_select |  boolean | false  |  It enables checkbox selection. |
 |  row_class_function |  Function | n/a  |  Callback function for row class. A custom class can be returned which will be added to the row. |
 |  row_edit_function |  Function | n/a  |  Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
 |  row_delete_function |  Function | n/a  |  Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
@@ -139,7 +141,10 @@ Add below node to your html.
 | expand  | **row_data:** Expanded Row | Event fires when parent is expanded.  |
 | collapse  | **row_data:** Collapsed Row | Event fires when parent is collapsed.  |
 | cellclick  | **event** Consist of: <ul><li> **row:** Selected Row </li><li> **column:** Selected Column</li></ul> | Event fires when a child cell is clicked.  |
-| rowselect  | **row:** Selected Row | Event fires when a row is selected.  |
+| rowselect  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is selected.  |
+| rowdeselect  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is deselected.  |
+| rowselectall  | **event:** Event Object | Event fires when select-all checkbox is checked.  |
+| rowdeselectall  | **event:** Event Object | Event fires when select-all checkbox is unchecked.  |
 | rowsave  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is saved.  |
 | rowdelete  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is deleted.  |
 | rowadd  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is added.  |
