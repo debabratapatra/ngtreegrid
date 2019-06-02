@@ -41,7 +41,7 @@ export class TreeCellActionsComponent implements OnInit {
   }
 
   findRecordIndex(idx) {
-    for (const index in this.store.processed_data) {
+    for (let index = 0; index < this.store.processed_data.length; index++) {
       if (this.store.processed_data[index].idx === idx) {
         return index;
       }
@@ -58,11 +58,11 @@ export class TreeCellActionsComponent implements OnInit {
       });
 
       promise.then(() => {
-        // this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+        this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
       }).catch((err) => {});
     } else {
-      // this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
-      this.rowdelete.emit(rec);
+        this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+        this.rowdelete.emit(rec);
     }
   }
 

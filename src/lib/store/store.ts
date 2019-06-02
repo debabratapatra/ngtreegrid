@@ -178,6 +178,7 @@ export class Store {
   }
 
   processData(sort_type, sort_by, edit_tracker, expand_tracker) {
+    this.processed_data = [];
     let index = 0;
 
     // Make recursive call to generate records.
