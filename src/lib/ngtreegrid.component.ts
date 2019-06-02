@@ -179,7 +179,7 @@ export class NgtreegridComponent implements OnChanges {
     this.internal_configs.current_sorted_column = column;
 
     // Sort array.
-    // this.store.processData(this, column.sort_type, column.name);
+    this.store.processData(column.sort_type, column.name, this.edit_tracker, this.expand_tracker);
   }
 
   addRowToGrid() {
