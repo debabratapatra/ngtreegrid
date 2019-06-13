@@ -172,10 +172,6 @@ export class NgtreegridComponent implements OnChanges {
     this.rowselect.emit(row);
   }
 
-  onCellClick(rowCol) {
-    this.cellclick.emit(rowCol);
-  }
-
   sortColumn(column) {
     if (!column.sortable) {
       return;
