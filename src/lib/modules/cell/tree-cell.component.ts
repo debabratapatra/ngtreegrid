@@ -18,8 +18,10 @@ export class TreeCellComponent implements OnInit {
   @Input()
   edit_on: any;
 
+  @Input()
+  cellclick: EventEmitter<any>;
+
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
-  @Output() cellclick: EventEmitter<any> = new EventEmitter();
   @Output() editcomplete: EventEmitter<any> = new EventEmitter();
 
   constructor() { }

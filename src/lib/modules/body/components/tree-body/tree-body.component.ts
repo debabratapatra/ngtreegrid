@@ -37,11 +37,13 @@ export class TreeBodyComponent implements OnInit {
   @Input()
   rowdeselect: EventEmitter<any>;
 
+  @Input()
+  cellclick: EventEmitter<any>;
+
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
   @Output() rowexpand: EventEmitter<any> = new EventEmitter();
   @Output() rowcollapse: EventEmitter<any> = new EventEmitter();
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
-  @Output() cellclick: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -102,10 +104,6 @@ export class TreeBodyComponent implements OnInit {
       current += 1;
     }
     return array;
-  }
-
-  cellClick(rowCol) {
-    this.cellclick.emit(rowCol);
   }
 
   rowAdd(row) {
