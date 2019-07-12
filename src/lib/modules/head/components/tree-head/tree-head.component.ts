@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Column } from '../../../../models/Column.model';
 import { Configs } from '../../../../models/Configs.model';
-import { Store } from '../../../../Store/Store';
+import { Store } from '../../../../store/store';
 
 @Component({
   selector: '[db-tree-head]',
