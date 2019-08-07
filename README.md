@@ -149,9 +149,5 @@ Add below node to your html.
 | rowdelete  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is deleted.  |
 | rowadd  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is added.  |
 
-
-## Can I hire you guys?
-Yes. Please contact us at <a href="mailto:debabratapatra12@gmail.com">debabratapatra12@gmail.com</a>. We will be happy to work with you!
-
 ## License
 This project is licensed under the MIT license.
