@@ -10,6 +10,10 @@ Click <a href="https://ng-tree-grid.stackblitz.io/" target="_blank">here</a> for
 <img src="https://debabratapatra.github.io/resources/images/cards/ngtreegrid.png" alt="Angular Tree Grid" />    
 </div>
 
+## Donate :hearts:
+
+Please consider a <a href="https://paypal.me/debpatra" target="_blank">donation</a> if it is useful to you.
+
 ## Installation
 
 ```bash
@@ -148,6 +152,9 @@ Add below node to your html.
 | rowsave  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is saved.  |
 | rowdelete  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is deleted.  |
 | rowadd  | **event** Consist of: <ul><li> **data:** Selected Row </li><li> **event:** Event Object</li></ul> | Event fires when a row is added.  |
+
+### Can I hire you guys?
+Yes. Please contact us at <a href="mailto:debabratapatra12@gmail.com">debabratapatra12@gmail.com</a>. We will be happy to work with you!
 
 ## License
 This project is licensed under the MIT license.
