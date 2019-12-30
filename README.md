@@ -109,7 +109,7 @@ Format of the data should be like below.
 | type  | string  |  '' | Set to 'custom' to have custom component for the column. Otherwise leave blank.  |
 | component  | Object  |  n/a | Custom View Component. Mandatory if type is custom.See this <a href="https://ng-tree-grid.stackblitz.io/custom_view_component">Example</a>.|
 | editor  | Object  |  n/a | Custom Editor Component. If given custom editor component will be used instead of default editor. See this <a href="https://ng-tree-grid.stackblitz.io/custom_edit_component">Example</a>.  |
-| onComponentInit  | Function  |  n/a | Callback function for the column on component init.  |
+| on_component_init  | Function  |  n/a | Callback function for the column on component init.  |
 
 #### Basic Example
 ```
