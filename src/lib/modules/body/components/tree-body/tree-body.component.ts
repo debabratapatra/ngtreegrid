@@ -84,7 +84,7 @@ export class TreeBodyComponent implements OnInit {
     // Collapse all of its children.
     const keys = Object.keys(this.expand_tracker);
     keys.forEach(key => {
-      if (key.includes(id)) {
+      if (key.indexOf(id) !== -1) {
         this.expand_tracker[key] = 0;
       }
     });
