@@ -14,8 +14,12 @@ tr {
     &.selected {
         background-color: #e2e7eb;
     }
-    span.parent_container {
-        padding-left: 10px;
+    span.expand-icon-container {        
+        padding-right: 10px;
+        cursor: pointer;
+    }
+    div.parent-container {
+        display: inline-block;
     }            
     
     i.minus {

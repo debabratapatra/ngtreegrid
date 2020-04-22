@@ -158,6 +158,10 @@ export class NgtreegridComponent implements OnChanges {
         this.columns[i] = Object.assign({}, this.default_column_config, this.columns[i]);
       }
     }
+
+    if (!this.configs.group_by_column) {
+      this.configs.group_by_column = Object.assign({}, this.default_column_config);
+    }
   }
 
   onExpandRow(row) {
