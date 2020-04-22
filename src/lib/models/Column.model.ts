@@ -7,6 +7,7 @@ export interface Column {
     filter: Boolean;
     case_sensitive_filter: Boolean;
     hidden: Boolean;
+    width?: string;
     sortable: Boolean;
     renderer?: any;
     type?: string;

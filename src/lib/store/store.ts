@@ -200,7 +200,6 @@ export class Store {
     expand_tracker['data'] =  1;
 
     this.setProcessedData(this.processed_data);
-    console.log(this.processed_tree_data);
   }
 
   generateData(sort_type, sort_by, group_data, level, parent_key, expand_tracker) {
