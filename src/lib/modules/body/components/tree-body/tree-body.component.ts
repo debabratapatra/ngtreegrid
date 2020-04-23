@@ -146,6 +146,11 @@ export class TreeBodyComponent implements OnInit {
   }
 
   selectRow(row_data, event) {
+    // Don't run if Multi select is enabled.
+    if (this.configs.multi_select) {
+      return;
+    }
+
     if (row_data.parent) {
       return;
     }
@@ -183,7 +188,6 @@ export class TreeBodyComponent implements OnInit {
     });
 
     this.internal_configs.all_selected = select_all;
-
   }
 
 }
