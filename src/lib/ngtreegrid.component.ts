@@ -82,6 +82,7 @@ export class NgtreegridComponent implements OnChanges {
 
   ngOnChanges() {
     this.setDefaultConfigs();
+    this.setColumnNames();
 
     // If there is no data then do nothing.
     if (!(this.data && this.data.length > 0)) {
@@ -89,7 +90,6 @@ export class NgtreegridComponent implements OnChanges {
       return;
     }
 
-    this.setColumnNames();
     this.store.groupData(this.data, this.configs, this.internal_configs, this.edit_tracker, this.expand_tracker);
   }
 

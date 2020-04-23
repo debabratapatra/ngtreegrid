@@ -40,6 +40,8 @@ export class TreeBodyComponent implements OnInit {
   @Input()
   cellclick: EventEmitter<any>;
 
+  loadingColspanCount = 0;
+
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
   @Output() rowexpand: EventEmitter<any> = new EventEmitter();
   @Output() rowcollapse: EventEmitter<any> = new EventEmitter();
@@ -47,7 +49,17 @@ export class TreeBodyComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadingColspanCount = this.columns.length + 1;
+
+    if (this.configs.multi_select) {
+      this.loadingColspanCount++;
+    }
+
+    if (this.configs.actions.edit || this.configs.actions.add || this.configs.actions.delete) {
+      this.loadingColspanCount++;
+    }
+  }
 
   fetchTraversedPaths(traversed_paths) {
     const paths = traversed_paths.split('.');
