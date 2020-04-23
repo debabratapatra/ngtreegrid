@@ -92,3 +92,8 @@ td.clear-right-border {
 .column-hide {
     display: none;
 }
+
+.expand-column-table td {
+    border: none;
+    padding: 0 !important;
+}
