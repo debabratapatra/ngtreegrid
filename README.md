@@ -66,6 +66,7 @@ Format of the data should be like below.
 |  data_loading_text |  string | 'Loading...'  |  Loading place holder. This will be displayed when data is empty. |
 |  filter |  boolean | false  |  It enables filter toolbar. Filter is customizable at column level. |
 |  multi_select |  boolean | false  |  It enables checkbox selection. |
+|  multi_select_width |  string | 'auto'  |  Width of multi-select column. |
 |  row_class_function |  Function | n/a  |  Callback function for row class. A custom class can be returned which will be added to the row. |
 |  row_edit_function |  Function | n/a  |  Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
 |  row_delete_function |  Function | n/a  |  Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See <a href="https://ng-tree-grid.stackblitz.io/cond_row_edit">example</a> for more information. |
@@ -108,6 +109,7 @@ Format of the data should be like below.
 | group_aggregator  | Function  |  n/a | It is a method which can be used to show data at the parent level for the corresponding column. (See  <a href="https://ng-tree-grid.stackblitz.io/">Example</a>. for better understanding). This field for the parent will be left blank if not provided.  |
 | type  | string  |  '' | Set to 'custom' to have custom component for the column. Otherwise leave blank.  |
 | component  | Object  |  n/a | Custom View Component. Mandatory if type is custom.See this <a href="https://ng-tree-grid.stackblitz.io/custom_view_component">Example</a>.|
+| group_component  | Object  |  n/a | Custom Group Component. It has same setting as Column|
 | editor  | Object  |  n/a | Custom Editor Component. If given custom editor component will be used instead of default editor. See this <a href="https://ng-tree-grid.stackblitz.io/custom_edit_component">Example</a>.  |
 | on_component_init  | Function  |  n/a | Callback function for the column on component init.  |
 
