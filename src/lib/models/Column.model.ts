@@ -14,4 +14,5 @@ export interface Column {
     component?: any;
     editor?: any;
     on_component_init?: any;
+    group_component?: any;
 }

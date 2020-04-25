@@ -45,6 +45,7 @@ export class NgtreegridComponent implements OnChanges {
     filter: false,
     multi_select: false,
     group_by_width: [],
+    multi_select_width: 'auto',
     row_class_function: () => true,
     row_edit_function: () => true,
     row_delete_function: () => true,

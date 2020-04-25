@@ -5,12 +5,9 @@ tr {
 
     th {
         padding: 0.5rem 0.5rem;
-        font-size: 1rem;
         font-weight: 600;
         line-height: 1.25;
         color: #181818;
-
-        &.action-column {}
 
         &.sortable {
             cursor: pointer;
@@ -32,6 +29,7 @@ tr {
             border-bottom: 6px solid $sort-color;
             position: relative;
             top: -18px;
+            font-size: 1rem;
 
             &.active {
                 border-bottom: 6px solid $sort-active-color !important;
@@ -47,6 +45,7 @@ tr {
             position: relative;
             left: 10px;
             top: 17px;
+            font-size: 1rem;
 
             &.active {
                 border-top: 6px solid $sort-active-color !important;
@@ -89,14 +88,18 @@ tr th {
             margin-left: 14px;
         }
     }
-}
 
-th.clear-left-border {
-    border-left: 0 !important;
-}
+    &.clear-left-border {
+        border-left: 0 !important;
+    }
 
-th.clear-right-border {
-    border-right: 0 !important;
+    &.clear-right-border {
+        border-right: 0 !important;
+    }
+
+    &.checkbox_column{
+        text-align: center;
+    }
 }
 
 .column-hide {

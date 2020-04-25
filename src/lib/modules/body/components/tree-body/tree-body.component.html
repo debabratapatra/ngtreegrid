@@ -30,7 +30,7 @@
   <!-- If parent text is empty then hide -->
   <ng-container *ngIf="expand_tracker[data.parent_id] && data.parent && !isEmpty(data.node_text)">
     <td *ngIf="configs.multi_select" class="checkbox_column">
-      <input type="checkbox" [checked]="data.row_selected" (click)="selectRowOnCheck(data, $event)">
+      <!-- <input type="checkbox" [checked]="data.row_selected" (click)="selectRowOnCheck(data, $event)"> -->
     </td>
     <td *ngIf="(configs.actions.edit || configs.actions.add || configs.actions.delete)"></td>
     <!-- Leave left td for down level parents -->
@@ -89,9 +89,17 @@
       *ngFor="let level of range(configs.group_by.length - data.level + 1)" 
       class="clear-right-border clear-left-border">
     </td>
-    <td *ngFor="let column of columns" 
-        [ngClass]="{'column-hide': column.hidden}">
-        <span [innerHTML]="column.group_aggregator && data.last_parent ? column.group_aggregator(fetchTraversedPaths(data.node_id)) : ''"></span>
+    <td *ngFor="let column of columns" [ngClass]="{'column-hide': column.hidden}">
+      <ng-container *ngIf="column.group_aggregator && data.last_parent">
+        <span [innerHTML]="column.group_aggregator(fetchTraversedPaths(data.node_id))"></span>
+      </ng-container>
+      <ng-container *ngIf="column.group_component && data.last_parent">
+        <db-tree-cell 
+          [cell_value]="data" 
+          [row_data]="fetchTraversedPaths(data.node_id)" 
+          [column]="column.group_component">
+        </db-tree-cell>
+      </ng-container>
     </td>
   </ng-container>
   <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
