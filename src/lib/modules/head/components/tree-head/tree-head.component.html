@@ -7,8 +7,10 @@
     class="action-column"
     width="{{configs.action_column_width}}"
     (click)="addRow()">
-    <i *ngIf="!internal_configs.show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
-    <span *ngIf="internal_configs.show_add_row || !configs.actions.add">Actions</span>
+    <span class="icon-container">
+      <i *ngIf="!internal_configs.show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
+      <span *ngIf="internal_configs.show_add_row || !configs.actions.add">Actions</span>
+    </span>
   </th>
   <th class="clear-right-border group-by-column" [attr.width]="configs.group_by_width[i]"
       *ngFor="let header of configs.group_by_header; let i = index">

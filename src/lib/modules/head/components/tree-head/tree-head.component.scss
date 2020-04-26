@@ -9,6 +9,12 @@ tr {
         line-height: 1.25;
         color: #181818;
 
+        &.action-column {
+            span.icon-container {
+                cursor: pointer;
+            }
+        }
+
         &.sortable {
             cursor: pointer;
             &:hover {
