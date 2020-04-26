@@ -260,4 +260,9 @@ export class Store {
       }
     });
   }
+
+  refreshDisplayData() {
+    this.display_data = this.processed_data;
+    this.ngTreeGridService.updateDisplayDataObservable(this.display_data);
+  }
 }

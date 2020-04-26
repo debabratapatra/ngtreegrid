@@ -59,9 +59,11 @@ export class TreeCellActionsComponent implements OnInit {
 
       promise.then(() => {
         this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+        this.store.refreshDisplayData();
       }).catch((err) => {});
     } else {
         this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+        this.store.refreshDisplayData();
         this.rowdelete.emit(rec);
     }
   }
