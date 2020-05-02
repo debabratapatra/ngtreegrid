@@ -103,8 +103,8 @@
     </td>
   </ng-container>
   <ng-container *ngIf="expand_tracker[data.parent_id] && !data.parent">
-    <td *ngIf="configs.multi_select" class="checkbox_column">
-      <input type="checkbox" [checked]="data.row_selected" (click)="selectRowOnCheck(data, $event)">
+    <td *ngIf="configs.multi_select" class="checkbox_column" (click)="selectRowOnCheck(data, $event)>
+      <input type="checkbox" [checked]="data.row_selected">
     </td>
     <td db-tree-cell-actions 
       *ngIf="configs.actions.edit || configs.actions.delete || configs.actions.add" 

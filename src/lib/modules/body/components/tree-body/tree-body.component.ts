@@ -175,7 +175,7 @@ export class TreeBodyComponent implements OnInit {
   }
 
   selectRowOnCheck(row_data, event) {
-    if (event.target.checked) {
+    if (!row_data.row_selected) {
       row_data.row_selected = true;
       this.rowselect.emit({data: row_data, event: event});
     } else {
