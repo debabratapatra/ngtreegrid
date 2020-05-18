@@ -67,6 +67,7 @@ Format of the data should be like below.
 |  filter |  boolean | false  |  It enables filter toolbar. Filter is customizable at column level. |
 |  multi_select |  boolean | false  |  It enables checkbox selection. |
 |  multi_select_width |  string | 'auto'  |  Width of multi-select column. |
+|  row_select_function |  Function | n/a  |  Callback function for row Selection.  Based on the return type(Boolean) of this function, Selection can be enabled/disabled for a specific row. |
 |  row_class_function |  Function | n/a  |  Callback function for row class. A custom class can be returned which will be added to the row. |
 |  row_edit_function |  Function | n/a  |  Callback function for edit feature. Based on the return type(Boolean) of this function, edit can be enabled/disabled for a specific row. See <a href="https://debabratapatra.github.io/pages/ngtreegrid/demo/cond_row_edit">example</a> for more information. |
 |  row_delete_function |  Function | n/a  |  Callback function for delete feature. Based on the return type(Boolean) of this function, delete can be enabled/disabled for a specific row. See <a href="https://debabratapatra.github.io/pages/ngtreegrid/demo/cond_row_edit">example</a> for more information. |
