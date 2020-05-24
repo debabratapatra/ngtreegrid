@@ -17,5 +17,6 @@ export interface Configs {
     row_class_function: Function;
     row_edit_function: Function;
     row_delete_function: Function;
+    row_select_function: Function;
     group_by_column?: Column;
 }

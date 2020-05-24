@@ -202,4 +202,12 @@ export class TreeBodyComponent implements OnInit {
     this.internal_configs.all_selected = select_all;
   }
 
+  showSelectBox(row_data) {
+    if (this.configs.row_select_function) {
+      return this.configs.row_select_function(row_data);
+    } else {
+      return true;
+    }
+  }
+
 }
