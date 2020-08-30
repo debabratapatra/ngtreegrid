@@ -1,7 +1,7 @@
 
 # ngtreegrid
 Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free. Basically it groups data by a field or multiple fields. For hierarchical data (where there is a Parent-Child relationship), check out this 
-<a href="https://github.com/debabratapatra/angular-tree-grid">Package</a>. If header needs to be fixed/freezed and body needs to be scrollable then check out this <a href="https://debabratapatra.github.io/pages/angular-fix-header-grid/demo" target="_blank">Fix Header Grid Package</a>.
+<a href="https://github.com/debabratapatra/angular-tree-grid">Angular Tree Grid</a> Package. If header needs to be fixed/freezed and body needs to be scrollable then check out this <a href="https://debabratapatra.github.io/pages/angular-fix-header-grid/demo" target="_blank">Angular Fix Header Grid</a> Package.
 
 ## Demo
 
