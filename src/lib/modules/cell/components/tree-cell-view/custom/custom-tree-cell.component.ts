@@ -20,7 +20,7 @@ export class CustomCellViewComponent implements OnInit, OnDestroy {
     @Input() column: Column;
     @Input() cell_value;
     @Input() row_data;
-    @ViewChild('customView', { read: ViewContainerRef }) custom_view: any;
+    @ViewChild('customView', { read: ViewContainerRef, static: true }) custom_view: any;
 
     constructor(private resolver: ComponentFactoryResolver) {
     }

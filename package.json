@@ -1,7 +1,7 @@
 {
   "name": "ngtreegrid",
-  "version": "3.3.8",
-  "homepage": "https://github.com/debabratapatra/ngtreegrid#readme",  
+  "version": "3.3.9",
+  "homepage": "https://debabratapatra.github.io/pages/ngtreegrid/demo",  
   "license" : "MIT",
   "peerDependencies": {
     "@angular/common": "^7.0.0",
