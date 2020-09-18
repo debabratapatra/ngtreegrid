@@ -14,6 +14,14 @@ Click <a href="https://debabratapatra.github.io/pages/ngtreegrid/demo" target="_
 
 Please consider a <a href="https://debabratapatra.github.io/donate.html" target="_blank">donation</a> if it is useful to you.
 
+## Version
+Choose the correct version for your application.
+
+| Angular  |ngtreegrid |
+|---|---|
+| <= 8  | 3.3.8  |
+| >= 9  | 4.0.0  |
+
 ## Installation
 
 ```bash
