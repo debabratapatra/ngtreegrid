@@ -1,6 +1,6 @@
 {
   "name": "ngtreegrid",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "homepage": "https://debabratapatra.github.io/pages/ngtreegrid/demo",  
   "license" : "MIT",
   "peerDependencies": {
