@@ -20,7 +20,7 @@ Choose the correct version for your application.
 | Angular  |ngtreegrid |
 |---|---|
 | <= 8  | 3.3.8  |
-| >= 9  | 4.0.0  |
+| >= 9  | 4.0.5  |
 
 ## Installation
 
