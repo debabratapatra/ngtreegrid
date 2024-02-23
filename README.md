@@ -7,7 +7,8 @@ Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free. Basic
 
 Click <a href="https://curiouslinks.com/pages/ngtreegrid/demo" target="_blank">here</a> for demo. This readme is the documentation. Visit my <a href="https://curiouslinks.com" target="_blank">Website</a> to know other packages.
 <div>
-<img src="https://curiouslinks.com/resources/images/cards/ngtreegrid.png" alt="Angular Tree Grid" />    
+<img src="https://docs.curiouslinks.com/resources/images/cards/ngtreegrid.png" alt="Angular Tree Grid" />    
+</div>  
 </div>
 
 ## Donate :hearts:
@@ -21,6 +22,7 @@ Choose the correct version for your application.
 |---|---|
 | <= 8  | 3.3.8  |
 | >= 9  | 4.0.5  |
+| >= 12  | 5.0.1  |
 
 ## Installation
 
