@@ -1,13 +1,13 @@
 
 # ngtreegrid
-Angular 7 Multi level Tree Grid. Simple, Light Weight and dependency free. Basically it groups data by a field or multiple fields. For hierarchical data (where there is a Parent-Child relationship), check out this 
+Angular 17 Multi level Tree Grid. Simple, Light Weight and dependency free. Basically it groups data by a field or multiple fields. For hierarchical data (where there is a Parent-Child relationship), check out this 
 <a href="https://github.com/debabratapatra/angular-tree-grid">Angular Tree Grid</a> Package. If header needs to be fixed/freezed and body needs to be scrollable then check out this <a href="https://curiouslinks.com/pages/angular-fix-header-grid/demo" target="_blank">Angular Fix Header Grid</a> Package.
 
 ## Demo
 
 Click <a href="https://curiouslinks.com/pages/ngtreegrid/demo" target="_blank">here</a> for demo. This readme is the documentation. Visit my <a href="https://curiouslinks.com" target="_blank">Website</a> to know other packages.
 <div>
-<img src="https://curiouslinks.com/resources/images/cards/ngtreegrid.png" alt="Angular Tree Grid" />    
+<img src="https://docs.curiouslinks.com/resources/images/cards/ngtreegrid.png" alt="Angular Tree Grid" />    
 </div>
 
 ## Donate :hearts:
@@ -21,6 +21,7 @@ Choose the correct version for your application.
 |---|---|
 | <= 8  | 3.3.8  |
 | >= 9  | 4.0.5  |
+| >= 12  | 5.0.1  |
 
 ## Installation
 

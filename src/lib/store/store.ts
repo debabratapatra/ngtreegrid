@@ -107,6 +107,22 @@ export class Store {
 
   groupData (data, configs, internal_configs, edit_tracker, expand_tracker) {
 
+    if (configs.sort_by && configs.sort_by.length > 0) {
+      data.sort((
+      function (a, b) {
+          var first = a[configs.sort_by];
+          var second = b[configs.sort_by];
+          first = typeof first === 'string' ? first.toLowerCase().trim() : first;
+          second = typeof second === 'string' ? second.toLowerCase().trim() : second;
+          if (first < second) {
+              return -1;
+          }
+          else {
+              return 1;
+          }
+      }));
+    }
+
     const group_by = configs.group_by;
 
     // It is an array of leaf nodes.
