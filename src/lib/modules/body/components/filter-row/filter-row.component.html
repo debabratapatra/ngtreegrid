@@ -1,5 +1,5 @@
 <td *ngIf="configs.multi_select"></td>
-<td *ngIf="(configs.actions.edit || configs.actions.delete || configs.actions.add)"></td>
+<td *ngIf="(configs.actions?.edit || configs.actions?.delete || configs.actions?.add)"></td>
 <td *ngFor="let group_by of configs.group_by"></td>
 <td *ngFor="let column of columns">
   <div *ngIf="column.filter">

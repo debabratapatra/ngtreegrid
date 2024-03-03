@@ -1,26 +1,32 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
-import { Column } from '../../../../models/Column.model';
-import { Configs } from '../../../../models/Configs.model';
-import { Store } from '../../../../store/store';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewEncapsulation,
+} from "@angular/core";
+import { Column } from "../../../../models/Column.model";
+import { Configs } from "../../../../models/Configs.model";
+import { Store } from "../../../../store/store";
 
 @Component({
-  selector: '[db-add-row]',
-  templateUrl: './add-row.component.html',
-  styleUrls: ['./add-row.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  selector: "[db-add-row]",
+  templateUrl: "./add-row.component.html",
+  styleUrls: ["./add-row.component.scss"],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AddRowComponent implements OnInit {
-  row_data: Object = {};
-  show_add_row: boolean;
+  row_data: any = {};
 
   @Input()
-  store: Store;
+  store!: Store;
 
   @Input()
-  columns: Column[];
+  columns!: Column[];
 
   @Input()
-  configs: Configs;
+  configs!: Configs;
 
   @Input()
   internal_configs: any;
@@ -28,15 +34,15 @@ export class AddRowComponent implements OnInit {
   @Output() rowadd: EventEmitter<any> = new EventEmitter();
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.columns.forEach(column => {
-      this.row_data[column.name] = '';
+    this.columns.forEach((column) => {
+      this.row_data[column.name] = "";
     });
   }
 
-  saveAddRecord(e) {
+  saveAddRecord(e: any) {
     // const add_column = {};
     const index = this.store.processed_data.length;
     // this.columns.forEach(column => {
@@ -47,8 +53,10 @@ export class AddRowComponent implements OnInit {
     //   }
     // });
 
-    this.configs.group_by.forEach(key => {
-      this.row_data[key] = (document.getElementById(index + key) as HTMLInputElement).value;
+    this.configs.group_by.forEach((key) => {
+      this.row_data[key] = (
+        document.getElementById(index + key) as HTMLInputElement
+      ).value;
     });
 
     this.store.raw_data.push(this.row_data);
@@ -60,5 +68,4 @@ export class AddRowComponent implements OnInit {
   cancelAddEdit() {
     this.internal_configs.show_add_row = false;
   }
-
 }

@@ -1,25 +1,25 @@
 <tr [ngClass]="configs.css.header_class">
-  <th *ngIf="configs.multi_select" class="checkbox_column"  [attr.width]="configs.multi_select_width">
+  <th *ngIf="configs.multi_select" class="checkbox_column" [attr.width]="configs.multi_select_width">
     <input type="checkbox" (click)="selectAll($event)" [checked]="this.internal_configs.all_selected">
   </th>
-  <th 
-    *ngIf="configs.actions.add || configs.actions.edit || configs.actions.delete" 
-    class="action-column"
-    width="{{configs.action_column_width}}"
-    (click)="addRow()">
+  <th *ngIf="configs.actions?.add || configs.actions?.edit || configs.actions?.delete" class="action-column"
+    width="{{configs.action_column_width}}" (click)="addRow()">
     <span class="icon-container">
-      <i *ngIf="!internal_configs.show_add_row && configs.actions.add" [ngClass]="configs.css.add_class" aria-hidden="true" title="Add a row"></i>
-      <span *ngIf="internal_configs.show_add_row || !configs.actions.add">Actions</span>
+      <i *ngIf="!internal_configs.show_add_row && configs.actions?.add" [ngClass]="configs.css.add_class"
+        aria-hidden="true" title="Add a row"></i>
+      <span *ngIf="internal_configs.show_add_row || !configs.actions?.add">Actions</span>
     </span>
   </th>
-  <th class="clear-right-border group-by-column" [attr.width]="configs.group_by_width[i]"
-      *ngFor="let header of configs.group_by_header; let i = index">
+  <th class="clear-right-border group-by-column" [attr.width]="configs.group_by_width && configs!.group_by_width[i]"
+    *ngFor="let header of configs.group_by_header; let i = index">
     {{header}}
   </th>
   <th *ngFor="let column of columns" (click)="sortColumn(column)" [attr.width]="column.width"
-    [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}" >
-      <span>{{column.header}}</span>
-      <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 0?'arrow-down active':'arrow-down'"></span>
-      <span *ngIf="column.sortable" [ngClass]="column.sorted && column.sort_type == 1?'arrow-up active':'arrow-up'"></span>
+    [ngClass]="{'sorted': column.sorted,'sortable': column.sortable, 'column-hide': column.hidden}">
+    <span>{{column.header}}</span>
+    <span *ngIf="column.sortable"
+      [ngClass]="column.sorted && column.sort_type == false?'arrow-down active':'arrow-down'"></span>
+    <span *ngIf="column.sortable"
+      [ngClass]="column.sorted && column.sort_type == true?'arrow-up active':'arrow-up'"></span>
   </th>
 </tr>

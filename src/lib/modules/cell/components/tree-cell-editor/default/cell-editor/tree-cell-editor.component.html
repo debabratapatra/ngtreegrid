@@ -1,7 +1,2 @@
-<input type="text" 
-    [(ngModel)]="row_data[column.name]" 
-    class="cell-default" 
-    (click)="cellclick.emit($event)"
-    (keydown.enter)="editcomplete.emit($event)"
-    (keydown.esc)="canceledit.emit()"
-    >
+<input type="text" [(ngModel)]="row_data[column?.name!]" class="cell-default" (click)="cellclick.emit($event)"
+    (keydown.enter)="editcomplete.emit($event)" (keydown.esc)="canceledit.emit()">

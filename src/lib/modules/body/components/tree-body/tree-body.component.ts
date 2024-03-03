@@ -1,44 +1,43 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Column } from '../../../../models/Column.model';
-import { Configs } from '../../../../models/Configs.model';
-import { Store } from '../../../../store/store';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Column } from "../../../../models/Column.model";
+import { Configs } from "../../../../models/Configs.model";
+import { Store } from "../../../../store/store";
 
 @Component({
-  selector: '[db-tree-body]',
-  templateUrl: './tree-body.component.html',
-  styleUrls: ['./tree-body.component.scss']
+  selector: "[db-tree-body]",
+  templateUrl: "./tree-body.component.html",
+  styleUrls: ["./tree-body.component.scss"],
 })
 export class TreeBodyComponent implements OnInit {
+  @Input()
+  store!: Store;
 
   @Input()
-  store: Store;
+  expand_tracker!: any;
 
   @Input()
-  expand_tracker: Object;
+  edit_tracker!: any;
 
   @Input()
-  edit_tracker: Object;
+  columns!: Column[];
 
   @Input()
-  columns: Column[];
-
-  @Input()
-  configs: Configs;
+  configs!: Configs;
 
   @Input()
   internal_configs: any;
 
   @Input()
-  rowdelete: EventEmitter<any>;
+  rowdelete!: EventEmitter<any>;
 
   @Input()
-  rowsave: EventEmitter<any>;
+  rowsave!: EventEmitter<any>;
 
   @Input()
-  rowdeselect: EventEmitter<any>;
+  rowdeselect!: EventEmitter<any>;
 
   @Input()
-  cellclick: EventEmitter<any>;
+  cellclick!: EventEmitter<any>;
 
   loadingColspanCount = 0;
 
@@ -47,7 +46,7 @@ export class TreeBodyComponent implements OnInit {
   @Output() rowcollapse: EventEmitter<any> = new EventEmitter();
   @Output() rowselect: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
     this.loadingColspanCount = this.columns.length + 1;
@@ -56,14 +55,18 @@ export class TreeBodyComponent implements OnInit {
       this.loadingColspanCount++;
     }
 
-    if (this.configs.actions.edit || this.configs.actions.add || this.configs.actions.delete) {
+    if (
+      this.configs.actions?.edit ||
+      this.configs.actions?.add ||
+      this.configs.actions?.delete
+    ) {
       this.loadingColspanCount++;
     }
   }
 
-  fetchTraversedPaths(traversed_paths) {
-    const paths = traversed_paths.split('.');
-    let intermediate = this.store.processed_tree_data;
+  fetchTraversedPaths(traversed_paths: any) {
+    const paths = traversed_paths.split(".");
+    let intermediate: any = this.store.processed_tree_data;
 
     for (let i = 0; i < paths.length; i++) {
       const path = paths[i];
@@ -73,29 +76,30 @@ export class TreeBodyComponent implements OnInit {
     return intermediate;
   }
 
-  expandRow(id, row) {
+  expandRow(id: any, row: any) {
     this.expand_tracker[id] = 1;
 
     // If children is a parent and its value is empty then expand it automatically.
-    row.children && row.children.forEach(child => {
-      const ids = child.split('.');
-      const last_child = ids[ids.length - 1];
+    row.children &&
+      row.children.forEach((child: any) => {
+        const ids = child.split(".");
+        const last_child = ids[ids.length - 1];
 
-      // If empty!
-      if (this.isEmpty(last_child)) {
-        this.expand_tracker[child] = 1;
-      }
-    });
+        // If empty!
+        if (this.isEmpty(last_child)) {
+          this.expand_tracker[child] = 1;
+        }
+      });
 
     this.rowexpand.emit(row);
   }
 
-  collapseRow(id, rec) {
+  collapseRow(id: any, rec: any) {
     this.expand_tracker[id] = 0;
 
     // Collapse all of its children.
     const keys = Object.keys(this.expand_tracker);
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (key.indexOf(id) !== -1) {
         this.expand_tracker[key] = 0;
       }
@@ -103,11 +107,11 @@ export class TreeBodyComponent implements OnInit {
     this.rowcollapse.emit(rec);
   }
 
-  isEmpty(value) {
-    return value === '' || value === undefined || value === 'undefined';
+  isEmpty(value: any) {
+    return value === "" || value === undefined || value === "undefined";
   }
 
-  range(end) {
+  range(end: any) {
     const array = [];
     let current = 1;
 
@@ -118,46 +122,53 @@ export class TreeBodyComponent implements OnInit {
     return array;
   }
 
-  rowAdd(row) {
+  rowAdd(row: any) {
     this.rowadd.emit(row);
   }
 
-  saveRecord($event) {
+  saveRecord($event: any) {
     const rec = $event.data;
 
-    if (this.configs.actions.resolve_edit) {
+    if (this.configs.actions?.resolve_edit) {
       const promise = new Promise((resolve, reject) => {
         this.rowsave.emit({
           data: rec,
-          resolve: resolve
+          resolve: resolve,
         });
       });
 
-      promise.then(() => {
-        this.edit_tracker[rec['idx']] = false;
-      }).catch((err) => {});
+      promise
+        .then(() => {
+          this.edit_tracker[rec["idx"]] = false;
+        })
+        .catch((err) => {});
     } else {
-      this.edit_tracker[rec['idx']] = false;
+      this.edit_tracker[rec["idx"]] = false;
       this.rowsave.emit(rec);
     }
   }
 
-  cancelEdit(row_data) {
-    const index = row_data['idx'];
+  cancelEdit(row_data: any) {
+    const index = row_data["idx"];
     this.edit_tracker[index] = false;
 
     // Cancel all changes ie copy from back up.
     Object.assign(row_data, this.internal_configs.current_edited_row);
   }
 
-  prepareRowClass(data) {
-    const row_class = {'child': !data.parent};
-    row_class[this.configs.css.parent_class] = data.parent;
-    row_class[this.configs.css.row_selection_class] = data.row_selected;
+  prepareRowClass(data: any) {
+    const row_class: any = { child: !data.parent };
+    if (this.configs.css?.parent_class) {
+      row_class[this.configs.css?.parent_class] = data.parent;
+    }
+    if (this.configs.css?.row_selection_class) {
+      row_class[this.configs.css?.row_selection_class] = data.row_selected;
+    }
+
     return row_class;
   }
 
-  selectRow(row_data, event) {
+  selectRow(row_data: any, event: any) {
     // Don't run if Multi select is enabled.
     if (this.configs.multi_select) {
       return;
@@ -167,20 +178,20 @@ export class TreeBodyComponent implements OnInit {
       return;
     }
 
-    this.store.processed_data.forEach(data => {
+    this.store.processed_data.forEach((data) => {
       data.row_selected = false;
     });
     row_data.row_selected = true;
-    this.rowselect.emit({data: row_data, event: event});
+    this.rowselect.emit({ data: row_data, event: event });
   }
 
-  selectRowOnCheck(row_data, event) {
+  selectRowOnCheck(row_data: any, event: any) {
     if (!row_data.row_selected) {
       row_data.row_selected = true;
-      this.rowselect.emit({data: row_data, event: event});
+      this.rowselect.emit({ data: row_data, event: event });
     } else {
       row_data.row_selected = false;
-      this.rowdeselect.emit({data: row_data, event: event});
+      this.rowdeselect.emit({ data: row_data, event: event });
     }
 
     this.setSelectAllConfig();
@@ -193,7 +204,7 @@ export class TreeBodyComponent implements OnInit {
   setSelectAllConfig() {
     let select_all = true;
 
-    this.store.getDisplayData().forEach(data => {
+    this.store.getDisplayData().forEach((data) => {
       if (!data.row_selected) {
         select_all = false;
       }
@@ -202,12 +213,11 @@ export class TreeBodyComponent implements OnInit {
     this.internal_configs.all_selected = select_all;
   }
 
-  showSelectBox(row_data) {
+  showSelectBox(row_data: any) {
     if (this.configs.row_select_function) {
       return this.configs.row_select_function(row_data);
     } else {
       return true;
     }
   }
-
 }

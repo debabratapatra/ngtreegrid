@@ -1,37 +1,37 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Column } from '../../../../models/Column.model';
-import { Configs } from '../../../../models/Configs.model';
-import { Store } from '../../../../store/store';
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { Column } from "../../../../models/Column.model";
+import { Configs } from "../../../../models/Configs.model";
+import { Store } from "../../../../store/store";
 
 @Component({
-  selector: '[db-tree-head]',
-  templateUrl: './tree-head.component.html',
-  styleUrls: ['./tree-head.component.scss']
+  selector: "[db-tree-head]",
+  templateUrl: "./tree-head.component.html",
+  styleUrls: ["./tree-head.component.scss"],
 })
 export class TreeHeadComponent implements OnInit {
   @Input()
-  store: Store;
+  store!: Store;
 
   @Input()
-  columns: Column[];
+  columns!: Column[];
 
   @Input()
-  configs: Configs;
+  configs!: Configs;
 
   @Input()
   internal_configs: any;
 
   @Output() sortcolumn: EventEmitter<any> = new EventEmitter();
 
-  show_add_row: boolean;
+  show_add_row: boolean = false;
 
   @Input()
-  rowselectall: EventEmitter<any>;
+  rowselectall!: EventEmitter<any>;
 
   @Input()
-  rowdeselectall: EventEmitter<any>;
+  rowdeselectall!: EventEmitter<any>;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
 
@@ -39,11 +39,11 @@ export class TreeHeadComponent implements OnInit {
     this.internal_configs.show_add_row = true;
   }
 
-  sortColumn(column) {
+  sortColumn(column: Column) {
     this.sortcolumn.emit(column);
   }
 
-  selectAll(e) {
+  selectAll(e: any) {
     if (e.target.checked) {
       this.store.selectAll();
       this.rowselectall.emit(e);
@@ -52,5 +52,4 @@ export class TreeHeadComponent implements OnInit {
       this.rowdeselectall.emit(e);
     }
   }
-
 }

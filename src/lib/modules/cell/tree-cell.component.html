@@ -1,37 +1,19 @@
 <ng-container>
-    <div [ngSwitch]="column.type" *ngIf="!edit_on || !column.editable">
-        <db-custom-cell-component 
-            *ngSwitchCase="'custom'" 
-            [cell_value]="cell_value" 
-            [column]="column" 
-            [row_data]="row_data" 
-            (click)="onCellClick(row_data, column)">
+    <div [ngSwitch]="column?.type" *ngIf="!edit_on || !column?.editable">
+        <db-custom-cell-component *ngSwitchCase="'custom'" [cell_value]="cell_value" [column]="column"
+            [row_data]="row_data" (click)="onCellClick(row_data, column)">
         </db-custom-cell-component>
-        <db-tree-cell-view 
-            *ngSwitchDefault 
-            (cellclick)="onCellClick(row_data, column)"
-            [cell_value]="cell_value" 
-            [column]="column" 
-            [row_data]="row_data">
+        <db-tree-cell-view *ngSwitchDefault (cellclick)="onCellClick(row_data, column)" [cell_value]="cell_value"
+            [column]="column" [row_data]="row_data">
         </db-tree-cell-view>
     </div>
-    <div *ngIf="edit_on && column.editable">
-        <db-custom-cell-editor-component 
-            *ngIf="column.editor" 
-            [cell_value]="cell_value" 
-            [column]="column" 
-            [row_data]="row_data"
-            (canceledit)="canceledit.emit(row_data['idx'])"
+    <div *ngIf="edit_on && column?.editable">
+        <db-custom-cell-editor-component *ngIf="column?.editor" [cell_value]="cell_value" [column]="column"
+            [row_data]="row_data" (canceledit)="canceledit.emit(row_data['idx'])"
             (editcomplete)="onEditComplete($event)">
         </db-custom-cell-editor-component>
-        <db-tree-cell-editor 
-            *ngIf="!column.editor"
-            [cell_value]="cell_value" 
-            [row_data]="row_data" 
-            [column]="column"
-            (canceledit)="canceledit.emit(row_data['idx'])"
-            (editcomplete)="onEditComplete($event)"
-            >
+        <db-tree-cell-editor *ngIf="!column?.editor" [cell_value]="cell_value" [row_data]="row_data" [column]="column"
+            (canceledit)="canceledit.emit(row_data['idx'])" (editcomplete)="onEditComplete($event)">
         </db-tree-cell-editor>
     </div>
 </ng-container>

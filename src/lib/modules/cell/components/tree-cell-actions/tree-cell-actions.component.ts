@@ -1,24 +1,24 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Configs } from '../../../../models/Configs.model';
-import { Store } from '../../../../store/store';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Configs } from "../../../../models/Configs.model";
+import { Store } from "../../../../store/store";
 
 @Component({
-  selector: '[db-tree-cell-actions]',
-  templateUrl: './tree-cell-actions.component.html',
-  styleUrls: ['./tree-cell-actions.component.scss']
+  selector: "[db-tree-cell-actions]",
+  templateUrl: "./tree-cell-actions.component.html",
+  styleUrls: ["./tree-cell-actions.component.scss"],
 })
 export class TreeCellActionsComponent implements OnInit {
   @Input()
-  store: Store;
+  store!: Store;
 
   @Input()
-  edit_tracker: any;
+  edit_tracker!: any;
 
   @Input()
-  configs: Configs;
+  configs!: Configs;
 
   @Input()
-  rowdelete: EventEmitter<any>;
+  rowdelete!: EventEmitter<any>;
 
   @Input()
   data: any;
@@ -29,47 +29,48 @@ export class TreeCellActionsComponent implements OnInit {
   @Output() editcomplete: EventEmitter<any> = new EventEmitter();
   @Output() canceledit: EventEmitter<any> = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  enableEdit(row_data) {
-    const index = row_data['idx'];
+  enableEdit(row_data: any) {
+    const index = row_data["idx"];
     this.edit_tracker[index] = true;
-    this.internal_configs.current_edited_row = {...row_data};
+    this.internal_configs.current_edited_row = { ...row_data };
   }
 
-  findRecordIndex(idx) {
+  findRecordIndex(idx: any) {
     for (let index = 0; index < this.store.processed_data.length; index++) {
       if (this.store.processed_data[index].idx === idx) {
         return index;
       }
     }
+    return -1;
   }
 
-  deleteRecord(rec) {
-    if (this.configs.actions.resolve_delete) {
+  deleteRecord(rec: any) {
+    if (this.configs.actions?.resolve_delete) {
       const promise = new Promise((resolve, reject) => {
         this.rowdelete.emit({
           data: rec,
-          resolve: resolve
+          resolve: resolve,
         });
       });
 
-      promise.then(() => {
-        this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
-        this.store.refreshDisplayData();
-      }).catch((err) => {});
+      promise
+        .then(() => {
+          this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+          this.store.refreshDisplayData();
+        })
+        .catch((err) => {});
     } else {
-        this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
-        this.store.refreshDisplayData();
-        this.rowdelete.emit(rec);
+      this.store.processed_data.splice(this.findRecordIndex(rec.idx), 1);
+      this.store.refreshDisplayData();
+      this.rowdelete.emit(rec);
     }
   }
 
-  saveRecord($event) {
-    this.editcomplete.emit({event: $event, data: this.data});
+  saveRecord($event: any) {
+    this.editcomplete.emit({ event: $event, data: this.data });
   }
-
 }
